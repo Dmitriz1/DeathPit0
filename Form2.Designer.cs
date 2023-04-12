@@ -152,7 +152,7 @@ namespace DeathPitTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::DeathPitTest.Properties.Resources.map1;
+            this.BackColor = System.Drawing.SystemColors.GrayText;
             this.ClientSize = new System.Drawing.Size(727, 441);
             this.Controls.Add(this.Player);
             this.Controls.Add(this.pictureBoxHealth3);

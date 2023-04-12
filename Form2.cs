@@ -47,22 +47,22 @@ namespace DeathPitTest
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
             {
                 goUp = true;
-                Player.Image = Properties.Resources.HeroPistolUp;
+                GetSight(goUp, goDown, goLeft, goRight);
             }
             if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
             {
                 goDown = true;
-                Player.Image = Properties.Resources.HeroPistolDown;
+                GetSight(goUp, goDown, goLeft, goRight);
             }
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
                 goLeft = true;
-                Player.Image = Properties.Resources.HeroPistolLeft;
+                GetSight(goUp, goDown, goLeft, goRight);
             }
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
                 goRight = true;
-                Player.Image = Properties.Resources.HeroPistolRight;
+                GetSight(goUp, goDown, goLeft, goRight);
             }
         }
 
@@ -72,7 +72,7 @@ namespace DeathPitTest
             labelScore.Text = $"Счет: {HeroScore}";
 
 
-            if (goUp && Player.Top > 35)
+            if (goUp && Player.Top > 40)
             {
                 Health(playerHP);
                 Player.Top -= HeroSpeed;
@@ -174,6 +174,35 @@ namespace DeathPitTest
             }
         }
 
+        private void GetSight(bool up, bool down, bool left, bool right)
+        {
+            if (up)
+            {
+                Player.Width = 64;
+                Player.Height = 86;
+                Player.Image = Properties.Resources.HeroPistolUp;
+            }
 
+            if (down)
+            {
+                Player.Width = 64;
+                Player.Height = 86;
+                Player.Image = Properties.Resources.HeroPistolDown;
+            }
+
+            if (left)
+            {
+                Player.Width = 86;
+                Player.Height = 64;
+                Player.Image = Properties.Resources.HeroPistolLeft;
+            }
+
+            if (right)
+            {
+                Player.Width = 86;
+                Player.Height = 64;
+                Player.Image = Properties.Resources.HeroPistolRight;
+            }
+        }
     }
 }
