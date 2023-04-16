@@ -70,12 +70,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = global::DeathPitTest.Properties.Resources.bg;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(815, 483);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.buttonPlay);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.Name = "FormMenu";
             this.Text = "DeathPit";
             this.ResumeLayout(false);

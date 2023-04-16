@@ -59,7 +59,7 @@ namespace DeathPitTest
             this.labelAmmo.AutoSize = true;
             this.labelAmmo.BackColor = System.Drawing.Color.Transparent;
             this.labelAmmo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelAmmo.Location = new System.Drawing.Point(1, 0);
+            this.labelAmmo.Location = new System.Drawing.Point(1, 9);
             this.labelAmmo.Name = "labelAmmo";
             this.labelAmmo.Size = new System.Drawing.Size(98, 17);
             this.labelAmmo.TabIndex = 0;
@@ -70,18 +70,19 @@ namespace DeathPitTest
             this.labelScore.AutoSize = true;
             this.labelScore.BackColor = System.Drawing.Color.Transparent;
             this.labelScore.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelScore.Location = new System.Drawing.Point(116, 0);
+            this.labelScore.Location = new System.Drawing.Point(119, 9);
             this.labelScore.Name = "labelScore";
             this.labelScore.Size = new System.Drawing.Size(52, 17);
             this.labelScore.TabIndex = 1;
             this.labelScore.Text = "Счет: 0";
+            this.labelScore.Click += new System.EventHandler(this.labelScore_Click);
             // 
             // labelHP
             // 
             this.labelHP.AutoSize = true;
             this.labelHP.BackColor = System.Drawing.Color.Transparent;
             this.labelHP.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelHP.Location = new System.Drawing.Point(184, 0);
+            this.labelHP.Location = new System.Drawing.Point(196, 9);
             this.labelHP.Name = "labelHP";
             this.labelHP.Size = new System.Drawing.Size(73, 17);
             this.labelHP.TabIndex = 2;
@@ -92,7 +93,7 @@ namespace DeathPitTest
             this.labelWeapon.AutoSize = true;
             this.labelWeapon.BackColor = System.Drawing.Color.Transparent;
             this.labelWeapon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelWeapon.Location = new System.Drawing.Point(469, 0);
+            this.labelWeapon.Location = new System.Drawing.Point(491, 9);
             this.labelWeapon.Name = "labelWeapon";
             this.labelWeapon.Size = new System.Drawing.Size(63, 17);
             this.labelWeapon.TabIndex = 3;
@@ -142,7 +143,7 @@ namespace DeathPitTest
             // 
             this.Player.BackColor = System.Drawing.Color.Transparent;
             this.Player.Image = global::DeathPitTest.Properties.Resources.HeroPistolUp;
-            this.Player.Location = new System.Drawing.Point(322, 176);
+            this.Player.Location = new System.Drawing.Point(275, 124);
             this.Player.Name = "Player";
             this.Player.Size = new System.Drawing.Size(64, 86);
             this.Player.TabIndex = 8;
@@ -153,16 +154,16 @@ namespace DeathPitTest
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GrayText;
-            this.ClientSize = new System.Drawing.Size(727, 441);
+            this.ClientSize = new System.Drawing.Size(698, 417);
             this.Controls.Add(this.Player);
+            this.Controls.Add(this.labelAmmo);
+            this.Controls.Add(this.labelScore);
+            this.Controls.Add(this.labelWeapon);
+            this.Controls.Add(this.pictureBoxWeapon);
+            this.Controls.Add(this.pictureBoxHealth1);
             this.Controls.Add(this.pictureBoxHealth3);
             this.Controls.Add(this.pictureBoxHealth2);
-            this.Controls.Add(this.pictureBoxHealth1);
-            this.Controls.Add(this.pictureBoxWeapon);
-            this.Controls.Add(this.labelWeapon);
             this.Controls.Add(this.labelHP);
-            this.Controls.Add(this.labelScore);
-            this.Controls.Add(this.labelAmmo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameForm";
             this.Text = "DeathPit";

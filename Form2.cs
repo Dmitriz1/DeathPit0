@@ -27,6 +27,7 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
+            this.BackgroundImage = Properties.Resources.map1;
         }
 
         private void MakeZombies()
@@ -117,6 +118,10 @@ namespace DeathPitTest
             }
         }
 
+        private void labelScore_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void GameOver()
         {
@@ -203,6 +208,16 @@ namespace DeathPitTest
                 Player.Height = 64;
                 Player.Image = Properties.Resources.HeroPistolRight;
             }
+        }
+
+        private void Shoot()
+        {
+
+        }
+
+        private void Bullet()
+        {
+
         }
     }
 }
