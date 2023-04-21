@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace DeathPitTest
 {
@@ -34,7 +36,7 @@ namespace DeathPitTest
         {
             PictureBox monster = new PictureBox();
             monster.Tag = "monster";
-            //monster.Image = Properties.Resources.zdown;
+            monster.Image = Properties.Resources.HeroAutoDown;
             monster.Left = randNum.Next(0, 900);
             monster.Top = randNum.Next(0, 800);
             monster.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -96,6 +98,76 @@ namespace DeathPitTest
                 Health(playerHP);
                 Player.Left += HeroSpeed;
             }
+
+            foreach (Control x in this.Controls)/////////////////////////////////////////////////////////////////////
+            {
+                /*if (x is PictureBox && (string)x.Tag == "ammo")
+                {
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        ((PictureBox)x).Dispose();
+                        ammo += 5;
+
+                    }
+                }*/
+
+
+                if (x is PictureBox && (string)x.Tag == "monster")
+                {
+
+                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        playerHP -= 1;
+                    }
+
+
+                    if (x.Left > Player.Left)
+                    {
+                        x.Left -= monsterUnitSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zleft; //баг? в ресурсах вроде все есть
+                    }
+                    if (x.Left < Player.Left)
+                    {
+                        x.Left += monsterUnitSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zright;
+                    }
+                    if (x.Top > Player.Top)
+                    {
+                        x.Top -= monsterUnitSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zup;
+                    }
+                    if (x.Top < Player.Top)
+                    {
+                        x.Top += monsterUnitSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zdown;
+                    }
+
+                }
+
+
+
+                /*foreach (Control j in this.Controls)
+                {
+                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "zombie")
+                    {
+                        if (x.Bounds.IntersectsWith(j.Bounds))
+                        {
+                            score++;
+
+                            this.Controls.Remove(j);
+                            ((PictureBox)j).Dispose();
+                            this.Controls.Remove(x);
+                            ((PictureBox)x).Dispose();
+                            zombiesList.Remove(((PictureBox)x));
+                            MakeZombies();
+                        }
+                    }
+                }*/
+
+
+            }
+
         }
 
         private void GameForm_KeyUp(object sender, KeyEventArgs e)
@@ -129,6 +201,35 @@ namespace DeathPitTest
             {
                 MessageBox.Show("Обнулён");
             }
+        }
+
+        private void RestartGame()//////////////////////
+        {
+            Player.Image = Properties.Resources.HeroPistolUp;
+
+            foreach (PictureBox i in monsterUnitList)
+            {
+                this.Controls.Remove(i);
+            }
+
+            monsterUnitList.Clear();
+
+            for (int i = 0; i < 3; i++)
+            {
+                MakeZombies();
+            }
+
+            goUp = false;
+            goDown = false;
+            goLeft = false;
+            goRight = false;
+            gameOver = false;
+
+            playerHP = 6;
+            HeroScore = 0;
+            HeroAmmo = 10;
+
+            GameTimer.Start();
         }
 
         private void Health(int hp)
