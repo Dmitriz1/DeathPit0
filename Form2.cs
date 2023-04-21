@@ -34,13 +34,13 @@ namespace DeathPitTest
         {
             PictureBox monster = new PictureBox();
             monster.Tag = "monster";
-            //monster.Image = Properties.Resources.down;
+            //monster.Image = Properties.Resources.zdown;
             monster.Left = randNum.Next(0, 900);
             monster.Top = randNum.Next(0, 800);
             monster.SizeMode = PictureBoxSizeMode.AutoSize;
             monsterUnitList.Add(monster);
             this.Controls.Add(monster);
-            // Player.BringToFront();
+            Player.BringToFront();
         }
 
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
@@ -216,6 +216,11 @@ namespace DeathPitTest
         }
 
         private void Bullet()
+        {
+
+        }
+
+        private void GameForm_Load(object sender, EventArgs e)
         {
 
         }
