@@ -15,7 +15,7 @@ namespace DeathPitTest
     public partial class FormMenu : Form
     {
         public bool IsClosed = true;
-        public bool IsClosedGame = true;
+        public static bool IsClosedGame = true;
         
         public FormMenu()
         {
@@ -27,9 +27,9 @@ namespace DeathPitTest
             var gameForm = new GameForm();
             IsClosedGame = false;
             gameForm.Show();
-            if (!IsClosedGame)
+            if (IsClosedGame)
             {
-
+                this.Show();
             }
         }
 

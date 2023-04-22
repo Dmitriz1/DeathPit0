@@ -41,7 +41,7 @@ namespace DeathPitTest
                 Image = Properties.Resources.zdown,
                 Left = randNum.Next(0, 900),
                 Top = randNum.Next(0, 800),
-                SizeMode = PictureBoxSizeMode.AutoSize
+               // SizeMode = PictureBoxSizeMode.AutoSize
             };
             monsterUnitList.Add(monster);
             this.Controls.Add(monster);
@@ -122,13 +122,14 @@ namespace DeathPitTest
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         playerHP -= 1;
+                        Health(playerHP);
                     }
 
-
+                    //Вставить алгос о нахождении кратч расстояния
                     if (x.Left > Player.Left)
                     {
                         x.Left -= monsterUnitSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zleft; //баг? в ресурсах вроде все есть
+                        ((PictureBox)x).Image = Properties.Resources.zleft; 
                     }
                     if (x.Left < Player.Left)
                     {
@@ -202,11 +203,15 @@ namespace DeathPitTest
         {
             if (gameOver)
             {
-                MessageBox.Show("Обнулён");
+                this.Close();
+               // gameOver = false;
+                DialogResult result = MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
             }
+            FormMenu.IsClosedGame = true;
         }
 
-        private void RestartGame()//////////////////////
+        private void RestartGame()
         {
             Player.Image = Properties.Resources.HeroPistolUp;
 
@@ -237,7 +242,7 @@ namespace DeathPitTest
 
         private void Health(int hp)
         {
-            if (hp <= 0)
+            if (hp == 0)
             {
                 pictureBoxHealth1.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
