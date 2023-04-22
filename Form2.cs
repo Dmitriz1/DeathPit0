@@ -30,16 +30,19 @@ namespace DeathPitTest
         {
             InitializeComponent();
             this.BackgroundImage = Properties.Resources.map1;
+            RestartGame();
         }
 
         private void MakeZombies()
         {
-            PictureBox monster = new PictureBox();
-            monster.Tag = "monster";
-            monster.Image = Properties.Resources.HeroAutoDown;
-            monster.Left = randNum.Next(0, 900);
-            monster.Top = randNum.Next(0, 800);
-            monster.SizeMode = PictureBoxSizeMode.AutoSize;
+            PictureBox monster = new PictureBox
+            {
+                Tag = "monster",
+                Image = Properties.Resources.zdown,
+                Left = randNum.Next(0, 900),
+                Top = randNum.Next(0, 800),
+                SizeMode = PictureBoxSizeMode.AutoSize
+            };
             monsterUnitList.Add(monster);
             this.Controls.Add(monster);
             Player.BringToFront();

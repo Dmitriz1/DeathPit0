@@ -239,5 +239,41 @@ namespace DeathPitTest.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        internal static System.Drawing.Bitmap zdown
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("zdown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap zup
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("zup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap zleft
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("zleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap zright
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("zright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
