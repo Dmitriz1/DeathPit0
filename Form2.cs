@@ -238,11 +238,11 @@ namespace DeathPitTest
             goDown = false;
             goLeft = false;
             goRight = false;
-            gameOver = false;
+            //gameOver = false;
 
             playerHP = 6;
             HeroScore = 0;
-            HeroAmmo = 10;
+            HeroAmmo = 20;
 
             GameTimer.Start();
         }

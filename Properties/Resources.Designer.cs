@@ -240,6 +240,9 @@ namespace DeathPitTest.Properties {
             }
         }
 
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap zdown
         {
             get
@@ -249,6 +252,9 @@ namespace DeathPitTest.Properties {
             }
         }
 
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap zup
         {
             get
@@ -258,6 +264,9 @@ namespace DeathPitTest.Properties {
             }
         }
 
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap zleft
         {
             get
@@ -267,6 +276,9 @@ namespace DeathPitTest.Properties {
             }
         }
 
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap zright
         {
             get
