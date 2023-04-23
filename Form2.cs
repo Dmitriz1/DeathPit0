@@ -319,15 +319,15 @@ namespace DeathPitTest
             }
         }
 
-        private void Shoot()
+        private void ShootBullet(string direction)
         {
-
+            Bullet shootBullet = new Bullet();
+            shootBullet.direcion = direction;
+            shootBullet.bulletLeft = Player.Left + (Player.Width / 2);
+            shootBullet.bulletTop = Player.Top + (Player.Height / 2);
+            shootBullet.MakeBullet(this);
         }
 
-        private void Bullet()
-        {
-
-        }
 
         private void GameForm_Load(object sender, EventArgs e)
         {
