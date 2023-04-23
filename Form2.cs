@@ -14,6 +14,7 @@ namespace DeathPitTest
 {
     public partial class GameForm : Form
     {
+        string facing;
         int monsterUnitSpeed = 3;
         int targetCount = 25;
         bool goUp, goDown, goLeft, goRight, gameOver;
@@ -54,21 +55,25 @@ namespace DeathPitTest
             {
                 goUp = true;
                 GetSight(goUp, goDown, goLeft, goRight);
+                facing = "up";
             }
             if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
             {
                 goDown = true;
                 GetSight(goUp, goDown, goLeft, goRight);
+                facing = "down";
             }
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
                 goLeft = true;
                 GetSight(goUp, goDown, goLeft, goRight);
+                facing = "left";
             }
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
                 goRight = true;
                 GetSight(goUp, goDown, goLeft, goRight);
+                facing = "right";
             }
         }
 
@@ -191,6 +196,10 @@ namespace DeathPitTest
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
                 goRight = false;
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                ShootBullet(facing);
             }
         }
 
