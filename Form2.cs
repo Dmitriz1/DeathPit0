@@ -30,7 +30,6 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
-            this.BackgroundImage = Properties.Resources.map1;
             RestartGame();
         }
 
@@ -215,7 +214,6 @@ namespace DeathPitTest
                 this.Close();
                // gameOver = false;
                 DialogResult result = MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-
             }
             FormMenu.IsClosedGame = true;
         }
@@ -331,10 +329,11 @@ namespace DeathPitTest
         private void ShootBullet(string direction)
         {
             Bullet shootBullet = new Bullet();
-            shootBullet.direcion = direction;
+            shootBullet.direction = direction;
             shootBullet.bulletLeft = Player.Left + (Player.Width / 2);
             shootBullet.bulletTop = Player.Top + (Player.Height / 2);
             shootBullet.MakeBullet(this);
+            HeroAmmo -= 1;
         }
 
 

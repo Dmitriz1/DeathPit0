@@ -11,7 +11,7 @@ namespace DeathPitTest
 {
     class Bullet
     {
-        public string direcion;
+        public string direction;
         public int bulletLeft;
         public int bulletTop;
 
@@ -22,7 +22,7 @@ namespace DeathPitTest
 
         public void MakeBullet(Form form)
         {
-            bullet.BackColor = Color.White;
+            bullet.BackColor = Color.Yellow;
             bullet.Size = new Size(5, 5);
             bullet.Tag = "bullet";
             bullet.Left = bulletLeft;
@@ -38,19 +38,19 @@ namespace DeathPitTest
         
         private void BulletTimerEvent(object sender, EventArgs e)
         {
-            if (direcion == "left")
+            if (direction == "left")
             {
                 bullet.Left -= speed;
             }
-            if (direcion == "right")
+            if (direction == "right")
             {
                 bullet.Left += speed;
             }
-            if (direcion == "up")
+            if (direction == "up")
             {
                 bullet.Top -= speed;
             }
-            if (direcion == "down")
+            if (direction == "down")
             {
                 bullet.Top += speed;
             }
