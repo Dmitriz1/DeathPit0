@@ -17,12 +17,12 @@ namespace DeathPitTest
         string facing;
         int monsterUnitSpeed = 3;
         int targetCount = 25;
-        bool goUp, goDown, goLeft, goRight, gameOver;
+        bool goUp, goDown, goLeft, goRight;
         private int playerHP = 6;
         private int HeroSpeed = 10;
-        private int HeroDamage = 2;
         private int HeroAmmo = 20;
-        private int HeroScore = 0;
+
+        int levelCount = 1;
 
         Random randNum = new Random();
         List<PictureBox> monsterUnitList = new List<PictureBox>();
@@ -39,8 +39,8 @@ namespace DeathPitTest
             {
                 Tag = "monster",
                 Image = Properties.Resources.zdown,
-                Left = randNum.Next(100, 900), /////////
-                Top = randNum.Next(100, 800),
+                Left = randNum.Next(500, 900), 
+                Top = randNum.Next(200, 800),
                 SizeMode = PictureBoxSizeMode.AutoSize
             };
             monsterUnitList.Add(monster);
@@ -106,7 +106,7 @@ namespace DeathPitTest
                 Player.Left += HeroSpeed;
             }
 
-            foreach (Control x in this.Controls)/////////////////////////////////////////////////////////////////////
+            foreach (Control x in this.Controls)////////////////////////////////////////////////////
             {
                 /*if (x is PictureBox && (string)x.Tag == "ammo")
                 {
@@ -162,6 +162,10 @@ namespace DeathPitTest
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
                             targetCount--;
+                            if(targetCount==0)
+                            {
+                                LevelCompleted();
+                            }
 
                             this.Controls.Remove(j);
                             ((PictureBox)j).Dispose();
@@ -196,23 +200,32 @@ namespace DeathPitTest
             }
             if (e.KeyCode == Keys.Space)
             {
-                ShootBullet(facing);
+                if(HeroAmmo!=0)
+                {
+                    ShootBullet(facing);
+                }
             }
         }
 
-        private void labelScore_Click(object sender, EventArgs e)
+        private void LevelCompleted()
         {
+            levelCount++;
+            DialogResult result = MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
+            if(levelCount == 2)
+            {
+                targetCount += 50;
+                //меняем модельки, оружие
+            }
+
+            RestartGame();
         }
 
         private void GameOver()
         {
-            if (gameOver)
-            {
-                this.Close();
-               // gameOver = false;
-                DialogResult result = MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            }
+            this.Close();
+            DialogResult result = MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            
             FormMenu.IsClosedGame = true;
         }
 
@@ -236,10 +249,8 @@ namespace DeathPitTest
             goDown = false;
             goLeft = false;
             goRight = false;
-            //gameOver = false;
 
             playerHP = 6;
-            HeroScore = 0;
             HeroAmmo = 20;
 
             GameTimer.Start();
@@ -252,7 +263,6 @@ namespace DeathPitTest
                 pictureBoxHealth1.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
-                gameOver = true;
                 GameOver();
             }
             if (hp == 1)

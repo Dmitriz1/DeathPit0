@@ -75,7 +75,6 @@ namespace DeathPitTest
             labelScore.Size = new System.Drawing.Size(68, 23);
             labelScore.TabIndex = 1;
             labelScore.Text = "Счет: 0";
-            labelScore.Click += labelScore_Click;
             // 
             // labelHP
             // 
