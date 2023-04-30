@@ -39,9 +39,9 @@ namespace DeathPitTest
             {
                 Tag = "monster",
                 Image = Properties.Resources.zdown,
-                Left = randNum.Next(0, 900),
-                Top = randNum.Next(0, 800),
-               // SizeMode = PictureBoxSizeMode.AutoSize
+                Left = randNum.Next(100, 900), /////////
+                Top = randNum.Next(100, 800),
+                SizeMode = PictureBoxSizeMode.AutoSize
             };
             monsterUnitList.Add(monster);
             this.Controls.Add(monster);
@@ -79,7 +79,7 @@ namespace DeathPitTest
         private void GameTimerEvent(object sender, EventArgs e)
         {
             labelAmmo.Text = $"Аммуниция: {HeroAmmo}";
-            labelScore.Text = $"Счет: {HeroScore}";
+            labelScore.Text = $"Цель: {targetCount}";
 
 
             if (goUp && Player.Top > 40)
@@ -155,25 +155,23 @@ namespace DeathPitTest
 
 
 
-                /*foreach (Control j in this.Controls)
+                foreach (Control j in this.Controls)
                 {
-                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "zombie")
+                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "monster")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
-                            score++;
+                            targetCount--;
 
                             this.Controls.Remove(j);
                             ((PictureBox)j).Dispose();
                             this.Controls.Remove(x);
                             ((PictureBox)x).Dispose();
-                            zombiesList.Remove(((PictureBox)x));
+                            monsterUnitList.Remove(((PictureBox)x));
                             MakeZombies();
                         }
                     }
-                }*/
-
-
+                }
             }
 
         }
