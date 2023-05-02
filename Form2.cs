@@ -30,6 +30,9 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
+            this.TopMost = true;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
             RestartGame();
         }
 
