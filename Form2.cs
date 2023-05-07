@@ -207,6 +207,11 @@ namespace DeathPitTest
                 {
                     ShootBullet(facing);
                 }
+
+                if (HeroAmmo < 1)
+                {
+                    DropAmmo();
+                }
             }
         }
 
@@ -347,6 +352,19 @@ namespace DeathPitTest
             HeroAmmo -= 1;
         }
 
+        private void DropAmmo()
+        {
+            PictureBox ammo = new PictureBox();
+            ammo.Image = Properties.Resources;
+            ammo.SizeMode = PictureBoxSizeMode.AutoSize;
+            ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
+            ammo.Top = randNum.Next(10, this.ClientSize.Height - ammo.Height);
+            ammo.Tag = "ammo";
+            this.Controls.Add(ammo);
+            ammo.BringToFront();
+            Player.BringToFront();
+
+        }
 
         private void GameForm_Load(object sender, EventArgs e)
         {
