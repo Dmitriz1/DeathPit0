@@ -97,7 +97,7 @@ namespace DeathPitTest
                 Player.Top += HeroSpeed;
             }
 
-            if (goLeft && Player.Left > 0)
+            if (goLeft && Player.Left > 0) 
             {
                 Health(playerHP);
                 Player.Left -= HeroSpeed;
@@ -111,16 +111,15 @@ namespace DeathPitTest
 
             foreach (Control x in this.Controls)////////////////////////////////////////////////////
             {
-                //if (x is PictureBox && (string)x.Tag == "ammo")
-                //{
-                //    if (player.Bounds.IntersectsWith(x.Bounds))
-                //    {
-                //        this.Controls.Remove(x);
-                //        ((PictureBox)x).Dispose();
-                //        ammo += 5;
-
-                //    }
-                //}
+                if (x is PictureBox && (string)x.Tag == "ammo")
+                {
+                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        ((PictureBox)x).Dispose();
+                        HeroAmmo += 5;
+                    }
+                }
 
 
                 if (x is PictureBox && (string)x.Tag == "monster")
@@ -355,7 +354,7 @@ namespace DeathPitTest
         private void DropAmmo()
         {
             PictureBox ammo = new PictureBox();
-            ammo.Image = Properties.Resources.ammo;
+            ammo.Image = Properties.Resources.halfHurt;
             ammo.SizeMode = PictureBoxSizeMode.AutoSize;
             ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
             ammo.Top = randNum.Next(10, this.ClientSize.Height - ammo.Height);
