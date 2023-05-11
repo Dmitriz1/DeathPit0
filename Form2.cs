@@ -175,11 +175,15 @@ namespace DeathPitTest
                             ((PictureBox)x).Dispose();
                             monsterUnitList.Remove(((PictureBox)x));
                             MakeZombies();
+
+                            if (HeroAmmo < 1)
+                            {
+                                DropAmmo();
+                            }
                         }
                     }
                 }
             }
-
         }
 
         private void GameForm_KeyUp(object sender, KeyEventArgs e)
@@ -207,10 +211,6 @@ namespace DeathPitTest
                     ShootBullet(facing);
                 }
 
-                if (HeroAmmo < 1)
-                {
-                    DropAmmo();
-                }
             }
         }
 
@@ -357,9 +357,10 @@ namespace DeathPitTest
             ammo.Image = Properties.Resources.ammo;
             ammo.SizeMode = PictureBoxSizeMode.AutoSize;
             ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
-            ammo.Top = randNum.Next(10, this.ClientSize.Height - ammo.Height);
+            ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
             ammo.Tag = "ammo";
             this.Controls.Add(ammo);
+
             ammo.BringToFront();
             Player.BringToFront();
         }
