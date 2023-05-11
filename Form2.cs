@@ -354,7 +354,7 @@ namespace DeathPitTest
         private void DropAmmo()
         {
             PictureBox ammo = new PictureBox();
-            ammo.Image = Properties.Resources.halfHurt;
+            ammo.Image = Properties.Resources.ammo;
             ammo.SizeMode = PictureBoxSizeMode.AutoSize;
             ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
             ammo.Top = randNum.Next(10, this.ClientSize.Height - ammo.Height);
@@ -362,7 +362,6 @@ namespace DeathPitTest
             this.Controls.Add(ammo);
             ammo.BringToFront();
             Player.BringToFront();
-
         }
 
         private void GameForm_Load(object sender, EventArgs e)
