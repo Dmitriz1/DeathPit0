@@ -33,6 +33,7 @@ namespace DeathPitTest
             this.TopMost = true;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+            GameTimer.Tick += GameTimerEvent;
 
             Player.Image = Properties.Resources.HeroPistolUp;
             pictureBoxWeapon.Image = Properties.Resources.Pistol;
@@ -456,7 +457,7 @@ namespace DeathPitTest
             heal.Top = randNum.Next(60, this.ClientSize.Height - heal.Height);
             heal.Tag = "heal";
             this.Controls.Add(heal);
-            playerHP += 1000;
+            playerHP += 1000;/////
             heal.BringToFront();
             Player.BringToFront();
         }

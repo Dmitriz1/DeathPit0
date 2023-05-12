@@ -50,6 +50,7 @@ namespace DeathPitTest
             // 
             // GameTimer
             // 
+            this.GameTimer.Tick += GameTimerEvent;
             this.GameTimer.Enabled = true;
             this.GameTimer.Interval = 20;
             // 
@@ -165,6 +166,9 @@ namespace DeathPitTest
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameForm";
             this.Text = "DeathPit";
+            Load += GameForm_Load;
+            KeyDown += GameForm_KeyDown;
+            KeyUp += GameForm_KeyUp;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWeapon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth2)).EndInit();
