@@ -11,7 +11,7 @@ namespace DeathPitTest
 {
     internal class ShellShot
     {
-        public string direction;
+        public string direction = "up";
         public int ballLeft;
         public int ballTop;
 

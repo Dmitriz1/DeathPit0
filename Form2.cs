@@ -14,19 +14,18 @@ namespace DeathPitTest
 {
     public partial class GameForm : Form
     {
-        string facing;
+        string facing = "up";
         int monsterUnitSpeed = 3;
         int targetCount = 25;
         bool goUp, goDown, goLeft, goRight;
-        private int playerHP = 6;
-        private int HeroSpeed = 10;
+        private int playerHP = 6000;
+        private readonly int HeroSpeed = 10;
         private int HeroAmmo = 20;
 
         int levelCount = 1;
-
-        Random randNum = new Random();
-        List<PictureBox> monsterUnitList = new List<PictureBox>();
-
+        readonly Random randNum = new();
+        readonly List<PictureBox> monsterUnitList = new();
+        //старт
         public GameForm()
         {
             InitializeComponent();
@@ -34,13 +33,14 @@ namespace DeathPitTest
             this.TopMost = true;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+            GameTimer.Tick += GameTimerEvent;
 
             Player.Image = Properties.Resources.HeroPistolUp;
             pictureBoxWeapon.Image = Properties.Resources.Pistol;
 
             RestartGame();
         }
-
+        //создание мобов
         private void MakeZombies()
         {
             PictureBox monster = new PictureBox
@@ -55,7 +55,7 @@ namespace DeathPitTest
             this.Controls.Add(monster);
             Player.BringToFront();
         }
-
+        // нажатие кнопки
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
@@ -83,7 +83,7 @@ namespace DeathPitTest
                 facing = "right";
             }
         }
-
+        // движения перса и мобов во время игры
         private void GameTimerEvent(object sender, EventArgs e)
         {
             labelAmmo.Text = $"Аммуниция: {HeroAmmo}";
@@ -184,12 +184,17 @@ namespace DeathPitTest
                             {
                                 DropAmmo();
                             }
+
+                            if (playerHP == 1)
+                            {
+                                DropHeal();
+                            }
                         }
                     }
                 }
             }
         }
-
+        //Нажатие кнопок
         private void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
@@ -217,7 +222,7 @@ namespace DeathPitTest
 
             }
         }
-
+        //Завершение уровня
         private void LevelCompleted()
         {
             levelCount++;
@@ -227,12 +232,18 @@ namespace DeathPitTest
             if(levelCount == 2)
             {
                 targetCount += 50;
+                HeroAmmo = 35;
+                monsterUnitSpeed = 5;
                 pictureBoxWeapon.Image = Properties.Resources.HeroAutoDown;
+                labelWeapon.Image = Properties.Resources.Auto;
             }
             else if (levelCount == 3)
             {
                 targetCount += 75;
+                HeroAmmo = 45;
+                monsterUnitSpeed = 5;
                 pictureBoxWeapon.Image = Properties.Resources.HeroShotgunDown;
+                labelWeapon.Image = Properties.Resources.Shotgun;
             }
             else
             {
@@ -241,7 +252,7 @@ namespace DeathPitTest
 
             RestartGame();
         }
-
+        //Завершение игры
         private void GameCompleted()
         {
             this.Close();
@@ -249,7 +260,7 @@ namespace DeathPitTest
 
             FormMenu.IsClosedGame = true;
         }
-
+        //Смерть
         private void GameOver()
         {
             this.Close();
@@ -257,7 +268,7 @@ namespace DeathPitTest
             
             FormMenu.IsClosedGame = true;
         }
-
+        //Перезапсук
         private void RestartGame()
         {
             foreach (PictureBox i in monsterUnitList)
@@ -282,54 +293,55 @@ namespace DeathPitTest
 
             GameTimer.Start();
         }
-
+        //Здоровье
         private void Health(int hp)
         {
-            if (hp == 0)
+            if (hp <= 0)
             {
                 pictureBoxHealth1.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
                 GameOver();
             }
-            if (hp == 1)
+            if (hp >= 1000 && hp < 2000)
             {
                 pictureBoxHealth1.Image = Properties.Resources.halfHurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp == 2)
+            if (hp >= 2000 && hp < 3000)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp == 3)
+            if (hp >= 3000 && hp < 4000)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.halfHurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp == 4)
+            if (hp >= 4000 && hp < 5000)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp == 5)
+            if (hp >= 5000 && hp < 6000)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.halfHurt;
             }
-            if (hp == 6)
+            if (hp >= 6000)
             {
+                hp = 6000;
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.fullHurt;
             }
         }
-
+        // Направление взгляда
         private void GetSight(bool up, bool down, bool left, bool right)
         {
             if (up)
@@ -411,7 +423,7 @@ namespace DeathPitTest
                 }
             }
         }
-
+        // Стрельба
         private void ShootBullet(string direction)
         {
             Bullet shootBullet = new Bullet();
@@ -421,7 +433,7 @@ namespace DeathPitTest
             shootBullet.MakeBullet(this);
             HeroAmmo -= 1;
         }
-
+        // Аммуниция
         private void DropAmmo()
         {
             PictureBox ammo = new PictureBox();
@@ -435,18 +447,18 @@ namespace DeathPitTest
             ammo.BringToFront();
             Player.BringToFront();
         }
-
-        private void DropHeal()//////////////////////////////////
+        //ХП
+        private void DropHeal()
         {
-            PictureBox ammo = new PictureBox();
-            ammo.Image = Properties.Resources.ammo;
-            ammo.SizeMode = PictureBoxSizeMode.AutoSize;
-            ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
-            ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
-            ammo.Tag = "ammo";
-            this.Controls.Add(ammo);
-
-            ammo.BringToFront();
+            PictureBox heal = new PictureBox();
+            heal.Image = Properties.Resources.Heal;
+            heal.SizeMode = PictureBoxSizeMode.AutoSize;
+            heal.Left = randNum.Next(10, this.ClientSize.Width - heal.Width);
+            heal.Top = randNum.Next(60, this.ClientSize.Height - heal.Height);
+            heal.Tag = "heal";
+            this.Controls.Add(heal);
+            playerHP += 1000;/////
+            heal.BringToFront();
             Player.BringToFront();
         }
 
