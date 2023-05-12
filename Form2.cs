@@ -428,10 +428,12 @@ namespace DeathPitTest
         // Стрельба
         private void ShootBullet(string direction)
         {
-            Bullet shootBullet = new Bullet();
-            shootBullet.direction = direction;
-            shootBullet.bulletLeft = Player.Left + (Player.Width / 2);
-            shootBullet.bulletTop = Player.Top + (Player.Height / 2);
+            Bullet shootBullet = new()
+            {
+                direction = direction,
+                bulletLeft = Player.Left + (Player.Width / 2),
+                bulletTop = Player.Top + (Player.Height / 2)
+            };
             shootBullet.MakeBullet(this);
             HeroAmmo -= 1;
         }
