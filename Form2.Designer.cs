@@ -29,159 +29,150 @@ namespace DeathPitTest
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
-            GameTimer = new System.Windows.Forms.Timer(components);
-            labelAmmo = new System.Windows.Forms.Label();
-            labelScore = new System.Windows.Forms.Label();
-            labelHP = new System.Windows.Forms.Label();
-            labelWeapon = new System.Windows.Forms.Label();
-            pictureBoxWeapon = new System.Windows.Forms.PictureBox();
-            pictureBoxHealth1 = new System.Windows.Forms.PictureBox();
-            pictureBoxHealth2 = new System.Windows.Forms.PictureBox();
-            pictureBoxHealth3 = new System.Windows.Forms.PictureBox();
-            Player = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxWeapon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxHealth1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxHealth2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxHealth3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Player).BeginInit();
-            SuspendLayout();
+            this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.labelAmmo = new System.Windows.Forms.Label();
+            this.labelScore = new System.Windows.Forms.Label();
+            this.labelHP = new System.Windows.Forms.Label();
+            this.labelWeapon = new System.Windows.Forms.Label();
+            this.pictureBoxWeapon = new System.Windows.Forms.PictureBox();
+            this.pictureBoxHealth1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxHealth2 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxHealth3 = new System.Windows.Forms.PictureBox();
+            this.Player = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWeapon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
+            this.SuspendLayout();
             // 
             // GameTimer
             // 
-            GameTimer.Enabled = true;
-            GameTimer.Interval = 20;
-            GameTimer.Tick += GameTimerEvent;
+            this.GameTimer.Enabled = true;
+            this.GameTimer.Interval = 20;
             // 
             // labelAmmo
             // 
-            labelAmmo.AutoSize = true;
-            labelAmmo.BackColor = System.Drawing.Color.Transparent;
-            labelAmmo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelAmmo.Location = new System.Drawing.Point(1, 12);
-            labelAmmo.Name = "labelAmmo";
-            labelAmmo.Size = new System.Drawing.Size(130, 23);
-            labelAmmo.TabIndex = 0;
-            labelAmmo.Text = "Аммуниция: 0";
+            this.labelAmmo.AutoSize = true;
+            this.labelAmmo.BackColor = System.Drawing.Color.Transparent;
+            this.labelAmmo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAmmo.Location = new System.Drawing.Point(1, 9);
+            this.labelAmmo.Name = "labelAmmo";
+            this.labelAmmo.Size = new System.Drawing.Size(98, 17);
+            this.labelAmmo.TabIndex = 0;
+            this.labelAmmo.Text = "Аммуниция: 0";
             // 
             // labelScore
             // 
-            labelScore.AutoSize = true;
-            labelScore.BackColor = System.Drawing.Color.Transparent;
-            labelScore.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelScore.Location = new System.Drawing.Point(136, 12);
-            labelScore.Name = "labelScore";
-            labelScore.Size = new System.Drawing.Size(68, 23);
-            labelScore.TabIndex = 1;
-            labelScore.Text = "Счет: 0";
+            this.labelScore.AutoSize = true;
+            this.labelScore.BackColor = System.Drawing.Color.Transparent;
+            this.labelScore.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelScore.Location = new System.Drawing.Point(119, 9);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size(52, 17);
+            this.labelScore.TabIndex = 1;
+            this.labelScore.Text = "Счет: 0";
             // 
             // labelHP
             // 
-            labelHP.AutoSize = true;
-            labelHP.BackColor = System.Drawing.Color.Transparent;
-            labelHP.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelHP.Location = new System.Drawing.Point(224, 12);
-            labelHP.Name = "labelHP";
-            labelHP.Size = new System.Drawing.Size(96, 23);
-            labelHP.TabIndex = 2;
-            labelHP.Text = "Здоровье:";
+            this.labelHP.AutoSize = true;
+            this.labelHP.BackColor = System.Drawing.Color.Transparent;
+            this.labelHP.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelHP.Location = new System.Drawing.Point(196, 9);
+            this.labelHP.Name = "labelHP";
+            this.labelHP.Size = new System.Drawing.Size(73, 17);
+            this.labelHP.TabIndex = 2;
+            this.labelHP.Text = "Здоровье:";
             // 
             // labelWeapon
             // 
-            labelWeapon.AutoSize = true;
-            labelWeapon.BackColor = System.Drawing.Color.Transparent;
-            labelWeapon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelWeapon.Location = new System.Drawing.Point(561, 12);
-            labelWeapon.Name = "labelWeapon";
-            labelWeapon.Size = new System.Drawing.Size(82, 23);
-            labelWeapon.TabIndex = 3;
-            labelWeapon.Text = "Оружие:";
+            this.labelWeapon.AutoSize = true;
+            this.labelWeapon.BackColor = System.Drawing.Color.Transparent;
+            this.labelWeapon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelWeapon.Location = new System.Drawing.Point(491, 9);
+            this.labelWeapon.Name = "labelWeapon";
+            this.labelWeapon.Size = new System.Drawing.Size(63, 17);
+            this.labelWeapon.TabIndex = 3;
+            this.labelWeapon.Text = "Оружие:";
             // 
             // pictureBoxWeapon
             // 
-            pictureBoxWeapon.BackColor = System.Drawing.Color.Transparent;
-            pictureBoxWeapon.Image = Properties.Resources.Pistol;
-            pictureBoxWeapon.Location = new System.Drawing.Point(640, 0);
-            pictureBoxWeapon.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pictureBoxWeapon.Name = "pictureBoxWeapon";
-            pictureBoxWeapon.Size = new System.Drawing.Size(71, 44);
-            pictureBoxWeapon.TabIndex = 4;
-            pictureBoxWeapon.TabStop = false;
+            this.pictureBoxWeapon.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxWeapon.Image = global::DeathPitTest.Properties.Resources.Pistol;
+            this.pictureBoxWeapon.Location = new System.Drawing.Point(560, 0);
+            this.pictureBoxWeapon.Name = "pictureBoxWeapon";
+            this.pictureBoxWeapon.Size = new System.Drawing.Size(62, 33);
+            this.pictureBoxWeapon.TabIndex = 4;
+            this.pictureBoxWeapon.TabStop = false;
             // 
             // pictureBoxHealth1
             // 
-            pictureBoxHealth1.BackColor = System.Drawing.Color.Transparent;
-            pictureBoxHealth1.Image = Properties.Resources.fullHurt;
-            pictureBoxHealth1.Location = new System.Drawing.Point(314, 0);
-            pictureBoxHealth1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pictureBoxHealth1.Name = "pictureBoxHealth1";
-            pictureBoxHealth1.Size = new System.Drawing.Size(38, 44);
-            pictureBoxHealth1.TabIndex = 5;
-            pictureBoxHealth1.TabStop = false;
+            this.pictureBoxHealth1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxHealth1.Image = global::DeathPitTest.Properties.Resources.fullHurt;
+            this.pictureBoxHealth1.Location = new System.Drawing.Point(275, 0);
+            this.pictureBoxHealth1.Name = "pictureBoxHealth1";
+            this.pictureBoxHealth1.Size = new System.Drawing.Size(33, 33);
+            this.pictureBoxHealth1.TabIndex = 5;
+            this.pictureBoxHealth1.TabStop = false;
             // 
             // pictureBoxHealth2
             // 
-            pictureBoxHealth2.BackColor = System.Drawing.Color.Transparent;
-            pictureBoxHealth2.Image = Properties.Resources.fullHurt;
-            pictureBoxHealth2.Location = new System.Drawing.Point(359, 0);
-            pictureBoxHealth2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pictureBoxHealth2.Name = "pictureBoxHealth2";
-            pictureBoxHealth2.Size = new System.Drawing.Size(38, 44);
-            pictureBoxHealth2.TabIndex = 6;
-            pictureBoxHealth2.TabStop = false;
+            this.pictureBoxHealth2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxHealth2.Image = global::DeathPitTest.Properties.Resources.fullHurt;
+            this.pictureBoxHealth2.Location = new System.Drawing.Point(314, 0);
+            this.pictureBoxHealth2.Name = "pictureBoxHealth2";
+            this.pictureBoxHealth2.Size = new System.Drawing.Size(33, 33);
+            this.pictureBoxHealth2.TabIndex = 6;
+            this.pictureBoxHealth2.TabStop = false;
             // 
             // pictureBoxHealth3
             // 
-            pictureBoxHealth3.BackColor = System.Drawing.Color.Transparent;
-            pictureBoxHealth3.Image = Properties.Resources.fullHurt;
-            pictureBoxHealth3.Location = new System.Drawing.Point(403, 0);
-            pictureBoxHealth3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pictureBoxHealth3.Name = "pictureBoxHealth3";
-            pictureBoxHealth3.Size = new System.Drawing.Size(38, 44);
-            pictureBoxHealth3.TabIndex = 7;
-            pictureBoxHealth3.TabStop = false;
+            this.pictureBoxHealth3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxHealth3.Image = global::DeathPitTest.Properties.Resources.fullHurt;
+            this.pictureBoxHealth3.Location = new System.Drawing.Point(353, 0);
+            this.pictureBoxHealth3.Name = "pictureBoxHealth3";
+            this.pictureBoxHealth3.Size = new System.Drawing.Size(33, 33);
+            this.pictureBoxHealth3.TabIndex = 7;
+            this.pictureBoxHealth3.TabStop = false;
             // 
             // Player
             // 
-            Player.BackColor = System.Drawing.Color.Transparent;
-            Player.Image = Properties.Resources.HeroPistolUp;
-            Player.Location = new System.Drawing.Point(314, 165);
-            Player.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            Player.Name = "Player";
-            Player.Size = new System.Drawing.Size(73, 115);
-            Player.TabIndex = 8;
-            Player.TabStop = false;
+            this.Player.BackColor = System.Drawing.Color.Transparent;
+            this.Player.Image = global::DeathPitTest.Properties.Resources.HeroPistolUp;
+            this.Player.Location = new System.Drawing.Point(275, 124);
+            this.Player.Name = "Player";
+            this.Player.Size = new System.Drawing.Size(64, 86);
+            this.Player.TabIndex = 8;
+            this.Player.TabStop = false;
             // 
             // GameForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.SystemColors.GrayText;
-            ClientSize = new System.Drawing.Size(798, 556);
-            Controls.Add(Player);
-            Controls.Add(labelAmmo);
-            Controls.Add(labelScore);
-            Controls.Add(labelWeapon);
-            Controls.Add(pictureBoxWeapon);
-            Controls.Add(pictureBoxHealth1);
-            Controls.Add(pictureBoxHealth3);
-            Controls.Add(pictureBoxHealth2);
-            Controls.Add(labelHP);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            Name = "GameForm";
-            Text = "DeathPit";
-            Load += GameForm_Load;
-            KeyDown += GameForm_KeyDown;
-            KeyUp += GameForm_KeyUp;
-            ((System.ComponentModel.ISupportInitialize)pictureBoxWeapon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxHealth1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxHealth2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxHealth3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Player).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GrayText;
+            this.ClientSize = new System.Drawing.Size(698, 417);
+            this.Controls.Add(this.Player);
+            this.Controls.Add(this.labelAmmo);
+            this.Controls.Add(this.labelScore);
+            this.Controls.Add(this.labelWeapon);
+            this.Controls.Add(this.pictureBoxWeapon);
+            this.Controls.Add(this.pictureBoxHealth1);
+            this.Controls.Add(this.pictureBoxHealth3);
+            this.Controls.Add(this.pictureBoxHealth2);
+            this.Controls.Add(this.labelHP);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "GameForm";
+            this.Text = "DeathPit";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWeapon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

@@ -22,7 +22,7 @@ namespace DeathPitTest
             InitializeComponent();
         }
 
-        private void buttonPlay_Click(object sender, EventArgs e)
+        private void ButtonPlay_Click(object sender, EventArgs e)
         {
             var gameForm = new GameForm();
             IsClosedGame = false;
