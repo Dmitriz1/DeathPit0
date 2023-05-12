@@ -30,9 +30,14 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
+
             this.TopMost = true;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+
+            Player.Image = Properties.Resources.HeroPistolUp;
+            pictureBoxWeapon.Image = Properties.Resources.Pistol;
+
             RestartGame();
         }
 
@@ -109,7 +114,7 @@ namespace DeathPitTest
                 Player.Left += HeroSpeed;
             }
 
-            foreach (Control x in this.Controls)////////////////////////////////////////////////////
+            foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "ammo")
                 {
@@ -129,6 +134,7 @@ namespace DeathPitTest
                     {
                         playerHP -= 1;
                         Health(playerHP);
+                       // GameTimer.Interval = 1000; ////////////////
                     }
 
                     //Вставить алгос о нахождении кратч расстояния
@@ -155,8 +161,6 @@ namespace DeathPitTest
 
                 }
 
-
-
                 foreach (Control j in this.Controls)
                 {
                     if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "monster")
@@ -176,7 +180,7 @@ namespace DeathPitTest
                             monsterUnitList.Remove(((PictureBox)x));
                             MakeZombies();
 
-                            if (HeroAmmo < 1)
+                            if (HeroAmmo == 0)
                             {
                                 DropAmmo();
                             }
@@ -217,15 +221,33 @@ namespace DeathPitTest
         private void LevelCompleted()
         {
             levelCount++;
+            GameTimer.Stop();
             DialogResult result = MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             if(levelCount == 2)
             {
                 targetCount += 50;
-                //меняем модельки, оружие
+                pictureBoxWeapon.Image = Properties.Resources.HeroAutoDown;
+            }
+            else if (levelCount == 3)
+            {
+                targetCount += 75;
+                pictureBoxWeapon.Image = Properties.Resources.HeroShotgunDown;
+            }
+            else
+            {
+                GameCompleted();
             }
 
             RestartGame();
+        }
+
+        private void GameCompleted()
+        {
+            this.Close();
+            DialogResult result = MessageBox.Show("Победа!!!", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+            FormMenu.IsClosedGame = true;
         }
 
         private void GameOver()
@@ -238,8 +260,6 @@ namespace DeathPitTest
 
         private void RestartGame()
         {
-            Player.Image = Properties.Resources.HeroPistolUp;
-
             foreach (PictureBox i in monsterUnitList)
             {
                 this.Controls.Remove(i);
@@ -257,7 +277,7 @@ namespace DeathPitTest
             goLeft = false;
             goRight = false;
 
-            playerHP = 6;
+            //playerHP = 6;
             HeroAmmo = 20;
 
             GameTimer.Start();
@@ -316,28 +336,79 @@ namespace DeathPitTest
             {
                 Player.Width = 64;
                 Player.Height = 86;
-                Player.Image = Properties.Resources.HeroPistolUp;
+
+                switch(levelCount)
+                {
+                    case 1:
+                        Player.Image = Properties.Resources.HeroPistolUp;
+                        break;
+                    case 2:
+                        Player.Image = Properties.Resources.HeroAutoRight;
+                        break;
+                    case 3:
+                        Player.Image = Properties.Resources.HeroShotgunUp;
+                        break;
+
+                }
             }
 
             if (down)
             {
                 Player.Width = 64;
                 Player.Height = 86;
-                Player.Image = Properties.Resources.HeroPistolDown;
+
+                switch (levelCount)
+                {
+                    case 1:
+                        Player.Image = Properties.Resources.HeroPistolDown;
+                        break;
+                    case 2:
+                        Player.Image = Properties.Resources.HeroAutoDown;
+                        break;
+                    case 3:
+                        Player.Image = Properties.Resources.HeroShotgunDown;
+                        break;
+
+                }
             }
 
             if (left)
             {
                 Player.Width = 86;
                 Player.Height = 64;
-                Player.Image = Properties.Resources.HeroPistolLeft;
+
+                switch (levelCount)
+                {
+                    case 1:
+                        Player.Image = Properties.Resources.HeroPistolLeft;
+                        break;
+                    case 2:
+                        Player.Image = Properties.Resources.HeroAutoLeft;
+                        break;
+                    case 3:
+                        Player.Image = Properties.Resources.HeroShotgunLeft;
+                        break;
+
+                }
             }
 
             if (right)
             {
                 Player.Width = 86;
                 Player.Height = 64;
-                Player.Image = Properties.Resources.HeroPistolRight;
+
+                switch (levelCount)
+                {
+                    case 1:
+                        Player.Image = Properties.Resources.HeroPistolRight;
+                        break;
+                    case 2:
+                        Player.Image = Properties.Resources.HeroAutoUp;
+                        break;
+                    case 3:
+                        Player.Image = Properties.Resources.HeroShotgunRight;
+                        break;
+                }
             }
         }
 
@@ -352,6 +423,20 @@ namespace DeathPitTest
         }
 
         private void DropAmmo()
+        {
+            PictureBox ammo = new PictureBox();
+            ammo.Image = Properties.Resources.ammo;
+            ammo.SizeMode = PictureBoxSizeMode.AutoSize;
+            ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
+            ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
+            ammo.Tag = "ammo";
+            this.Controls.Add(ammo);
+
+            ammo.BringToFront();
+            Player.BringToFront();
+        }
+
+        private void DropHeal()//////////////////////////////////
         {
             PictureBox ammo = new PictureBox();
             ammo.Image = Properties.Resources.ammo;
