@@ -231,7 +231,7 @@ namespace DeathPitTest
         {
             levelCount++;
             GameTimer.Stop();
-            DialogResult result = MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             if(levelCount == 2)
             {
@@ -258,7 +258,7 @@ namespace DeathPitTest
         private void GameCompleted()
         {
             this.Close();
-            DialogResult result = MessageBox.Show("Победа!!!", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            MessageBox.Show("Победа!!!", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             FormMenu.IsClosedGame = true;
         }
@@ -266,7 +266,7 @@ namespace DeathPitTest
         private void GameOver()
         {
             this.Close();
-            DialogResult result = MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             
             FormMenu.IsClosedGame = true;
         }
