@@ -118,73 +118,82 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Pistol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Pistol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="emptyhurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\emptyhurt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="map1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="halfHurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\halfHurt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fullHurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fullHurt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HeroAutoDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroAutoDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HeroAutoLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroAutoLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HeroAutoRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroAutoRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HeroAutoUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroAutoUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="HeroPistolDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HeroPistolDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HeroPistolLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroPistolLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Auto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Auto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HeroPistolRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroPistolRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ammo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ammo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HeroPistolUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HeroPistolUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HeroShotgunDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroShotgunDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HeroAutoUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroAutoUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HeroPistolRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroPistolRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HeroShotgunLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HeroShotgunLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="map1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HeroShotgunRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HeroShotgunRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HeroShotgunUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeroShotgunUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="zdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="fullHurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fullHurt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="zleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="zright" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HeroPistolLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroPistolLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="zup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ammo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ammo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="emptyhurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\emptyhurt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="halfHurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\halfHurt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HeroAutoLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroAutoLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HeroAutoDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroAutoDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pistol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pistol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HeroAutoRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroAutoRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shotgun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shotgun.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HeroShotgunDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroShotgunDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HeroShotgunUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeroShotgunUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Heal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Heal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
