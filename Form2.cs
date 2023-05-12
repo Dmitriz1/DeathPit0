@@ -139,7 +139,6 @@ namespace DeathPitTest
                     {
                         playerHP -= 1;
                         Health(playerHP);
-                       // GameTimer.Interval = 1000; ////////////////
                     }
 
                     //Вставить алгос о нахождении кратч расстояния
