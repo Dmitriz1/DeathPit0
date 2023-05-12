@@ -18,7 +18,7 @@ namespace DeathPitTest
         int monsterUnitSpeed = 3;
         int targetCount = 25;
         bool goUp, goDown, goLeft, goRight;
-        private int playerHP = 6000;
+        private int playerHP = 300;
         private readonly int HeroSpeed = 10;
         private int HeroAmmo = 20;
 
@@ -29,7 +29,6 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
-
             this.TopMost = true;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
@@ -125,6 +124,13 @@ namespace DeathPitTest
                     }
                 }
 
+                else if ((string)x.Tag == "heal")
+                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        ((PictureBox)x).Dispose();
+                        playerHP += 100;
+                    }
 
                 if (x is PictureBox && (string)x.Tag == "monster")
                 {
@@ -184,7 +190,7 @@ namespace DeathPitTest
                                 DropAmmo();
                             }
 
-                            if (playerHP == 1)
+                            if (playerHP >=1 && playerHP <=100)
                             {
                                 DropHeal();
                             }
@@ -233,16 +239,14 @@ namespace DeathPitTest
                 targetCount += 50;
                 HeroAmmo = 35;
                 monsterUnitSpeed = 5;
-                pictureBoxWeapon.Image = Properties.Resources.HeroAutoDown;
-                labelWeapon.Image = Properties.Resources.Auto;
+                pictureBoxWeapon.Image = Properties.Resources.Auto;
             }
             else if (levelCount == 3)
             {
                 targetCount += 75;
                 HeroAmmo = 45;
                 monsterUnitSpeed = 5;
-                pictureBoxWeapon.Image = Properties.Resources.HeroShotgunDown;
-                labelWeapon.Image = Properties.Resources.Shotgun;
+                pictureBoxWeapon.Image = Properties.Resources.Shotgun;
             }
             else
             {
@@ -287,7 +291,6 @@ namespace DeathPitTest
             goLeft = false;
             goRight = false;
 
-            //playerHP = 6;
             HeroAmmo = 20;
 
             GameTimer.Start();
@@ -300,41 +303,42 @@ namespace DeathPitTest
                 pictureBoxHealth1.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
+                GameTimer.Enabled = false;
                 GameOver();
             }
-            if (hp >= 1000 && hp < 2000)
+            if (hp >= 50 && hp < 100)
             {
                 pictureBoxHealth1.Image = Properties.Resources.halfHurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 2000 && hp < 3000)
+            if (hp >= 100 && hp < 150)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 3000 && hp < 4000)
+            if (hp >= 150 && hp < 200)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.halfHurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 4000 && hp < 5000)
+            if (hp >= 200 && hp < 250)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 5000 && hp < 6000)
+            if (hp >= 250 && hp < 300)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.halfHurt;
             }
-            if (hp >= 6000)
+            if (hp >= 300)
             {
-                hp = 6000;
+                hp = 300;
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.fullHurt;
@@ -354,7 +358,7 @@ namespace DeathPitTest
                         Player.Image = Properties.Resources.HeroPistolUp;
                         break;
                     case 2:
-                        Player.Image = Properties.Resources.HeroAutoRight;
+                        Player.Image = Properties.Resources.HeroAutoUp;
                         break;
                     case 3:
                         Player.Image = Properties.Resources.HeroShotgunUp;
@@ -383,7 +387,7 @@ namespace DeathPitTest
                 }
             }
 
-            if (left)
+            if (left || right)
             {
                 Player.Width = 86;
                 Player.Height = 64;
@@ -414,7 +418,7 @@ namespace DeathPitTest
                         Player.Image = Properties.Resources.HeroPistolRight;
                         break;
                     case 2:
-                        Player.Image = Properties.Resources.HeroAutoUp;
+                        Player.Image = Properties.Resources.HeroAutoRight;
                         break;
                     case 3:
                         Player.Image = Properties.Resources.HeroShotgunRight;
@@ -435,13 +439,15 @@ namespace DeathPitTest
         // Аммуниция
         private void DropAmmo()
         {
-            PictureBox ammo = new PictureBox();
-            ammo.Image = Properties.Resources.ammo;
-            ammo.SizeMode = PictureBoxSizeMode.AutoSize;
+            var ammo = new PictureBox
+            {
+                Image = Properties.Resources.ammo,
+                SizeMode = PictureBoxSizeMode.AutoSize
+            };
             ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
             ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
             ammo.Tag = "ammo";
-            this.Controls.Add(ammo);
+            Controls.Add(ammo);
 
             ammo.BringToFront();
             Player.BringToFront();
@@ -449,14 +455,16 @@ namespace DeathPitTest
         //ХП
         private void DropHeal()
         {
-            PictureBox heal = new PictureBox();
-            heal.Image = Properties.Resources.Heal;
-            heal.SizeMode = PictureBoxSizeMode.AutoSize;
+            var heal = new PictureBox
+            {
+                Image = Properties.Resources.Heal,
+                SizeMode = PictureBoxSizeMode.AutoSize
+            };
             heal.Left = randNum.Next(10, this.ClientSize.Width - heal.Width);
             heal.Top = randNum.Next(60, this.ClientSize.Height - heal.Height);
             heal.Tag = "heal";
-            this.Controls.Add(heal);
-            playerHP += 1000;
+            Controls.Add(heal);
+
             heal.BringToFront();
             Player.BringToFront();
         }

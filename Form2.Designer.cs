@@ -32,6 +32,7 @@ namespace DeathPitTest
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
+
             this.labelAmmo = new System.Windows.Forms.Label();
             this.labelScore = new System.Windows.Forms.Label();
             this.labelHP = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@ namespace DeathPitTest
             // GameTimer
             // 
             this.GameTimer.Enabled = true;
+            this.GameTimer.Tick += GameTimerEvent;
             this.GameTimer.Interval = 20;
             // 
             // labelAmmo
@@ -165,6 +167,9 @@ namespace DeathPitTest
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameForm";
             this.Text = "DeathPit";
+            Load += GameForm_Load;
+            KeyDown += GameForm_KeyDown;
+            KeyUp += GameForm_KeyUp;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWeapon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHealth2)).EndInit();
@@ -173,6 +178,11 @@ namespace DeathPitTest
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void GameForm_KeyUp1(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion
