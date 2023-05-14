@@ -15,14 +15,20 @@ namespace DeathPitTest
     public partial class GameForm : Form
     {
         string facing;
+        bool goUp, goDown, goLeft, goRight;
+
         int monsterUnitSpeed = 3;
         int targetCount = 25;
-        bool goUp, goDown, goLeft, goRight;
+
         private int HeroHP = 300;
         private readonly int HeroSpeed = 10;
         private int HeroAmmo = 20;
 
+        bool canDropAmmo = false;
+        bool canDropHeal = true;
+
         int levelCount = 1;
+
         readonly Random randNum = new();
         readonly List<PictureBox> monsterUnitList = new();
         //старт
@@ -121,10 +127,6 @@ namespace DeathPitTest
                         Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         HeroAmmo += 5;
-                        if (HeroAmmo == 0)
-                        {
-                            DropAmmo();
-                        }
                     }
                 }
 
@@ -133,11 +135,8 @@ namespace DeathPitTest
                     {
                         Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        if (HeroHP >= 1 && HeroHP <= 100)
-                        {
-                            DropHeal();
-                        }
                         HeroHP += 50;
+                        canDropHeal = true;
                     }
 
                 if (x is PictureBox && (string)x.Tag == "monster")
@@ -187,9 +186,12 @@ namespace DeathPitTest
 
                             Controls.Remove(j);
                             ((PictureBox)j).Dispose();
+
                             Controls.Remove(x);
                             ((PictureBox)x).Dispose();
+
                             monsterUnitList.Remove((PictureBox)x);
+
                             MakeZombies();                         
                         }
                     }
@@ -229,17 +231,19 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.R)
             {
-                if (HeroAmmo <= 1)
+                if (HeroAmmo <= 1 && canDropAmmo)
                 {
                     DropAmmo();
+                    canDropAmmo = false;
                 }
             }
 
             if (e.KeyCode == Keys.H)
             {
-                if (HeroHP != 0 && HeroHP <= 50)
+                if (HeroHP !=0 && HeroHP < 100 && canDropHeal)
                 {
                     DropHeal();
+                    canDropHeal = false;
                 }
             }
         }
@@ -352,7 +356,6 @@ namespace DeathPitTest
             }
             if (hp >= 300)
             {
-                hp = 300;
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.fullHurt;
@@ -399,6 +402,25 @@ namespace DeathPitTest
                 }
             }
 
+            if (left)
+            {
+                Player.Width = 86;
+                Player.Height = 64;
+
+                switch (levelCount)
+                {
+                    case 1:
+                        Player.Image = Properties.Resources.HeroPistolLeft;
+                        break;
+                    case 2:
+                        Player.Image = Properties.Resources.HeroAutoLeft;
+                        break;
+                    case 3:
+                        Player.Image = Properties.Resources.HeroShotgunLeft;
+                        break;
+                }
+            }
+
             if (right)
             {
                 Player.Width = 86;
@@ -429,6 +451,11 @@ namespace DeathPitTest
             };
             shootBullet.MakeBullet(this);
             HeroAmmo -= 1;
+
+            if (HeroAmmo <= 1)
+            {
+                canDropAmmo = true;
+            }
         }
         // Аммуниция
         private void DropAmmo()
