@@ -399,25 +399,6 @@ namespace DeathPitTest
                 }
             }
 
-            if (left || right)
-            {
-                Player.Width = 86;
-                Player.Height = 64;
-
-                switch (levelCount)
-                {
-                    case 1:
-                        Player.Image = Properties.Resources.HeroPistolLeft;
-                        break;
-                    case 2:
-                        Player.Image = Properties.Resources.HeroAutoLeft;
-                        break;
-                    case 3:
-                        Player.Image = Properties.Resources.HeroShotgunLeft;
-                        break;
-                }
-            }
-
             if (right)
             {
                 Player.Width = 86;
