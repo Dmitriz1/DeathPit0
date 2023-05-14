@@ -14,11 +14,11 @@ namespace DeathPitTest
 {
     public partial class GameForm : Form
     {
-        string facing = "up";
+        string facing;
         int monsterUnitSpeed = 3;
         int targetCount = 25;
         bool goUp, goDown, goLeft, goRight;
-        private int playerHP = 300;
+        private int HeroHP = 300;
         private readonly int HeroSpeed = 10;
         private int HeroAmmo = 20;
 
@@ -29,9 +29,9 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
-            this.TopMost = true;
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.WindowState = FormWindowState.Maximized;
+            TopMost = true;
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
 
             Player.Image = Properties.Resources.HeroPistolUp;
             pictureBoxWeapon.Image = Properties.Resources.Pistol;
@@ -41,7 +41,7 @@ namespace DeathPitTest
         //создание мобов
         private void MakeZombies()
         {
-            PictureBox monster = new PictureBox
+            PictureBox monster = new ()
             {
                 Tag = "monster",
                 Image = Properties.Resources.zdown,
@@ -50,7 +50,7 @@ namespace DeathPitTest
                 SizeMode = PictureBoxSizeMode.AutoSize
             };
             monsterUnitList.Add(monster);
-            this.Controls.Add(monster);
+            Controls.Add(monster);
             Player.BringToFront();
         }
         // нажатие кнопки
@@ -88,48 +88,56 @@ namespace DeathPitTest
             labelScore.Text = $"Цель: {targetCount}";
 
 
-            if (goUp && Player.Top > 40)
+            if (goUp && Player.Top > pictureBoxHealth1.Width)
             {
-                Health(playerHP);
+                Health(HeroHP);
                 Player.Top -= HeroSpeed;
             }
 
-            if (goDown && Player.Top + Player.Height < this.ClientSize.Height)
+            if (goDown && Player.Top + Player.Height < ClientSize.Height)
             {
-                Health(playerHP);
+                Health(HeroHP);
                 Player.Top += HeroSpeed;
             }
 
             if (goLeft && Player.Left > 0) 
             {
-                Health(playerHP);
+                Health(HeroHP);
                 Player.Left -= HeroSpeed;
             }
 
-            if (goRight && Player.Left + Player.Width < this.ClientSize.Width)
+            if (goRight && Player.Left + Player.Width < ClientSize.Width)
             {
-                Health(playerHP);
+                Health(HeroHP);
                 Player.Left += HeroSpeed;
             }
 
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "ammo")
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        this.Controls.Remove(x);
+                        Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         HeroAmmo += 5;
+                        if (HeroAmmo == 0)
+                        {
+                            DropAmmo();
+                        }
                     }
                 }
 
                 else if ((string)x.Tag == "heal")
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        this.Controls.Remove(x);
+                        Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        playerHP += 100;
+                        if (HeroHP >= 1 && HeroHP <= 100)
+                        {
+                            DropHeal();
+                        }
+                        HeroHP += 50;
                     }
 
                 if (x is PictureBox && (string)x.Tag == "monster")
@@ -137,8 +145,8 @@ namespace DeathPitTest
 
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        playerHP -= 1;
-                        Health(playerHP);
+                        HeroHP -= 1;
+                        Health(HeroHP);
                     }
 
                     //Вставить алгос о нахождении кратч расстояния
@@ -165,7 +173,7 @@ namespace DeathPitTest
 
                 }
 
-                foreach (Control j in this.Controls)
+                foreach (Control j in Controls)
                 {
                     if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "monster")
                     {
@@ -177,22 +185,12 @@ namespace DeathPitTest
                                 LevelCompleted();
                             }
 
-                            this.Controls.Remove(j);
+                            Controls.Remove(j);
                             ((PictureBox)j).Dispose();
-                            this.Controls.Remove(x);
+                            Controls.Remove(x);
                             ((PictureBox)x).Dispose();
-                            monsterUnitList.Remove(((PictureBox)x));
-                            MakeZombies();
-
-                            if (HeroAmmo == 0)
-                            {
-                                DropAmmo();
-                            }
-
-                            if (playerHP >=1 && playerHP <=100)
-                            {
-                                DropHeal();
-                            }
+                            monsterUnitList.Remove((PictureBox)x);
+                            MakeZombies();                         
                         }
                     }
                 }
@@ -205,25 +203,44 @@ namespace DeathPitTest
             {
                 goUp = false;
             }
+
             if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
             {
                 goDown = false;
             }
+
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
                 goLeft = false;
             }
+
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
                 goRight = false;
             }
+
             if (e.KeyCode == Keys.Space)
             {
-                if(HeroAmmo!=0)
+                if (HeroAmmo != 0)
                 {
                     ShootBullet(facing);
                 }
+            }
 
+            if (e.KeyCode == Keys.R)
+            {
+                if (HeroAmmo <= 1)
+                {
+                    DropAmmo();
+                }
+            }
+
+            if (e.KeyCode == Keys.H)
+            {
+                if (HeroHP != 0 && HeroHP <= 50)
+                {
+                    DropHeal();
+                }
             }
         }
         //Завершение уровня
@@ -248,16 +265,14 @@ namespace DeathPitTest
                 pictureBoxWeapon.Image = Properties.Resources.Shotgun;
             }
             else
-            {
                 GameCompleted();
-            }
 
             RestartGame();
         }
         //Завершение игры
         private void GameCompleted()
         {
-            this.Close();
+            Close();
             MessageBox.Show("Победа!!!", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             FormMenu.IsClosedGame = true;
@@ -265,7 +280,7 @@ namespace DeathPitTest
         //Смерть
         private void GameOver()
         {
-            this.Close();
+            Close();
             MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             
             FormMenu.IsClosedGame = true;
@@ -275,7 +290,7 @@ namespace DeathPitTest
         {
             foreach (PictureBox i in monsterUnitList)
             {
-                this.Controls.Remove(i);
+                Controls.Remove(i);
             }
 
             monsterUnitList.Clear();
@@ -362,7 +377,6 @@ namespace DeathPitTest
                     case 3:
                         Player.Image = Properties.Resources.HeroShotgunUp;
                         break;
-
                 }
             }
 
@@ -382,7 +396,6 @@ namespace DeathPitTest
                     case 3:
                         Player.Image = Properties.Resources.HeroShotgunDown;
                         break;
-
                 }
             }
 
@@ -402,7 +415,6 @@ namespace DeathPitTest
                     case 3:
                         Player.Image = Properties.Resources.HeroShotgunLeft;
                         break;
-
                 }
             }
 
@@ -440,15 +452,19 @@ namespace DeathPitTest
         // Аммуниция
         private void DropAmmo()
         {
-            var ammo = new PictureBox
+            PictureBox ammo = new ()
             {
                 Image = Properties.Resources.ammo,
                 SizeMode = PictureBoxSizeMode.AutoSize
             };
-            ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
-            ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
+            ammo.Left = randNum.Next(10, ClientSize.Width - ammo.Width);
+            ammo.Top = randNum.Next(60, ClientSize.Height - ammo.Height);
             ammo.Tag = "ammo";
-            Controls.Add(ammo);
+
+            if (!Controls.Contains(ammo))
+            {
+                Controls.Add(ammo);
+            }           
 
             ammo.BringToFront();
             Player.BringToFront();
@@ -456,15 +472,19 @@ namespace DeathPitTest
         //ХП
         private void DropHeal()
         {
-            var heal = new PictureBox
+            PictureBox heal = new ()
             {
                 Image = Properties.Resources.Heal,
                 SizeMode = PictureBoxSizeMode.AutoSize
             };
-            heal.Left = randNum.Next(10, this.ClientSize.Width - heal.Width);
-            heal.Top = randNum.Next(60, this.ClientSize.Height - heal.Height);
+            heal.Left = randNum.Next(10, ClientSize.Width - heal.Width);
+            heal.Top = randNum.Next(60, ClientSize.Height - heal.Height);
             heal.Tag = "heal";
-            Controls.Add(heal);
+
+            if (!Controls.Contains(heal))
+            {
+                Controls.Add(heal);
+            }
 
             heal.BringToFront();
             Player.BringToFront();
