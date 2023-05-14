@@ -5,10 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Formats.Asn1.AsnWriter;
+using static System.Windows.Forms.DataFormats;
 
 namespace DeathPitTest
 {
@@ -35,7 +38,7 @@ namespace DeathPitTest
         public GameForm()
         {
             InitializeComponent();
-            TopMost = true;
+           // TopMost = true;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
@@ -55,8 +58,10 @@ namespace DeathPitTest
                 Top = randNum.Next(200, 800),
                 SizeMode = PictureBoxSizeMode.AutoSize
             };
+
             monsterUnitList.Add(monster);
             Controls.Add(monster);
+
             Player.BringToFront();
         }
         // нажатие кнопки
@@ -244,6 +249,21 @@ namespace DeathPitTest
                 {
                     DropHeal();
                     canDropHeal = false;
+                }
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                GameTimer.Enabled = false;
+
+                PauseForm p1 = new PauseForm();
+                if (p1.ShowDialog() != DialogResult.OK)
+                {
+                    GameTimer.Enabled = true;
+                    if(PauseForm.clickedExitButton)
+                    {
+                        Close();
+                    }
                 }
             }
         }
