@@ -15,9 +15,9 @@ namespace DeathPitTest
         public int ballLeft;
         public int ballTop;
 
-        private int speed = 20;
-        private PictureBox ball = new PictureBox();
-        private Timer ballTimer = new Timer();
+        private readonly int speed = 20;
+        private PictureBox ball = new ();
+        private Timer ballTimer = new ();
 
 
         public void MakeSGball(Form form)

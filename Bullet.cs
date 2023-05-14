@@ -11,13 +11,13 @@ namespace DeathPitTest
 {
     class Bullet
     {
-        public string direction;
+        public string direction = "up";
         public int bulletLeft;
         public int bulletTop;
 
-        private int speed = 20;
-        private PictureBox bullet = new PictureBox();
-        private Timer bulletTimer = new Timer();
+        private readonly int speed = 20;
+        private PictureBox bullet = new();
+        private Timer bulletTimer = new();
 
 
         public void MakeBullet(Form form)
