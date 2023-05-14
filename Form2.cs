@@ -316,7 +316,7 @@ namespace DeathPitTest
         //Здоровье
         private void Health(int hp)
         {
-            if (hp <= 0)
+            if (hp == 0)
             {
                 pictureBoxHealth1.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
@@ -354,7 +354,7 @@ namespace DeathPitTest
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.halfHurt;
             }
-            if (hp >= 300)
+            if (hp == 300)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
