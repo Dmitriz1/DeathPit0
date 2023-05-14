@@ -35,13 +35,9 @@ namespace DeathPitTest
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            var optionsForm = new Form();
+            OptionsForm optionsForm = new OptionsForm();
             IsClosedGame = false;
             optionsForm.Show();
-            if (!IsClosed)
-            {
-
-            }
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

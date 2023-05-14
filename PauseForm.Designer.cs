@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PauseForm));
             ContinueButton = new System.Windows.Forms.Button();
             OptionsButton = new System.Windows.Forms.Button();
             ExitButton = new System.Windows.Forms.Button();
@@ -36,9 +37,9 @@
             // 
             // ContinueButton
             // 
-            ContinueButton.Location = new System.Drawing.Point(74, 106);
+            ContinueButton.Location = new System.Drawing.Point(166, 56);
             ContinueButton.Name = "ContinueButton";
-            ContinueButton.Size = new System.Drawing.Size(338, 44);
+            ContinueButton.Size = new System.Drawing.Size(185, 68);
             ContinueButton.TabIndex = 0;
             ContinueButton.Text = "Продолжить";
             ContinueButton.UseVisualStyleBackColor = true;
@@ -46,9 +47,9 @@
             // 
             // OptionsButton
             // 
-            OptionsButton.Location = new System.Drawing.Point(74, 197);
+            OptionsButton.Location = new System.Drawing.Point(166, 170);
             OptionsButton.Name = "OptionsButton";
-            OptionsButton.Size = new System.Drawing.Size(338, 44);
+            OptionsButton.Size = new System.Drawing.Size(185, 68);
             OptionsButton.TabIndex = 3;
             OptionsButton.Text = "Настройки";
             OptionsButton.UseVisualStyleBackColor = true;
@@ -56,9 +57,9 @@
             // 
             // ExitButton
             // 
-            ExitButton.Location = new System.Drawing.Point(74, 284);
+            ExitButton.Location = new System.Drawing.Point(166, 282);
             ExitButton.Name = "ExitButton";
-            ExitButton.Size = new System.Drawing.Size(338, 44);
+            ExitButton.Size = new System.Drawing.Size(185, 68);
             ExitButton.TabIndex = 4;
             ExitButton.Text = "Выйти в главное меню";
             ExitButton.UseVisualStyleBackColor = true;
@@ -86,7 +87,9 @@
             Controls.Add(ExitButton);
             Controls.Add(OptionsButton);
             Controls.Add(ContinueButton);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Name = "PauseForm";
+            Text = "DeathPit";
             ResumeLayout(false);
             PerformLayout();
         }

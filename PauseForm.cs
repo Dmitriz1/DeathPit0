@@ -25,7 +25,8 @@ namespace DeathPitTest
 
         private void OptionsButton_Click(object sender, EventArgs e)
         {
-
+            OptionsForm optionsForm = new OptionsForm();
+            optionsForm.ShowDialog();
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
