@@ -262,7 +262,7 @@ namespace DeathPitTest
                     GameTimer.Enabled = true;
                     if(PauseForm.clickedExitButton)
                     {
-                        Close();
+                       p1.Close();
                     }
                 }
             }
