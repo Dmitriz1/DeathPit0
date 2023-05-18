@@ -49,6 +49,7 @@
             richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             richTextBox1.Location = new System.Drawing.Point(12, 12);
             richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
             richTextBox1.Size = new System.Drawing.Size(601, 303);
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = "";
