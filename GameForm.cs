@@ -33,7 +33,7 @@ namespace DeathPitTest
         int levelCount = 1;
 
         readonly Random randNum = new();
-        readonly List<PictureBox> monsterUnitList = new();
+        readonly List<Monster> monsterUnitList = new();
         //старт
         public GameForm()
         {
@@ -50,14 +50,7 @@ namespace DeathPitTest
         //создание мобов
         private void MakeZombies()
         {
-            PictureBox monster = new ()
-            {
-                Tag = "monster",
-                Image = Properties.Resources.zdown,
-                Left = randNum.Next(500, 900), 
-                Top = randNum.Next(200, 800),
-                SizeMode = PictureBoxSizeMode.AutoSize
-            };
+            Monster monster = new ();
 
             monsterUnitList.Add(monster);
             Controls.Add(monster);
@@ -144,7 +137,7 @@ namespace DeathPitTest
                         canDropHeal = true;
                     }
 
-                if (x is PictureBox && (string)x.Tag == "monster")
+                if (x is Monster && (string)x.Tag == "monster")
                 {
 
                     if (Player.Bounds.IntersectsWith(x.Bounds))
@@ -179,7 +172,7 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") x is PictureBox && (string)x.Tag == "monster")
+                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is Monster && (string)x.Tag == "monster")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
@@ -195,7 +188,7 @@ namespace DeathPitTest
                             Controls.Remove(x);
                             ((PictureBox)x).Dispose();
 
-                            monsterUnitList.Remove((PictureBox)x);
+                            monsterUnitList.Remove((Monster)x);
 
                             MakeZombies();                         
                         }
@@ -487,7 +480,7 @@ namespace DeathPitTest
                 ballLeft = Player.Left + (Player.Width / 2),
                 ballTop = Player.Top + (Player.Height / 2)
             };
-            shootBall.MakeSGball(this);
+            shootDrob.MakeSGball(this);
             HeroAmmo -= 1;
 
             if (HeroAmmo <= 1)
