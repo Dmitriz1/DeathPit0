@@ -33,7 +33,8 @@ namespace DeathPitTest
         {
             MessageBox.Show("Вы потеряете весь прогресс. Точно хотите выйти?", "Предупреждение", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             clickedExitButton = true;
-            this.Close();
+            //.Close();
+            //if
             Close();
         }
     }

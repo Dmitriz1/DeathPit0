@@ -251,6 +251,7 @@ namespace DeathPitTest
                 GameTimer.Enabled = false;
 
                 PauseForm p1 = new PauseForm();
+
                 if (p1.ShowDialog() != DialogResult.OK)
                 {
                     GameTimer.Enabled = true;
@@ -306,7 +307,7 @@ namespace DeathPitTest
         //Перезапсук
         private void RestartGame()
         {
-            foreach (PictureBox i in monsterUnitList)
+            foreach (Monster i in monsterUnitList)
             {
                 Controls.Remove(i);
             }
@@ -494,19 +495,7 @@ namespace DeathPitTest
         // Аммуниция
         private void DropAmmo()
         {
-            PictureBox ammo = new ()
-            {
-                Image = Properties.Resources.ammo,
-                SizeMode = PictureBoxSizeMode.AutoSize
-            };
-            ammo.Left = randNum.Next(10, ClientSize.Width - ammo.Width);
-            ammo.Top = randNum.Next(60, ClientSize.Height - ammo.Height);
-            ammo.Tag = "ammo";
-
-            if (!Controls.Contains(ammo))
-            {
-                Controls.Add(ammo);
-            }           
+            Ammo ammo = new(this);
 
             ammo.BringToFront();
             Player.BringToFront();
@@ -514,27 +503,10 @@ namespace DeathPitTest
         //ХП
         private void DropHeal()
         {
-            PictureBox heal = new ()
-            {
-                Image = Properties.Resources.Heal,
-                SizeMode = PictureBoxSizeMode.AutoSize
-            };
-            heal.Left = randNum.Next(10, ClientSize.Width - heal.Width);
-            heal.Top = randNum.Next(60, ClientSize.Height - heal.Height);
-            heal.Tag = "heal";
-
-            if (!Controls.Contains(heal))
-            {
-                Controls.Add(heal);
-            }
+            HealBonus heal = new(this);
 
             heal.BringToFront();
             Player.BringToFront();
-        }
-
-        private void GameForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

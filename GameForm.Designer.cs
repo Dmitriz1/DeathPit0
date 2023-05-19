@@ -167,7 +167,6 @@ namespace DeathPitTest
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameForm";
             this.Text = "DeathPit";
-            Load += GameForm_Load;
             KeyDown += GameForm_KeyDown;
             KeyUp += GameForm_KeyUp;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWeapon)).EndInit();
