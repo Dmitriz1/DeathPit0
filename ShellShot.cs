@@ -15,14 +15,14 @@ namespace DeathPitTest
         public int ballLeft;
         public int ballTop;
 
-        private readonly int speed = 20;
+        private readonly int speed = 10;
         private PictureBox ball = new ();
         private Timer ballTimer = new ();
 
 
         public void MakeSGball(Form form)
         {
-            ball.BackColor = Color.Yellow;
+            ball.BackColor = Color.DarkGray;
             ball.Size = new Size(20, 20);
             ball.Tag = "ball";
             ball.Left = ballLeft;
