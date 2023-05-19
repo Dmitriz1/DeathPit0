@@ -464,12 +464,8 @@ namespace DeathPitTest
                 bulletTop = Player.Top + (Player.Height / 2)
             };
             shootBullet.MakeBullet(this);
-            HeroAmmo -= 1;
 
-            if (HeroAmmo <= 1)
-            {
-                canDropAmmo = true;
-            }
+            Shoot();
         }
         
         private void ShootDrob(string direction)
@@ -481,6 +477,12 @@ namespace DeathPitTest
                 ballTop = Player.Top + (Player.Height / 2)
             };
             shootDrob.MakeSGball(this);
+
+            Shoot();
+        }
+
+        private void Shoot()
+        {
             HeroAmmo -= 1;
 
             if (HeroAmmo <= 1)
