@@ -23,7 +23,7 @@ namespace DeathPitTest
         public void MakeSGball(Form form)
         {
             ball.BackColor = Color.Yellow;
-            ball.Size = new Size(5, 5);
+            ball.Size = new Size(20, 20);
             ball.Tag = "ball";
             ball.Left = ballLeft;
             ball.Top = ballTop;

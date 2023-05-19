@@ -179,7 +179,7 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "monster")
+                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") x is PictureBox && (string)x.Tag == "monster")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
@@ -226,13 +226,14 @@ namespace DeathPitTest
                 goRight = false;
             }
 
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Space && HeroAmmo != 0)
             {
-                if (HeroAmmo != 0)
-                {
+                if (levelCount < 3)
                     ShootBullet(facing);
-                }
+                else
+                    ShootDrob(facing);
             }
+        
 
             if (e.KeyCode == Keys.R)
             {
@@ -477,6 +478,24 @@ namespace DeathPitTest
                 canDropAmmo = true;
             }
         }
+        
+        private void ShootDrob(string direction)
+        {
+            ShellShot shootDrob = new()
+            {
+                direction = direction,
+                ballLeft = Player.Left + (Player.Width / 2),
+                ballTop = Player.Top + (Player.Height / 2)
+            };
+            shootBall.MakeSGball(this);
+            HeroAmmo -= 1;
+
+            if (HeroAmmo <= 1)
+            {
+                canDropAmmo = true;
+            }
+        }
+
         // Аммуниция
         private void DropAmmo()
         {
