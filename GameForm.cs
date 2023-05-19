@@ -258,6 +258,7 @@ namespace DeathPitTest
                     if(PauseForm.clickedExitButton)
                     {
                        p1.Close();
+                       this.Close();
                     }
                 }
             }

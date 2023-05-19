@@ -31,11 +31,11 @@ namespace DeathPitTest
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Вы потеряете весь прогресс. Точно хотите выйти?", "Предупреждение", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            clickedExitButton = true;
-            //.Close();
-            //if
-            Close();
+            if( MessageBox.Show("Вы потеряете весь прогресс. Точно хотите выйти?", "Предупреждение", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+            {
+                clickedExitButton = true;
+                Close();
+            }
         }
     }
 }
