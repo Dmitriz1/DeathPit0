@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -16,20 +15,20 @@ namespace DeathPitTest
         public int ballTop;
 
         private readonly int speed = 20;
-        private PictureBox ball = new ();
+        private PictureBox drob = new ();
         private Timer ballTimer = new ();
 
 
         public void MakeSGball(Form form)
         {
-            ball.BackColor = Color.Yellow;
-            ball.Size = new Size(5, 5);
-            ball.Tag = "ball";
-            ball.Left = ballLeft;
-            ball.Top = ballTop;
-            ball.BringToFront();
+            drob.BackColor = Color.Yellow;
+            drob.Size = new Size(20, 20);
+            drob.Tag = "ball";
+            drob.Left = ballLeft;
+            drob.Top = ballTop;
+            drob.BringToFront();
 
-            form.Controls.Add(ball);
+            form.Controls.Add(drob);
 
             ballTimer.Interval = speed;
             ballTimer.Tick += new EventHandler(BallTimerEvent);
@@ -40,28 +39,28 @@ namespace DeathPitTest
         {
             if (direction == "left")
             {
-                ball.Left -= speed;
+                drob.Left -= speed;
             }
             if (direction == "right")
             {
-                ball.Left += speed;
+                drob.Left += speed;
             }
             if (direction == "up")
             {
-                ball.Top -= speed;
+                drob.Top -= speed;
             }
             if (direction == "down")
             {
-                ball.Top += speed;
+                drob.Top += speed;
             }
 
-            if (ball.Left < 0 || ball.Left > 1920 || ball.Top < 0 || ball.Top > 1080)
+            if (drob.Left < 0 || drob.Left > 1920 || drob.Top < 0 || drob.Top > 1080)
             {
                 ballTimer.Stop();
                 ballTimer.Dispose();
-                ball.Dispose();
+                drob.Dispose();
                 ballTimer = null;
-                ball = null;
+                drob = null;
             }
         }
 

@@ -131,7 +131,7 @@ namespace DeathPitTest
                     {
                         Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        HeroAmmo += 5;
+                        HeroAmmo += 20;
                     }
                 }
 
@@ -179,7 +179,7 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "monster")
+                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is PictureBox && (string)x.Tag == "monster")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
@@ -228,9 +228,14 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.Space)
             {
-                if (HeroAmmo != 0)
+                if (HeroAmmo != 0 && levelCount < 3)
                 {
                     ShootBullet(facing);
+                }
+
+                if (HeroAmmo != 0 && levelCount == 3)
+                {
+                    ShootDrob(facing);
                 }
             }
 
@@ -460,6 +465,7 @@ namespace DeathPitTest
                 }
             }
         }
+
         // Стрельба
         private void ShootBullet(string direction)
         {
@@ -477,6 +483,24 @@ namespace DeathPitTest
                 canDropAmmo = true;
             }
         }
+
+        private void ShootDrob(string direction)
+        {
+            ShellShot shootDrob = new()
+            {
+                direction = direction,
+                ballLeft = Player.Left + (Player.Width / 2),
+                ballTop = Player.Top + (Player.Height / 2)
+            };
+            shootDrob.MakeSGball(this);
+            HeroAmmo -= 1;
+
+            if (HeroAmmo <= 1)
+            {
+                canDropAmmo = true;
+            }
+        }
+
         // Аммуниция
         private void DropAmmo()
         {
@@ -497,6 +521,7 @@ namespace DeathPitTest
             ammo.BringToFront();
             Player.BringToFront();
         }
+
         //ХП
         private void DropHeal()
         {
