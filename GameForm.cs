@@ -202,7 +202,7 @@ namespace DeathPitTest
             ((PictureBox)c).Dispose();
         }
         //Нажатие кнопок
-        private void GameForm_KeyUp(object sender, KeyEventArgs e)
+        private async void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
             {
@@ -226,12 +226,21 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.Space && HeroAmmo != 0)
             {
-                if (HeroAmmo != 0 && levelCount < 3)
+                if (HeroAmmo > 0 && levelCount == 1)
                 {
                     ShootBullet(facing);
                 }
 
-                if (HeroAmmo != 0 && levelCount == 3)
+                if (HeroAmmo > 0 && levelCount == 2)
+                {
+                    ShootBullet(facing);
+                    await Task.Delay(200);
+                    ShootBullet(facing);
+                    await Task.Delay(200);
+                    ShootBullet(facing);
+                }
+
+                if (HeroAmmo > 0 && levelCount == 3)
                 {
                     ShootDrob(facing);
                 }
@@ -240,7 +249,6 @@ namespace DeathPitTest
                 else
                     ShootDrob(facing);
             }
-        
 
             if (e.KeyCode == Keys.R)
             {

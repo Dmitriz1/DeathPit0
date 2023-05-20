@@ -167,7 +167,6 @@ namespace DeathPitTest
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameForm";
             this.Text = "DeathPit";
-            Load += GameForm_Load;
             KeyDown += GameForm_KeyDown;
             KeyUp += GameForm_KeyUp;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWeapon)).EndInit();
@@ -178,11 +177,6 @@ namespace DeathPitTest
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-
-        private void GameForm_Load(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
 
         private void GameForm_KeyUp1(object sender, System.Windows.Forms.KeyEventArgs e)
