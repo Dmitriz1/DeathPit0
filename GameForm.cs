@@ -114,7 +114,7 @@ namespace DeathPitTest
                     {
                         Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        HeroAmmo += 20;
+                        //HeroAmmo += 20;
                         RemoveElementFromForm(this, x);
                         HeroAmmo += 5;
                     }
@@ -165,7 +165,6 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is PictureBox && (string)x.Tag == "monster")
                     if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is Monster && (string)x.Tag == "monster")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
@@ -540,12 +539,7 @@ namespace DeathPitTest
                 ballTop = Player.Top + (Player.Height / 2)
             };
             shootDrob.MakeSGball(this);
-            HeroAmmo -= 1;
-
-            if (HeroAmmo <= 1)
-            {
-                canDropAmmo = true;
-            }
+            Shoot();
         }
 
         // Аммуниция
