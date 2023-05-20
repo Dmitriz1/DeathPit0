@@ -1,15 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Windows.Forms.DataFormats;
 
@@ -259,10 +251,23 @@ namespace DeathPitTest
 
                 if (levelCount == 3)
                 {
-                    ShootDrob(facing);
-                    await Task.Delay(400);
-                    ShootDrob(facing);
-                    await Task.Delay(1000);
+                    do
+                    {
+                        ShootDrob(facing);
+                        if (HeroAmmo <= 0)
+                        {
+                            break;
+                        }
+                        await Task.Delay(400);
+                        ShootDrob(facing);
+                        if (HeroAmmo <= 0)
+                        {
+                            break;
+                        }
+                        await Task.Delay(1000);
+                        break;
+                    }
+                    while (HeroAmmo > 0);
                 }
             }
 
