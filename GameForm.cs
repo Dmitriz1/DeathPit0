@@ -17,7 +17,7 @@ namespace DeathPitTest
 {
     public partial class GameForm : Form
     {
-        string facing;
+        string facing = "up";
         bool goUp, goDown, goLeft, goRight;
 
         int monsterUnitSpeed = 3;
@@ -26,13 +26,17 @@ namespace DeathPitTest
         private int HeroHP = 300;
         private readonly int HeroSpeed = 10;
         private int HeroAmmo = 20;
+        private int HeroDamage = 2;
 
         bool canDropAmmo = false;
         bool canDropHeal = true;
+        bool canDropDamage = true;
 
         int levelCount = 1;
 
         readonly List<Monster> monsterUnitList = new();
+        readonly int MonsterDmg = 1;
+        private int BossHealth = 200;
 
         //старт
         public GameForm()
@@ -50,11 +54,25 @@ namespace DeathPitTest
         //создание мобов
         private void MakeZombie()
         {
-            Monster monster = new ();
+            Monster monster = new();
 
             monsterUnitList.Add(monster);
             Controls.Add(monster);
 
+            Player.BringToFront();
+        }
+
+        private void MakeBoss()
+        {
+            var boss = new Boss();
+            Controls.Add(boss);
+            var BossHP = new ProgressBar
+            {
+                Maximum = BossHealth,
+                Value = BossHealth,
+                Width = boss.Width,
+                Location = new Point(boss.Location.X, boss.Location.Y)
+            };
             Player.BringToFront();
         }
         // нажатие кнопки
@@ -102,7 +120,7 @@ namespace DeathPitTest
                 Player.Top += HeroSpeed;
             }
 
-            if (goLeft && Player.Left > 0) 
+            if (goLeft && Player.Left > 0)
             {
                 Health(HeroHP);
                 Player.Left -= HeroSpeed;
@@ -138,60 +156,90 @@ namespace DeathPitTest
                     }
                 }
 
-                if (x is Monster && (string)x.Tag == "monster")
-                {
-
+                if (x is Damage && (string)x.Tag == "damage")
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        HeroHP -= 1;
+                        RemoveElementFromForm(this, x);
+                        HeroDamage *= 2;
+                        canDropDamage = true;
+                    }
+
+                if ((x is Monster || x is Boss) && ((string)x.Tag == "monster" || (string)x.Tag == "boss"))
+                {
+
+                    if ((string)x.Tag == "monster" || Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        HeroHP -= MonsterDmg;
                         Health(HeroHP);
                     }
 
-                    //Вставить алгос о нахождении кратч расстояния
+                    if ((string)x.Tag == "boss" || Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        HeroHP -= MonsterDmg * 5;
+                        Health(HeroHP);
+                    }
                     if (x.Left > Player.Left)
                     {
                         x.Left -= monsterUnitSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zleft; 
+                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zleft;
+                        if((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossL;
                     }
                     if (x.Left < Player.Left)
                     {
                         x.Left += monsterUnitSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zright;
+                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zright;
+                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossR;
                     }
                     if (x.Top > Player.Top)
                     {
                         x.Top -= monsterUnitSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zup;
+                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zup;
+                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossU;
                     }
                     if (x.Top < Player.Top)
                     {
                         x.Top += monsterUnitSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zdown;
+                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zdown;
+                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossD;
                     }
-
-                }
+                }               
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is PictureBox && (string)x.Tag == "monster")
-                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is Monster && (string)x.Tag == "monster")
-                    {
-                        if (x.Bounds.IntersectsWith(j.Bounds))
+                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is PictureBox && (string)x.Tag == "monster" || x is PictureBox && (string)x.Tag == "boss"))
+                        if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is Monster && (string)x.Tag == "monster" || x is Boss && (string)x.Tag == "boss"))
                         {
-                            targetCount--;
-                            if(targetCount==0)
+                            if (x.Bounds.IntersectsWith(j.Bounds) && (levelCount == 1 || levelCount == 2))
                             {
-                                LevelCompleted();
+                                targetCount--;
+                                if (targetCount == 0) LevelCompleted();
+
+                                RemoveElementFromForm(this, j);
+                                RemoveElementFromForm(this, x);
+
+                                monsterUnitList.Remove((Monster)x);
+
+                                MakeZombie();
                             }
 
-                            RemoveElementFromForm(this, j);
-                            RemoveElementFromForm(this, x);
+                            if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss")
+                            {
+                                targetCount = BossHealth;
+                                while (targetCount > 0)
+                                {
+                                    BossHealth -= HeroDamage;
+                                    targetCount -= HeroDamage;                                  
+                                }
+                                if (BossHealth == 0) GameCompleted();
 
-                            monsterUnitList.Remove((Monster)x);
+                                RemoveElementFromForm(this, j);
+                                RemoveElementFromForm (this, x);
 
-                            MakeZombie();                         
+                                Controls.Remove((Boss)x);
+
+                                MakeBoss();
+                            }
                         }
-                    }
                 }
             }
         }
@@ -201,6 +249,7 @@ namespace DeathPitTest
             form.Controls.Remove(c);
             ((PictureBox)c).Dispose();
         }
+
         //Нажатие кнопок
         private async void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
@@ -277,10 +326,19 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.H)
             {
-                if (HeroHP !=0 && HeroHP < 100 && canDropHeal)
+                if (HeroHP != 0 && HeroHP < 100 && canDropHeal)
                 {
                     DropHeal();
                     canDropHeal = false;
+                }
+            }
+
+            if (e.KeyCode == Keys.G)
+            {
+                if (HeroDamage == 2 && levelCount == 3 && canDropDamage)
+                {
+                    DropDamage();
+                    canDropDamage = false;
                 }
             }
 
@@ -288,15 +346,15 @@ namespace DeathPitTest
             {
                 GameTimer.Enabled = false;
 
-                PauseForm p1 = new PauseForm();
+                var p1 = new PauseForm();
 
                 if (p1.ShowDialog() != DialogResult.OK)
                 {
                     GameTimer.Enabled = true;
-                    if(PauseForm.clickedExitButton)
+                    if (PauseForm.clickedExitButton)
                     {
-                       p1.Close();
-                       this.Close();
+                        p1.Close();
+                        this.Close();
                     }
                 }
             }
@@ -316,7 +374,7 @@ namespace DeathPitTest
             }
             MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
-            if(levelCount == 2)
+            if (levelCount == 2)
             {
                 targetCount += 50;
                 HeroAmmo = 35;
@@ -326,9 +384,9 @@ namespace DeathPitTest
             }
             else if (levelCount == 3)
             {
-                targetCount += 75;
+                targetCount += 1;
                 HeroAmmo = 45;
-                monsterUnitSpeed = 5;
+                monsterUnitSpeed = 3;
                 pictureBoxWeapon.Image = Properties.Resources.Shotgun;
             }
             else
@@ -349,7 +407,7 @@ namespace DeathPitTest
         {
             Close();
             MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            
+
             FormMenu.IsClosedGame = true;
         }
         //Перезапсук
@@ -360,12 +418,17 @@ namespace DeathPitTest
                 Controls.Remove(i);
             }
 
-            monsterUnitList.Clear();
+            //foreach (Boss i in)
 
-            for (int i = 0; i < 3; i++)
+            monsterUnitList.Clear();
+            if (levelCount == 1 || levelCount == 2)
             {
-                MakeZombie();
+                for (int i = 0; i < 3; i++)
+                {
+                    MakeZombie();
+                }
             }
+            else MakeBoss();
 
             goUp = false;
             goDown = false;
@@ -430,7 +493,7 @@ namespace DeathPitTest
                 Player.Width = 64;
                 Player.Height = 86;
 
-                switch(levelCount)
+                switch (levelCount)
                 {
                     case 1:
                         Player.Image = Properties.Resources.HeroPistolUp;
@@ -558,6 +621,14 @@ namespace DeathPitTest
             HealBonus heal = new(this);
 
             heal.BringToFront();
+            Player.BringToFront();
+        }
+
+        //х2 урон
+        private void DropDamage()
+        {
+            Damage damage = new(this);
+            damage.BringToFront();
             Player.BringToFront();
         }
     }
