@@ -22,18 +22,12 @@ namespace DeathPitTest
 
         public void MakeSGball(Form form)
         {
-            drob.BackColor = Color.Yellow;
+            drob.BackColor = Color.DarkGray;
             drob.Size = new Size(20, 20);
             drob.Tag = "ball";
             drob.Left = ballLeft;
             drob.Top = ballTop;
             drob.BringToFront();
-            ball.BackColor = Color.DarkGray;
-            ball.Size = new Size(20, 20);
-            ball.Tag = "ball";
-            ball.Left = ballLeft;
-            ball.Top = ballTop;
-            ball.BringToFront();
 
             form.Controls.Add(drob);
 

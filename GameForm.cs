@@ -224,7 +224,7 @@ namespace DeathPitTest
                 goRight = false;
             }
 
-            if (e.KeyCode == Keys.Space && HeroAmmo != 0)
+            if (e.KeyCode == Keys.Space && HeroAmmo > 0)
             {
                 if (HeroAmmo > 0 && levelCount == 1)
                 {
@@ -233,26 +233,42 @@ namespace DeathPitTest
 
                 if (HeroAmmo > 0 && levelCount == 2)
                 {
-                    ShootBullet(facing);
-                    await Task.Delay(200);
-                    ShootBullet(facing);
-                    await Task.Delay(200);
-                    ShootBullet(facing);
+                    do
+                    {
+                        ShootBullet(facing);
+                        if (HeroAmmo <= 0)
+                        {
+                            break;
+                        }
+                        await Task.Delay(200);
+                        ShootBullet(facing);
+                        if (HeroAmmo <= 0)
+                        {
+                            break;
+                        }
+                        await Task.Delay(200);
+                        ShootBullet(facing);
+                        if (HeroAmmo <= 0)
+                        {
+                            break;
+                        }
+                        break;
+                    }
+                    while (HeroAmmo > 0);
                 }
 
                 if (HeroAmmo > 0 && levelCount == 3)
                 {
                     ShootDrob(facing);
-                }
-                if (levelCount < 3)
-                    ShootBullet(facing);
-                else
+                    await Task.Delay(400);
                     ShootDrob(facing);
+                    await Task.Delay(1000);
+                }
             }
 
             if (e.KeyCode == Keys.R)
             {
-                if (HeroAmmo <= 1 && canDropAmmo)
+                if (HeroAmmo == 0 && canDropAmmo)
                 {
                     DropAmmo();
                     canDropAmmo = false;
@@ -304,6 +320,7 @@ namespace DeathPitTest
             {
                 targetCount += 50;
                 HeroAmmo = 35;
+
                 monsterUnitSpeed = 5;
                 pictureBoxWeapon.Image = Properties.Resources.Auto;
             }
