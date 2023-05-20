@@ -134,19 +134,16 @@ namespace DeathPitTest
 
             foreach (Control x in Controls)
             {
-                if (x is Ammo && (string)x.Tag == "ammo")
+                if (x is Ammo)
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        Controls.Remove(x);
-                        ((PictureBox)x).Dispose();
-                        HeroAmmo += 20;
                         RemoveElementFromForm(this, x);
                         HeroAmmo += 5;
                     }
                 }
 
-                if (x is HealBonus && (string)x.Tag == "heal")
+                if (x is HealBonus)
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
@@ -156,7 +153,7 @@ namespace DeathPitTest
                     }
                 }
 
-                if (x is Damage && (string)x.Tag == "damage")
+                if (x is Damage)
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
@@ -223,20 +220,21 @@ namespace DeathPitTest
 
                         if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss")
                         {
-                            targetCount = BossHealth;
-                            while (targetCount > 0) ////////////
-                            {
-                                BossHealth -= HeroDamage;
-                                targetCount -= HeroDamage;
-                            }
-                            if (BossHealth == 0) GameCompleted();
+                            BossHealth -= HeroDamage;
+                            if (BossHealth <= 0) GameCompleted();
+                            targetCount = BossHealth; 
+                            ////while (targetCount > 0) ////////////
+                            ////{
+                            ////    BossHealth -= HeroDamage;
+                            ////    targetCount -= HeroDamage;
+                            ////}
 
                             RemoveElementFromForm(this, j);
-                            RemoveElementFromForm(this, x);
+                            //RemoveElementFromForm(this, x);
 
-                            Controls.Remove((Boss)x);
+                           // Controls.Remove((Boss)x);
 
-                            MakeBoss();
+                            //MakeBoss();
                         }
                     }
                 }
