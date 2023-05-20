@@ -120,14 +120,11 @@ namespace DeathPitTest
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-<<<<<<< HEAD
                         Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         HeroAmmo += 20;
-=======
                         RemoveElementFromForm(this, x);
                         HeroAmmo += 5;
->>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
                     }
                 }
 
@@ -176,11 +173,8 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-<<<<<<< HEAD
                     if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is PictureBox && (string)x.Tag == "monster")
-=======
                     if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is Monster && (string)x.Tag == "monster")
->>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
@@ -232,7 +226,6 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.Space && HeroAmmo != 0)
             {
-<<<<<<< HEAD
                 if (HeroAmmo != 0 && levelCount < 3)
                 {
                     ShootBullet(facing);
@@ -242,12 +235,10 @@ namespace DeathPitTest
                 {
                     ShootDrob(facing);
                 }
-=======
                 if (levelCount < 3)
                     ShootBullet(facing);
                 else
                     ShootDrob(facing);
->>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
             }
         
 
@@ -499,19 +490,6 @@ namespace DeathPitTest
 
             Shoot();
         }
-        
-        private void ShootDrob(string direction)
-        {
-            ShellShot shootDrob = new()
-            {
-                direction = direction,
-                ballLeft = Player.Left + (Player.Width / 2),
-                ballTop = Player.Top + (Player.Height / 2)
-            };
-            shootDrob.MakeSGball(this);
-
-            Shoot();
-        }
 
         private void Shoot()
         {
@@ -523,7 +501,6 @@ namespace DeathPitTest
             }
         }
 
-<<<<<<< HEAD
         private void ShootDrob(string direction)
         {
             ShellShot shootDrob = new()
@@ -541,8 +518,6 @@ namespace DeathPitTest
             }
         }
 
-=======
->>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
         // Аммуниция
         private void DropAmmo()
         {

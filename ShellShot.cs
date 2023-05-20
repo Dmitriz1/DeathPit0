@@ -14,33 +14,26 @@ namespace DeathPitTest
         public int ballLeft;
         public int ballTop;
 
-<<<<<<< HEAD
         private readonly int speed = 20;
         private PictureBox drob = new ();
-=======
-        private readonly int speed = 10;
         private PictureBox ball = new ();
->>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
         private Timer ballTimer = new ();
 
 
         public void MakeSGball(Form form)
         {
-<<<<<<< HEAD
             drob.BackColor = Color.Yellow;
             drob.Size = new Size(20, 20);
             drob.Tag = "ball";
             drob.Left = ballLeft;
             drob.Top = ballTop;
             drob.BringToFront();
-=======
             ball.BackColor = Color.DarkGray;
             ball.Size = new Size(20, 20);
             ball.Tag = "ball";
             ball.Left = ballLeft;
             ball.Top = ballTop;
             ball.BringToFront();
->>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
 
             form.Controls.Add(drob);
 

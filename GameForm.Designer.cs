@@ -180,6 +180,11 @@ namespace DeathPitTest
 
         }
 
+        private void GameForm_Load(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void GameForm_KeyUp1(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             throw new System.NotImplementedException();

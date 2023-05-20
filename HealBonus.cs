@@ -9,14 +9,14 @@ namespace DeathPitTest
 {
     internal class HealBonus : PictureBox
     {
-        Random random = new Random();
+        Random r = new Random();
         public HealBonus(GameForm gf)
         {
             this.Tag = "heal";
             this.Image = Properties.Resources.Heal;
             this.SizeMode = PictureBoxSizeMode.AutoSize;
-            this.Left = random.Next(10, gf.ClientSize.Width - this.Width);
-            this.Top = random.Next(60, gf.ClientSize.Height - this.Height);
+            this.Left = r.Next(10, gf.ClientSize.Width - this.Width);
+            this.Top = r.Next(60, gf.ClientSize.Height - this.Height);
 
             if (!gf.Controls.Contains(this))
             {

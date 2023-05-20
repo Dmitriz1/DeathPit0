@@ -9,12 +9,12 @@ namespace DeathPitTest
 {
     internal class Monster : PictureBox
     {
-        Random random = new Random();
+        Random r = new Random();
         public Monster()
         {
             this.Tag = "monster";
-            this.Left = random.Next(500, 900);
-            this.Top = random.Next(200, 800);
+            this.Left = r.Next(500, 900);
+            this.Top = r.Next(200, 800);
             this.Image = Properties.Resources.zdown;
             this.SizeMode = PictureBoxSizeMode.AutoSize;
         }
