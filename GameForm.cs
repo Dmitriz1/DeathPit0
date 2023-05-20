@@ -32,13 +32,13 @@ namespace DeathPitTest
 
         int levelCount = 1;
 
-        readonly Random randNum = new();
-        readonly List<PictureBox> monsterUnitList = new();
+        readonly List<Monster> monsterUnitList = new();
+
         //старт
         public GameForm()
         {
             InitializeComponent();
-           // TopMost = true;
+
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
@@ -48,16 +48,9 @@ namespace DeathPitTest
             RestartGame();
         }
         //создание мобов
-        private void MakeZombies()
+        private void MakeZombie()
         {
-            PictureBox monster = new ()
-            {
-                Tag = "monster",
-                Image = Properties.Resources.zdown,
-                Left = randNum.Next(500, 900), 
-                Top = randNum.Next(200, 800),
-                SizeMode = PictureBoxSizeMode.AutoSize
-            };
+            Monster monster = new ();
 
             monsterUnitList.Add(monster);
             Controls.Add(monster);
@@ -70,27 +63,25 @@ namespace DeathPitTest
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
             {
                 goUp = true;
-                GetSight(goUp, goDown, goLeft, goRight);
                 facing = "up";
             }
             if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
             {
                 goDown = true;
-                GetSight(goUp, goDown, goLeft, goRight);
                 facing = "down";
             }
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
                 goLeft = true;
-                GetSight(goUp, goDown, goLeft, goRight);
                 facing = "left";
             }
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
                 goRight = true;
-                GetSight(goUp, goDown, goLeft, goRight);
                 facing = "right";
             }
+
+            GetSight(goUp, goDown, goLeft, goRight);
         }
         // движения перса и мобов во время игры
         private void GameTimerEvent(object sender, EventArgs e)
@@ -125,26 +116,32 @@ namespace DeathPitTest
 
             foreach (Control x in Controls)
             {
-                if (x is PictureBox && (string)x.Tag == "ammo")
+                if (x is Ammo && (string)x.Tag == "ammo")
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
+<<<<<<< HEAD
                         Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         HeroAmmo += 20;
+=======
+                        RemoveElementFromForm(this, x);
+                        HeroAmmo += 5;
+>>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
                     }
                 }
 
-                else if ((string)x.Tag == "heal")
+                if (x is HealBonus && (string)x.Tag == "heal")
+                {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        Controls.Remove(x);
-                        ((PictureBox)x).Dispose();
+                        RemoveElementFromForm(this, x);
                         HeroHP += 50;
                         canDropHeal = true;
                     }
+                }
 
-                if (x is PictureBox && (string)x.Tag == "monster")
+                if (x is Monster && (string)x.Tag == "monster")
                 {
 
                     if (Player.Bounds.IntersectsWith(x.Bounds))
@@ -179,7 +176,11 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
+<<<<<<< HEAD
                     if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is PictureBox && (string)x.Tag == "monster")
+=======
+                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && x is Monster && (string)x.Tag == "monster")
+>>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
@@ -189,19 +190,22 @@ namespace DeathPitTest
                                 LevelCompleted();
                             }
 
-                            Controls.Remove(j);
-                            ((PictureBox)j).Dispose();
+                            RemoveElementFromForm(this, j);
+                            RemoveElementFromForm(this, x);
 
-                            Controls.Remove(x);
-                            ((PictureBox)x).Dispose();
+                            monsterUnitList.Remove((Monster)x);
 
-                            monsterUnitList.Remove((PictureBox)x);
-
-                            MakeZombies();                         
+                            MakeZombie();                         
                         }
                     }
                 }
             }
+        }
+
+        private void RemoveElementFromForm(Form form, Control c)
+        {
+            form.Controls.Remove(c);
+            ((PictureBox)c).Dispose();
         }
         //Нажатие кнопок
         private void GameForm_KeyUp(object sender, KeyEventArgs e)
@@ -226,8 +230,9 @@ namespace DeathPitTest
                 goRight = false;
             }
 
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Space && HeroAmmo != 0)
             {
+<<<<<<< HEAD
                 if (HeroAmmo != 0 && levelCount < 3)
                 {
                     ShootBullet(facing);
@@ -237,7 +242,14 @@ namespace DeathPitTest
                 {
                     ShootDrob(facing);
                 }
+=======
+                if (levelCount < 3)
+                    ShootBullet(facing);
+                else
+                    ShootDrob(facing);
+>>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
             }
+        
 
             if (e.KeyCode == Keys.R)
             {
@@ -262,12 +274,14 @@ namespace DeathPitTest
                 GameTimer.Enabled = false;
 
                 PauseForm p1 = new PauseForm();
+
                 if (p1.ShowDialog() != DialogResult.OK)
                 {
                     GameTimer.Enabled = true;
                     if(PauseForm.clickedExitButton)
                     {
                        p1.Close();
+                       this.Close();
                     }
                 }
             }
@@ -277,6 +291,14 @@ namespace DeathPitTest
         {
             levelCount++;
             GameTimer.Stop();
+
+            foreach (Control j in Controls)
+            {
+                if (j is PictureBox && ((string)j.Tag == "bullet"))
+                {
+                    RemoveElementFromForm(this, j);
+                }
+            }
             MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             if(levelCount == 2)
@@ -317,7 +339,7 @@ namespace DeathPitTest
         //Перезапсук
         private void RestartGame()
         {
-            foreach (PictureBox i in monsterUnitList)
+            foreach (Monster i in monsterUnitList)
             {
                 Controls.Remove(i);
             }
@@ -326,15 +348,13 @@ namespace DeathPitTest
 
             for (int i = 0; i < 3; i++)
             {
-                MakeZombies();
+                MakeZombie();
             }
 
             goUp = false;
             goDown = false;
             goLeft = false;
             goRight = false;
-
-            HeroAmmo = 20;
 
             GameTimer.Start();
         }
@@ -476,6 +496,25 @@ namespace DeathPitTest
                 bulletTop = Player.Top + (Player.Height / 2)
             };
             shootBullet.MakeBullet(this);
+
+            Shoot();
+        }
+        
+        private void ShootDrob(string direction)
+        {
+            ShellShot shootDrob = new()
+            {
+                direction = direction,
+                ballLeft = Player.Left + (Player.Width / 2),
+                ballTop = Player.Top + (Player.Height / 2)
+            };
+            shootDrob.MakeSGball(this);
+
+            Shoot();
+        }
+
+        private void Shoot()
+        {
             HeroAmmo -= 1;
 
             if (HeroAmmo <= 1)
@@ -484,6 +523,7 @@ namespace DeathPitTest
             }
         }
 
+<<<<<<< HEAD
         private void ShootDrob(string direction)
         {
             ShellShot shootDrob = new()
@@ -501,22 +541,12 @@ namespace DeathPitTest
             }
         }
 
+=======
+>>>>>>> f7e709feb91dd9f352d29d02b9073873caa0db69
         // Аммуниция
         private void DropAmmo()
         {
-            PictureBox ammo = new ()
-            {
-                Image = Properties.Resources.ammo,
-                SizeMode = PictureBoxSizeMode.AutoSize
-            };
-            ammo.Left = randNum.Next(10, ClientSize.Width - ammo.Width);
-            ammo.Top = randNum.Next(60, ClientSize.Height - ammo.Height);
-            ammo.Tag = "ammo";
-
-            if (!Controls.Contains(ammo))
-            {
-                Controls.Add(ammo);
-            }           
+            Ammo ammo = new(this);
 
             ammo.BringToFront();
             Player.BringToFront();
@@ -525,27 +555,10 @@ namespace DeathPitTest
         //ХП
         private void DropHeal()
         {
-            PictureBox heal = new ()
-            {
-                Image = Properties.Resources.Heal,
-                SizeMode = PictureBoxSizeMode.AutoSize
-            };
-            heal.Left = randNum.Next(10, ClientSize.Width - heal.Width);
-            heal.Top = randNum.Next(60, ClientSize.Height - heal.Height);
-            heal.Tag = "heal";
-
-            if (!Controls.Contains(heal))
-            {
-                Controls.Add(heal);
-            }
+            HealBonus heal = new(this);
 
             heal.BringToFront();
             Player.BringToFront();
-        }
-
-        private void GameForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
