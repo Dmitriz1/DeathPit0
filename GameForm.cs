@@ -226,12 +226,12 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.Space && HeroAmmo > 0)
             {
-                if (HeroAmmo > 0 && levelCount == 1)
+                if (levelCount == 1)
                 {
                     ShootBullet(facing);
                 }
 
-                if (HeroAmmo > 0 && levelCount == 2)
+                if (levelCount == 2)
                 {
                     do
                     {
@@ -257,7 +257,7 @@ namespace DeathPitTest
                     while (HeroAmmo > 0);
                 }
 
-                if (HeroAmmo > 0 && levelCount == 3)
+                if (levelCount == 3)
                 {
                     ShootDrob(facing);
                     await Task.Delay(400);
