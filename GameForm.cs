@@ -32,7 +32,9 @@ namespace DeathPitTest
         bool canDropHeal = true;
         bool canDropDamage = true;
 
-        int levelCount = 3;
+        bool HeroIsShooting = false;
+
+        int levelCount = 1;
 
         readonly List<Monster> monsterUnitList = new();
         readonly int MonsterDmg = 1;
@@ -230,11 +232,6 @@ namespace DeathPitTest
                             ////}
 
                             RemoveElementFromForm(this, j);
-                            //RemoveElementFromForm(this, x);
-
-                           // Controls.Remove((Boss)x);
-
-                            //MakeBoss();
                         }
                     }
                 }
@@ -279,36 +276,30 @@ namespace DeathPitTest
 
                 if (levelCount == 2)
                 {
-                    do
+                    if(HeroAmmo>=3 && !HeroIsShooting)
                     {
-                        ShootBullet(facing);
-                        if (HeroAmmo <= 0)
+                        HeroIsShooting = true;
+                        for(int i = 0; i<3; i++)
                         {
-                            break;
+                            ShootBullet(facing);
+                            await Task.Delay(200);
                         }
-                        await Task.Delay(200);
-                        ShootBullet(facing);
-                        if (HeroAmmo <= 0)
-                        {
-                            break;
-                        }
-                        await Task.Delay(200);
-                        ShootBullet(facing);
-                        if (HeroAmmo <= 0)
-                        {
-                            break;
-                        }
-                        break;
+                        HeroIsShooting = false;
                     }
-                    while (HeroAmmo > 0);
                 }
 
                 if (levelCount == 3)
                 {
-                    ShootDrob(facing);
-                    await Task.Delay(400);
-                    ShootDrob(facing);
-                    await Task.Delay(1000);
+                    if(HeroAmmo>=2 && !HeroIsShooting)
+                    {
+                        HeroIsShooting = true;
+                        for(int i = 0; i<2; i++)
+                        {
+                            ShootDrob(facing);
+                            await Task.Delay(i*400+400);
+                        }
+                        HeroIsShooting=false;
+                    }
                 }
             }
 
@@ -374,15 +365,14 @@ namespace DeathPitTest
             if (levelCount == 2)
             {
                 targetCount += 50;
-                HeroAmmo = 35;
-
+                HeroAmmo = 36;
                 monsterUnitSpeed = 5;
                 pictureBoxWeapon.Image = Properties.Resources.Auto;
             }
             else if (levelCount == 3)
             {
                 targetCount += 1;
-                HeroAmmo = 45;
+                HeroAmmo = 44;
                 monsterUnitSpeed = 3;
                 pictureBoxWeapon.Image = Properties.Resources.Shotgun;
             }
@@ -563,6 +553,15 @@ namespace DeathPitTest
         }
 
         // Стрельба
+        private void ShootFromAuto(string direction)
+        {
+
+        }
+
+        private void ShootFromShotgun(string direction)
+        {
+
+        }
         private void ShootBullet(string direction)
         {
             Bullet shootBullet = new()
@@ -576,16 +575,6 @@ namespace DeathPitTest
             Shoot();
         }
 
-        private void Shoot()
-        {
-            HeroAmmo -= 1;
-
-            if (HeroAmmo <= 1)
-            {
-                canDropAmmo = true;
-            }
-        }
-
         private void ShootDrob(string direction)
         {
             ShellShot shootDrob = new()
@@ -595,6 +584,10 @@ namespace DeathPitTest
                 ballTop = Player.Top + (Player.Height / 2)
             };
             shootDrob.MakeSGball(this);
+            Shoot();
+        }
+        private void Shoot()
+        {
             HeroAmmo -= 1;
 
             if (HeroAmmo <= 1)
@@ -625,6 +618,7 @@ namespace DeathPitTest
         private void DropDamage()
         {
             Damage damage = new(this);
+
             damage.BringToFront();
             Player.BringToFront();
         }
