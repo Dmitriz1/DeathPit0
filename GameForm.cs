@@ -32,7 +32,7 @@ namespace DeathPitTest
         bool canDropHeal = true;
         bool canDropDamage = true;
 
-        int levelCount = 1;
+        int levelCount = 3;
 
         readonly List<Monster> monsterUnitList = new();
         readonly int MonsterDmg = 1;
@@ -167,13 +167,13 @@ namespace DeathPitTest
                 if ((x is Monster || x is Boss) && ((string)x.Tag == "monster" || (string)x.Tag == "boss"))
                 {
 
-                    if ((string)x.Tag == "monster" || Player.Bounds.IntersectsWith(x.Bounds))
+                    if ((string)x.Tag == "monster" && Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         HeroHP -= MonsterDmg;
                         Health(HeroHP);
                     }
 
-                    if ((string)x.Tag == "boss" || Player.Bounds.IntersectsWith(x.Bounds))
+                    if ((string)x.Tag == "boss" && Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         HeroHP -= MonsterDmg * 5;
                         Health(HeroHP);
@@ -206,40 +206,39 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is PictureBox && (string)x.Tag == "monster" || x is PictureBox && (string)x.Tag == "boss"))
-                        if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is Monster && (string)x.Tag == "monster" || x is Boss && (string)x.Tag == "boss"))
+                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is Monster && (string)x.Tag == "monster" || x is Boss && (string)x.Tag == "boss"))
+                    {
+                        if (x.Bounds.IntersectsWith(j.Bounds) && (levelCount == 1 || levelCount == 2))
                         {
-                            if (x.Bounds.IntersectsWith(j.Bounds) && (levelCount == 1 || levelCount == 2))
-                            {
-                                targetCount--;
-                                if (targetCount == 0) LevelCompleted();
+                            targetCount--;
+                            if (targetCount == 0) LevelCompleted();
 
-                                RemoveElementFromForm(this, j);
-                                RemoveElementFromForm(this, x);
+                            RemoveElementFromForm(this, j);
+                            RemoveElementFromForm(this, x);
 
-                                monsterUnitList.Remove((Monster)x);
+                            monsterUnitList.Remove((Monster)x);
 
-                                MakeZombie();
-                            }
-
-                            if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss")
-                            {
-                                targetCount = BossHealth;
-                                while (targetCount > 0)
-                                {
-                                    BossHealth -= HeroDamage;
-                                    targetCount -= HeroDamage;                                  
-                                }
-                                if (BossHealth == 0) GameCompleted();
-
-                                RemoveElementFromForm(this, j);
-                                RemoveElementFromForm (this, x);
-
-                                Controls.Remove((Boss)x);
-
-                                MakeBoss();
-                            }
+                            MakeZombie();
                         }
+
+                        if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss")
+                        {
+                            targetCount = BossHealth;
+                            while (targetCount > 0) ////////////
+                            {
+                                BossHealth -= HeroDamage;
+                                targetCount -= HeroDamage;
+                            }
+                            if (BossHealth == 0) GameCompleted();
+
+                            RemoveElementFromForm(this, j);
+                            RemoveElementFromForm(this, x);
+
+                            Controls.Remove((Boss)x);
+
+                            MakeBoss();
+                        }
+                    }
                 }
             }
         }
