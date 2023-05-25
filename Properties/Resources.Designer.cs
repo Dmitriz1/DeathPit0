@@ -323,6 +323,16 @@ namespace DeathPitTest.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pistol1 {
+            get {
+                object obj = ResourceManager.GetObject("Pistol1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Shotgun {
             get {
                 object obj = ResourceManager.GetObject("Shotgun", resourceCulture);

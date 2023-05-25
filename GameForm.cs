@@ -34,11 +34,12 @@ namespace DeathPitTest
 
         bool HeroIsShooting = false;
 
-        int levelCount = 1;
+        int levelCount = 3;
 
         readonly List<Monster> monsterUnitList = new();
         readonly int MonsterDmg = 1;
         private int BossHealth = 200;
+        private ProgressBar BossHP;
 
         //старт
         public GameForm()
@@ -68,13 +69,27 @@ namespace DeathPitTest
         {
             var boss = new Boss();
             Controls.Add(boss);
-            var BossHP = new ProgressBar
+
+            var bossHP = new Label
+            {
+                Text = "Здоровье босса: ",
+                Font = labelAmmo.Font,
+                AutoSize = true,
+                Location = new Point(pictureBoxWeapon.Right, 0)
+            };
+            BossHP = new ProgressBar
             {
                 Maximum = BossHealth,
                 Value = BossHealth,
-                Width = boss.Width,
-                Location = new Point(boss.Location.X, boss.Location.Y)
+                Width = Width,
+                Height = Properties.Resources.Heal.Height,
+                Location = new Point(bossHP.Right + 10, 0)
             };
+            Controls.Add(bossHP);
+            Controls.Add(BossHP);
+            bossHP.BringToFront();
+            BossHP.BringToFront();
+
             Player.BringToFront();
         }
         // нажатие кнопки
@@ -110,7 +125,7 @@ namespace DeathPitTest
             labelScore.Text = $"Цель: {targetCount}";
 
 
-            if (goUp && Player.Top > pictureBoxHealth1.Width)
+            if (goUp && Player.Top > pictureBoxWeapon.Width)
             {
                 Health(HeroHP);
                 Player.Top -= HeroSpeed;
@@ -141,7 +156,7 @@ namespace DeathPitTest
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
-                        HeroAmmo += 5;
+                        HeroAmmo += 10;
                     }
                 }
 
@@ -181,7 +196,7 @@ namespace DeathPitTest
                     {
                         x.Left -= monsterUnitSpeed;
                         if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zleft;
-                        if((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossL;
+                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossL;
                     }
                     if (x.Left < Player.Left)
                     {
@@ -201,7 +216,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zdown;
                         if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossD;
                     }
-                }               
+                }
 
                 foreach (Control j in Controls)
                 {
@@ -223,13 +238,11 @@ namespace DeathPitTest
                         if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss")
                         {
                             BossHealth -= HeroDamage;
+                            BossHP.Value -= HeroDamage;
+                            targetCount = BossHealth;
+
                             if (BossHealth <= 0) GameCompleted();
-                            targetCount = BossHealth; 
-                            ////while (targetCount > 0) ////////////
-                            ////{
-                            ////    BossHealth -= HeroDamage;
-                            ////    targetCount -= HeroDamage;
-                            ////}
+
 
                             RemoveElementFromForm(this, j);
                         }
@@ -276,10 +289,10 @@ namespace DeathPitTest
 
                 if (levelCount == 2)
                 {
-                    if(HeroAmmo>=3 && !HeroIsShooting)
+                    if (HeroAmmo >= 3 && !HeroIsShooting)
                     {
                         HeroIsShooting = true;
-                        for(int i = 0; i<3; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             ShootBullet(facing);
                             await Task.Delay(200);
@@ -290,15 +303,15 @@ namespace DeathPitTest
 
                 if (levelCount == 3)
                 {
-                    if(HeroAmmo>=2 && !HeroIsShooting)
+                    if (HeroAmmo >= 2 && !HeroIsShooting)
                     {
                         HeroIsShooting = true;
-                        for(int i = 0; i<2; i++)
+                        for (int i = 0; i < 2; i++)
                         {
                             ShootDrob(facing);
-                            await Task.Delay(i*400+400);
+                            await Task.Delay(i * 400 + 400);
                         }
-                        HeroIsShooting=false;
+                        HeroIsShooting = false;
                     }
                 }
             }

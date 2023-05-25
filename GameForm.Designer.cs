@@ -101,7 +101,7 @@ namespace DeathPitTest
             // pictureBoxWeapon
             // 
             pictureBoxWeapon.BackColor = System.Drawing.Color.Transparent;
-            pictureBoxWeapon.Image = Properties.Resources.Pistol;
+            pictureBoxWeapon.Image = (System.Drawing.Image)resources.GetObject("pictureBoxWeapon.Image");
             pictureBoxWeapon.Location = new System.Drawing.Point(560, 0);
             pictureBoxWeapon.Name = "pictureBoxWeapon";
             pictureBoxWeapon.Size = new System.Drawing.Size(62, 33);
