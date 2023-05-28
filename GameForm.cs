@@ -25,14 +25,13 @@ namespace DeathPitTest
 
         bool HeroIsShooting = false;
 
-        int levelCount = 3;
+        int levelCount = 1;
 
         readonly List<Monster> monsterUnitList = new();
         readonly int MonsterDmg = 1;
         private int BossHealth = 200;
         private ProgressBar BossHP;
 
-        //старт
         public GameForm()
         {
             InitializeComponent();
@@ -45,7 +44,6 @@ namespace DeathPitTest
 
             RestartGame();
         }
-        //создание мобов
         private void MakeZombie()
         {
             Monster monster = new();
@@ -76,6 +74,7 @@ namespace DeathPitTest
                 Height = Properties.Resources.Heal.Height,
                 Location = new Point(bossHP.Right + 10, 0)
             };
+            ShortPath.FindPath(boss.Location, Player.Location);
             Controls.Add(bossHP);
             Controls.Add(BossHP);
             bossHP.BringToFront();
@@ -83,7 +82,6 @@ namespace DeathPitTest
 
             Player.BringToFront();
         }
-        // нажатие кнопки
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
@@ -109,7 +107,7 @@ namespace DeathPitTest
 
             GetSight(goUp, goDown, goLeft, goRight);
         }
-        // движения перса и мобов во время игры
+
         private void GameTimerEvent(object sender, EventArgs e)
         {
             labelAmmo.Text = $"Аммуниция: {HeroAmmo}";
@@ -147,7 +145,7 @@ namespace DeathPitTest
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
-                        HeroAmmo += 10;
+                        HeroAmmo += 12;
                     }
                 }
 
@@ -393,7 +391,7 @@ namespace DeathPitTest
 
             FormMenu.IsClosedGame = true;
         }
-        //Смерть
+
         private void GameOver()
         {
             Close();
@@ -401,7 +399,7 @@ namespace DeathPitTest
 
             FormMenu.IsClosedGame = true;
         }
-        //Перезапсук
+
         private void RestartGame()
         {
             foreach (Monster i in monsterUnitList)
@@ -428,7 +426,7 @@ namespace DeathPitTest
 
             GameTimer.Start();
         }
-        //Здоровье
+
         private void Health(int hp)
         {
             if (hp == 0)
@@ -476,7 +474,7 @@ namespace DeathPitTest
                 pictureBoxHealth3.Image = Properties.Resources.fullHurt;
             }
         }
-        // Направление взгляда
+
         private void GetSight(bool up, bool down, bool left, bool right)
         {
             if (up)
@@ -556,7 +554,6 @@ namespace DeathPitTest
             }
         }
 
-        // Стрельба
         private void ShootFromAuto(string direction)
         {
 
@@ -566,6 +563,7 @@ namespace DeathPitTest
         {
 
         }
+
         private void ShootBullet(string direction)
         {
             Bullet shootBullet = new()
@@ -590,6 +588,7 @@ namespace DeathPitTest
             shootDrob.MakeSGball(this);
             Shoot();
         }
+
         private void Shoot()
         {
             HeroAmmo -= 1;
@@ -600,7 +599,6 @@ namespace DeathPitTest
             }
         }
 
-        // Аммуниция
         private void DropAmmo()
         {
             Ammo ammo = new(this);
@@ -609,7 +607,6 @@ namespace DeathPitTest
             Player.BringToFront();
         }
 
-        //ХП
         private void DropHeal()
         {
             HealBonus heal = new(this);
@@ -618,7 +615,6 @@ namespace DeathPitTest
             Player.BringToFront();
         }
 
-        //х2 урон
         private void DropDamage()
         {
             Damage damage = new(this);
