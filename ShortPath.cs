@@ -10,24 +10,14 @@ namespace DeathPitTest
     {
         public Point Position { get; set; }
         public int PathLengthFromStart { get; set; }
-        public ShortPath CameFrom { get; set; }
+        public ShortPath? CameFrom { get; set; }
         public int HeuristicEstimatePathLength { get; set; }
-
-        public int EstimateFullPathLength
-        {
-            get
-            {
-                return this.PathLengthFromStart + this.HeuristicEstimatePathLength;
-            }
-        }
 
         public static List<Point> FindPath(Point start, Point playerpos)
         {
-            var closedSet = new Collection<ShortPath>();
-            var openSet = new Collection<ShortPath>();
             Boss b = new Boss();
             Hero h = new Hero();
-            playerpos = b.Location;
+            playerpos = h.Location;
 
             ShortPath startpos = new ShortPath()
             {
