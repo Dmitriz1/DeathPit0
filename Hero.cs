@@ -13,8 +13,6 @@ namespace DeathPitTest
         {
             this.Tag = "Player";
             this.Image = Properties.Resources.HeroPistolUp;
-            this.Width = 64;
-            this.Height = 86;
             this.Top = 275;
             this.Left = 124;
             this.SizeMode = PictureBoxSizeMode.AutoSize;

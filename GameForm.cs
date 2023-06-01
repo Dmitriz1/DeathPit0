@@ -19,13 +19,24 @@ namespace DeathPitTest
         private int HeroAmmo = 20;
         private int HeroDamage = 2;
 
+        private readonly int HalfHeart = 50;
+        private readonly int OneHeart = 100;
+        private readonly int HeartAndHalf = 150;
+        private readonly int TwoHearts = 200;
+        private readonly int TwoHeartAndHalf = 250;
+        private readonly int ThreeHearts = 300;
+
+        private readonly int BoxOfBullets = 12;
+        private readonly int BoxOfHp = 50;
+        private readonly int BoxOfDamage = 2;
+
         bool canDropAmmo = false;
         bool canDropHeal = true;
         bool canDropDamage = true;
 
         bool HeroIsShooting = false;
 
-        int levelCount = 1;
+        int levelCount = 3;
 
         readonly List<Monster> monsterUnitList = new();
         readonly int MonsterDmg = 1;
@@ -36,6 +47,7 @@ namespace DeathPitTest
         {
             InitializeComponent();
 
+            Player.SizeMode= PictureBoxSizeMode.AutoSize;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
@@ -44,6 +56,7 @@ namespace DeathPitTest
 
             RestartGame();
         }
+
         private void MakeZombie()
         {
             Monster monster = new();
@@ -70,11 +83,11 @@ namespace DeathPitTest
             {
                 Maximum = BossHealth,
                 Value = BossHealth,
-                Width = Width,
+                Width = Width / 2,
                 Height = Properties.Resources.Heal.Height,
                 Location = new Point(bossHP.Right + 10, 0)
             };
-            ShortPath.FindPath(boss.Location, Player.Location);
+            //ShortPath.FindPath(boss.Location, Player.Location);
             Controls.Add(bossHP);
             Controls.Add(BossHP);
             bossHP.BringToFront();
@@ -141,29 +154,25 @@ namespace DeathPitTest
             foreach (Control x in Controls)
             {
                 if (x is Ammo)
-                {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
-                        HeroAmmo += 12;
+                        HeroAmmo += BoxOfBullets;
                     }
-                }
 
                 if (x is HealBonus)
-                {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
-                        HeroHP += 50;
+                        HeroHP += BoxOfHp;
                         canDropHeal = true;
                     }
-                }
 
                 if (x is Damage)
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
-                        HeroDamage *= 2;
+                        HeroDamage *= BoxOfDamage;
                         canDropDamage = true;
                     }
 
@@ -181,24 +190,28 @@ namespace DeathPitTest
                         HeroHP -= MonsterDmg * 5;
                         Health(HeroHP);
                     }
+
                     if (x.Left > Player.Left)
                     {
                         x.Left -= monsterUnitSpeed;
                         if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zleft;
                         if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossL;
                     }
+
                     if (x.Left < Player.Left)
                     {
                         x.Left += monsterUnitSpeed;
                         if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zright;
                         if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossR;
                     }
+
                     if (x.Top > Player.Top)
                     {
                         x.Top -= monsterUnitSpeed;
                         if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zup;
                         if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossU;
                     }
+
                     if (x.Top < Player.Top)
                     {
                         x.Top += monsterUnitSpeed;
@@ -224,7 +237,7 @@ namespace DeathPitTest
                             MakeZombie();
                         }
 
-                        if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss")
+                        else if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss" && levelCount == 3)
                         {
                             BossHealth -= HeroDamage;
                             BossHP.Value -= HeroDamage;
@@ -240,13 +253,12 @@ namespace DeathPitTest
             }
         }
 
-        private void RemoveElementFromForm(Form form, Control c)
+        private static void RemoveElementFromForm(Form form, Control c)
         {
             form.Controls.Remove(c);
             ((PictureBox)c).Dispose();
         }
 
-        //Нажатие кнопок
         private async void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
@@ -316,7 +328,7 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.H)
             {
-                if (HeroHP != 0 && HeroHP < 100 && canDropHeal)
+                if (HeroHP != 0 && HeroHP < OneHeart && canDropHeal)
                 {
                     DropHeal();
                     canDropHeal = false;
@@ -349,7 +361,7 @@ namespace DeathPitTest
                 }
             }
         }
-        //Завершение уровня
+        
         private void LevelCompleted()
         {
             levelCount++;
@@ -368,7 +380,7 @@ namespace DeathPitTest
             {
                 targetCount += 50;
                 HeroAmmo = 36;
-                monsterUnitSpeed = 5;
+                monsterUnitSpeed *= 2;
                 pictureBoxWeapon.Image = Properties.Resources.Auto;
             }
             else if (levelCount == 3)
@@ -383,7 +395,7 @@ namespace DeathPitTest
 
             RestartGame();
         }
-        //Завершение игры
+        
         private void GameCompleted()
         {
             Close();
@@ -403,21 +415,15 @@ namespace DeathPitTest
         private void RestartGame()
         {
             foreach (Monster i in monsterUnitList)
-            {
                 Controls.Remove(i);
-            }
-
-            //foreach (Boss i in)
 
             monsterUnitList.Clear();
+
             if (levelCount == 1 || levelCount == 2)
-            {
                 for (int i = 0; i < 3; i++)
-                {
                     MakeZombie();
-                }
-            }
-            else MakeBoss();
+
+            if(levelCount == 3) MakeBoss();
 
             goUp = false;
             goDown = false;
@@ -437,37 +443,37 @@ namespace DeathPitTest
                 GameTimer.Enabled = false;
                 GameOver();
             }
-            if (hp >= 50 && hp < 100)
+            if (hp >= HalfHeart && hp < OneHeart)
             {
                 pictureBoxHealth1.Image = Properties.Resources.halfHurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 100 && hp < 150)
+            if (hp >= OneHeart && hp < HeartAndHalf)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 150 && hp < 200)
+            if (hp >= HeartAndHalf && hp < TwoHearts)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.halfHurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 200 && hp < 250)
+            if (hp >= TwoHearts && hp < TwoHeartAndHalf)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
             }
-            if (hp >= 250 && hp < 300)
+            if (hp >= TwoHeartAndHalf && hp < HeroHP)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth3.Image = Properties.Resources.halfHurt;
             }
-            if (hp == 300)
+            if (hp == ThreeHearts)
             {
                 pictureBoxHealth1.Image = Properties.Resources.fullHurt;
                 pictureBoxHealth2.Image = Properties.Resources.fullHurt;
@@ -479,9 +485,6 @@ namespace DeathPitTest
         {
             if (up)
             {
-                Player.Width = 64;
-                Player.Height = 86;
-
                 switch (levelCount)
                 {
                     case 1:
@@ -498,9 +501,6 @@ namespace DeathPitTest
 
             if (down)
             {
-                Player.Width = 64;
-                Player.Height = 86;
-
                 switch (levelCount)
                 {
                     case 1:
@@ -517,9 +517,6 @@ namespace DeathPitTest
 
             if (left)
             {
-                Player.Width = 86;
-                Player.Height = 64;
-
                 switch (levelCount)
                 {
                     case 1:
@@ -536,9 +533,6 @@ namespace DeathPitTest
 
             if (right)
             {
-                Player.Width = 86;
-                Player.Height = 64;
-
                 switch (levelCount)
                 {
                     case 1:
@@ -552,16 +546,6 @@ namespace DeathPitTest
                         break;
                 }
             }
-        }
-
-        private void ShootFromAuto(string direction)
-        {
-
-        }
-
-        private void ShootFromShotgun(string direction)
-        {
-
         }
 
         private void ShootBullet(string direction)
@@ -594,9 +578,7 @@ namespace DeathPitTest
             HeroAmmo -= 1;
 
             if (HeroAmmo <= 1)
-            {
                 canDropAmmo = true;
-            }
         }
 
         private void DropAmmo()

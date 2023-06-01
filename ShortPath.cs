@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace DeathPitTest
 {
-    public class ShortPath : GameForm
+    public class ShortPath
     {
         public Point Position { get; set; }
         public int PathLengthFromStart { get; set; }
@@ -15,11 +15,11 @@ namespace DeathPitTest
 
         public static List<Point> FindPath(Point start, Point playerpos)
         {
-            Boss b = new Boss();
-            Hero h = new Hero();
+            var b = new Boss();
+            var h = new Hero();
             playerpos = h.Location;
 
-            ShortPath startpos = new ShortPath()
+            ShortPath startpos = new()
             {
                 Position = b.Location,
                 CameFrom = null,
