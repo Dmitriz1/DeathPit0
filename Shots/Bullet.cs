@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Shots
 {
     class Bullet
     {
@@ -35,7 +35,7 @@ namespace DeathPitTest
             bulletTimer.Tick += new EventHandler(BulletTimerEvent);
             bulletTimer.Start();
         }
-        
+
         private void BulletTimerEvent(object sender, EventArgs e)
         {
             if (direction == "left")

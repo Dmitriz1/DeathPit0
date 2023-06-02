@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Damage.cs">
+    <Compile Update="Drops\Damage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Boss.cs">
+    <Compile Update="MonstersAndHero\Boss.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

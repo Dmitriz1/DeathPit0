@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DeathPitTest.Drops;
+using DeathPitTest.MonstersAndHero;
+using DeathPitTest.Shots;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -87,14 +90,13 @@ namespace DeathPitTest
                 Height = Properties.Resources.Heal.Height,
                 Location = new Point(bossHP.Right + 10, 0)
             };
-            //ShortPath.FindPath(boss.Location, Player.Location);
             Controls.Add(bossHP);
             Controls.Add(BossHP);
             bossHP.BringToFront();
             BossHP.BringToFront();
-
             Player.BringToFront();
         }
+
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
@@ -178,6 +180,8 @@ namespace DeathPitTest
 
                 if ((x is Monster || x is Boss) && ((string)x.Tag == "monster" || (string)x.Tag == "boss"))
                 {
+                    var boss = new Boss();
+                    int[,] field = new int[100, 100];
 
                     if ((string)x.Tag == "monster" && Player.Bounds.IntersectsWith(x.Bounds))
                     {
@@ -194,29 +198,53 @@ namespace DeathPitTest
                     if (x.Left > Player.Left)
                     {
                         x.Left -= monsterUnitSpeed;
-                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zleft;
-                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossL;
+                        if ((string)x.Tag == "monster") 
+                            ((PictureBox)x).Image = Properties.Resources.zleft;
+
+                        if ((string)x.Tag == "boss")
+                        {
+                            ((PictureBox)x).Image = Properties.Resources.BossL;
+                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                        }
                     }
 
                     if (x.Left < Player.Left)
                     {
                         x.Left += monsterUnitSpeed;
-                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zright;
-                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossR;
+                        if ((string)x.Tag == "monster") 
+                            ((PictureBox)x).Image = Properties.Resources.zright;
+
+                        if ((string)x.Tag == "boss")
+                        {
+                            ((PictureBox)x).Image = Properties.Resources.BossR;
+                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                        }
                     }
 
                     if (x.Top > Player.Top)
                     {
                         x.Top -= monsterUnitSpeed;
-                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zup;
-                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossU;
+                        if ((string)x.Tag == "monster") 
+                            ((PictureBox)x).Image = Properties.Resources.zup;
+
+                        if ((string)x.Tag == "boss")
+                        {
+                            ((PictureBox)x).Image = Properties.Resources.BossU;
+                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                        }
                     }
 
                     if (x.Top < Player.Top)
                     {
                         x.Top += monsterUnitSpeed;
-                        if ((string)x.Tag == "monster") ((PictureBox)x).Image = Properties.Resources.zdown;
-                        if ((string)x.Tag == "boss") ((PictureBox)x).Image = Properties.Resources.BossD;
+                        if ((string)x.Tag == "monster") 
+                            ((PictureBox)x).Image = Properties.Resources.zdown;
+
+                        if ((string)x.Tag == "boss")
+                        {
+                            ((PictureBox)x).Image = Properties.Resources.BossD;
+                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                        }
                     }
                 }
 
@@ -392,7 +420,6 @@ namespace DeathPitTest
             }
             else
                 GameCompleted();
-
             RestartGame();
         }
         
