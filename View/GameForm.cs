@@ -45,7 +45,7 @@ namespace DeathPitTest
         bool canDropDamage = true;
         bool HeroIsShooting = false;
 
-        int levelCount = 1;
+        public int levelCount = 3;
         readonly int firstLevel = 1;
         readonly int secondLevel = 2;
         readonly int thirdLevel = 3;
@@ -54,7 +54,7 @@ namespace DeathPitTest
         readonly int MonsterDmg = 1;
         int monsterSpeedFirstLvl = 3;
         readonly int monsterSpeedSecondLvl = 5;
-        private readonly Boss Boss;
+        internal Boss Boss;
         readonly int BossDmg = 5;
         readonly int BossSpeed = 6;
         private int BossHealth = 200;
@@ -145,7 +145,7 @@ namespace DeathPitTest
                         canDropDamage = true;
                     }
 
-                if ((x is Monster || x is Boss) && ((string)x.Tag == "monster" || (string)x.Tag == "boss"))
+                if ((x is Monster || x is Boss))
                 {
                     int[,] field = new int[100, 100];
 
@@ -171,7 +171,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossL;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
@@ -185,7 +185,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossR;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
@@ -199,7 +199,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossU;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
@@ -213,7 +213,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossD;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
                 }
@@ -272,7 +272,7 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.Space && HeroAmmoLvl1 > 0)
             {
-                if (levelCount == firstLevel) ShootBullet(facing);
+                if (levelCount == firstLevel) ShootBullet(facing);//new Shooting.ShootBullet(facing, );
 
                 if (levelCount == secondLevel)
                 {
@@ -331,12 +331,14 @@ namespace DeathPitTest
                 var p1 = new PauseForm();
 
                 if (p1.ShowDialog() != DialogResult.OK)
+                {
                     GameTimer.Enabled = true;
                     if (PauseForm.clickedExitButton)
                     {
                         p1.Close();
-                        Close();
+                        this.Close();
                     }
+                }
             }
         }
         

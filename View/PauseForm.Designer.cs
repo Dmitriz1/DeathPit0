@@ -51,7 +51,7 @@
             OptionsButton.Name = "OptionsButton";
             OptionsButton.Size = new System.Drawing.Size(185, 68);
             OptionsButton.TabIndex = 3;
-            OptionsButton.Text = "Настройки";
+            OptionsButton.Text = "Обучение";
             OptionsButton.UseVisualStyleBackColor = true;
             OptionsButton.Click += OptionsButton_Click;
             // 

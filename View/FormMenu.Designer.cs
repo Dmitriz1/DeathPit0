@@ -29,58 +29,61 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMenu));
-            this.ButtonPlay = new System.Windows.Forms.Button();
-            this.ButtonOptions = new System.Windows.Forms.Button();
-            this.ButtonExit = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            ButtonPlay = new System.Windows.Forms.Button();
+            ButtonOptions = new System.Windows.Forms.Button();
+            ButtonExit = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // ButtonPlay
             // 
-            this.ButtonPlay.Location = new System.Drawing.Point(30, 55);
-            this.ButtonPlay.Name = "ButtonPlay";
-            this.ButtonPlay.Size = new System.Drawing.Size(162, 51);
-            this.ButtonPlay.TabIndex = 0;
-            this.ButtonPlay.Text = "Играть";
-            this.ButtonPlay.UseVisualStyleBackColor = true;
-            this.ButtonPlay.Click += new System.EventHandler(this.ButtonPlay_Click);
+            ButtonPlay.Location = new System.Drawing.Point(34, 73);
+            ButtonPlay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            ButtonPlay.Name = "ButtonPlay";
+            ButtonPlay.Size = new System.Drawing.Size(185, 68);
+            ButtonPlay.TabIndex = 0;
+            ButtonPlay.Text = "Играть";
+            ButtonPlay.UseVisualStyleBackColor = true;
+            ButtonPlay.Click += ButtonPlay_Click;
             // 
             // ButtonOptions
             // 
-            this.ButtonOptions.Location = new System.Drawing.Point(30, 151);
-            this.ButtonOptions.Name = "ButtonOptions";
-            this.ButtonOptions.Size = new System.Drawing.Size(162, 51);
-            this.ButtonOptions.TabIndex = 1;
-            this.ButtonOptions.Text = "Настройки";
-            this.ButtonOptions.UseVisualStyleBackColor = true;
-            this.ButtonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
+            ButtonOptions.Location = new System.Drawing.Point(34, 201);
+            ButtonOptions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            ButtonOptions.Name = "ButtonOptions";
+            ButtonOptions.Size = new System.Drawing.Size(185, 68);
+            ButtonOptions.TabIndex = 1;
+            ButtonOptions.Text = "Обучение";
+            ButtonOptions.UseVisualStyleBackColor = true;
+            ButtonOptions.Click += buttonOptions_Click;
             // 
             // ButtonExit
             // 
-            this.ButtonExit.Location = new System.Drawing.Point(30, 245);
-            this.ButtonExit.Name = "ButtonExit";
-            this.ButtonExit.Size = new System.Drawing.Size(162, 51);
-            this.ButtonExit.TabIndex = 2;
-            this.ButtonExit.Text = "Выйти из игры";
-            this.ButtonExit.UseVisualStyleBackColor = true;
-            this.ButtonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            ButtonExit.Location = new System.Drawing.Point(34, 327);
+            ButtonExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            ButtonExit.Name = "ButtonExit";
+            ButtonExit.Size = new System.Drawing.Size(185, 68);
+            ButtonExit.TabIndex = 2;
+            ButtonExit.Text = "Выйти из игры";
+            ButtonExit.UseVisualStyleBackColor = true;
+            ButtonExit.Click += buttonExit_Click;
             // 
             // FormMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackgroundImage = global::DeathPitTest.Properties.Resources.bg;
-            this.ClientSize = new System.Drawing.Size(815, 483);
-            this.Controls.Add(this.ButtonExit);
-            this.Controls.Add(this.ButtonOptions);
-            this.Controls.Add(this.ButtonPlay);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1920, 1080);
-            this.Name = "FormMenu";
-            this.Text = "DeathPit";
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            BackgroundImage = Properties.Resources.bg;
+            ClientSize = new System.Drawing.Size(931, 644);
+            Controls.Add(ButtonExit);
+            Controls.Add(ButtonOptions);
+            Controls.Add(ButtonPlay);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MaximumSize = new System.Drawing.Size(2192, 1424);
+            Name = "FormMenu";
+            Text = "DeathPit";
+            ResumeLayout(false);
         }
 
         #endregion

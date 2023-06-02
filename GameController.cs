@@ -97,6 +97,7 @@ namespace DeathPitTest
         private void MakeBoss(GameForm form, Font font, PictureBox spawn, int BossHealth, PictureBox  Player)
         {
             var boss = new Boss();
+            form.Boss = boss;
             form.Controls.Add(boss);
 
             var bossHP = new Label

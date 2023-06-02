@@ -1,4 +1,4 @@
-﻿using DeathPitTest.Shots;
+﻿using DeathPitTest.Model.Shots;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace DeathPitTest
 {
     internal class Shooting
     {
-        public void ShootBullet(string direction, PictureBox Player, int HeroAmmoLvl1, bool canDropAmmo, GameForm gf)
+        public void ShootBullet(string direction, PictureBox Player, int HeroAmmo, bool canDropAmmo, GameForm gf)
         {
             Bullet shootBullet = new()
             {
@@ -21,10 +21,10 @@ namespace DeathPitTest
             };
             shootBullet.MakeBullet(gf);
 
-            Shoot(HeroAmmoLvl1, canDropAmmo);
+            Shoot(HeroAmmo, canDropAmmo);
         }
 
-        public void ShootDrob(string direction, PictureBox Player, int HeroAmmoLvl1, bool canDropAmmo, GameForm gf)
+        public void ShootDrob(string direction, PictureBox Player, int HeroAmmo, bool canDropAmmo, GameForm gf)
         {
             ShellShot shootDrob = new()
             {
@@ -33,17 +33,17 @@ namespace DeathPitTest
                 ballTop = Player.Top + (Player.Height / 2)
             };
             shootDrob.MakeSGball(gf);
-            Shoot(HeroAmmoLvl1, canDropAmmo);
+            Shoot(HeroAmmo, canDropAmmo);
         }
 
-        public static int Shoot(int HeroAmmoLvl1, bool canDropAmmo)
+        public static int Shoot(int HeroAmmo, bool canDropAmmo)
         {
-            HeroAmmoLvl1 -= 1;
+            HeroAmmo -= 1;
 
-            if (HeroAmmoLvl1 <= 1)
+            if (HeroAmmo <= 1)
                 canDropAmmo = true;
 
-            return HeroAmmoLvl1;
+            return HeroAmmo;
         }
     }
 }

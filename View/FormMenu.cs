@@ -16,7 +16,7 @@ namespace DeathPitTest
     {
         public bool IsClosed = true;
         public static bool IsClosedGame = true;
-        
+
         public FormMenu()
         {
             InitializeComponent();

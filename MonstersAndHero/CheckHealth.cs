@@ -1,4 +1,4 @@
-﻿using DeathPitTest.MonstersAndHero;
+﻿using DeathPitTest.Model.MonstersAndHero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
