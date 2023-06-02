@@ -16,7 +16,6 @@ namespace DeathPitTest.Shots
 
         private readonly int speed = 20;
         private PictureBox drob = new();
-        private PictureBox ball = new();
         private Timer ballTimer = new();
 
 
@@ -38,22 +37,10 @@ namespace DeathPitTest.Shots
 
         private void BallTimerEvent(object sender, EventArgs e)
         {
-            if (direction == "left")
-            {
-                drob.Left -= speed;
-            }
-            if (direction == "right")
-            {
-                drob.Left += speed;
-            }
-            if (direction == "up")
-            {
-                drob.Top -= speed;
-            }
-            if (direction == "down")
-            {
-                drob.Top += speed;
-            }
+            if (direction == "left") drob.Left -= speed;
+            if (direction == "right") drob.Left += speed;
+            if (direction == "up") drob.Top -= speed;
+            if (direction == "down") drob.Top += speed;
 
             if (drob.Left < 0 || drob.Left > 1920 || drob.Top < 0 || drob.Top > 1080)
             {

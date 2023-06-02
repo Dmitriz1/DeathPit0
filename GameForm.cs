@@ -14,12 +14,18 @@ namespace DeathPitTest
         string facing = "up";
         bool goUp, goDown, goLeft, goRight;
 
-        int monsterUnitSpeed = 3;
-        int targetCount = 25;
+        int targetCountLvl1 = 25;
+        readonly int targetCountLvl2 = 50;
+        readonly int targetCountLvl3 = 1;
+
+        private readonly int Shell = 2;
+        private readonly int Turn= 3;
 
         private int HeroHP = 300;
         private readonly int HeroSpeed = 10;
-        private int HeroAmmo = 20;
+        int HeroAmmoLvl1 = 20;
+        private readonly int HeroAmmoLvl2 = 36;
+        private readonly int HeroAmmoLvl3 = 44;
         private int HeroDamage = 2;
 
         private readonly int HalfHeart = 50;
@@ -36,13 +42,20 @@ namespace DeathPitTest
         bool canDropAmmo = false;
         bool canDropHeal = true;
         bool canDropDamage = true;
-
         bool HeroIsShooting = false;
 
-        int levelCount = 3;
+        int levelCount = 1;
+        readonly int firstLevel = 1;
+        readonly int secondLevel = 2;
+        readonly int thirdLevel = 3;
 
         readonly List<Monster> monsterUnitList = new();
         readonly int MonsterDmg = 1;
+        int monsterSpeedFirstLvl = 3;
+        readonly int monsterSpeedSecondLvl = 5;
+        private readonly Boss Boss;
+        readonly int BossDmg = 5;
+        readonly int BossSpeed = 6;
         private int BossHealth = 200;
         private ProgressBar BossHP;
 
@@ -72,9 +85,6 @@ namespace DeathPitTest
 
         private void MakeBoss()
         {
-            var boss = new Boss();
-            Controls.Add(boss);
-
             var bossHP = new Label
             {
                 Text = "Здоровье босса: ",
@@ -90,6 +100,8 @@ namespace DeathPitTest
                 Height = Properties.Resources.Heal.Height,
                 Location = new Point(bossHP.Right + 10, 0)
             };
+
+            Controls.Add(Boss);
             Controls.Add(bossHP);
             Controls.Add(BossHP);
             bossHP.BringToFront();
@@ -125,33 +137,20 @@ namespace DeathPitTest
 
         private void GameTimerEvent(object sender, EventArgs e)
         {
-            labelAmmo.Text = $"Аммуниция: {HeroAmmo}";
-            labelScore.Text = $"Цель: {targetCount}";
-
+            labelAmmo.Text = $"Аммуниция: {HeroAmmoLvl1}";
+            labelScore.Text = $"Цель: {targetCountLvl1}";
 
             if (goUp && Player.Top > pictureBoxWeapon.Width)
-            {
-                Health(HeroHP);
                 Player.Top -= HeroSpeed;
-            }
 
             if (goDown && Player.Top + Player.Height < ClientSize.Height)
-            {
-                Health(HeroHP);
                 Player.Top += HeroSpeed;
-            }
 
             if (goLeft && Player.Left > 0)
-            {
-                Health(HeroHP);
                 Player.Left -= HeroSpeed;
-            }
 
             if (goRight && Player.Left + Player.Width < ClientSize.Width)
-            {
-                Health(HeroHP);
                 Player.Left += HeroSpeed;
-            }
 
             foreach (Control x in Controls)
             {
@@ -159,7 +158,7 @@ namespace DeathPitTest
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         RemoveElementFromForm(this, x);
-                        HeroAmmo += BoxOfBullets;
+                        HeroAmmoLvl1 += BoxOfBullets;
                     }
 
                 if (x is HealBonus)
@@ -180,70 +179,73 @@ namespace DeathPitTest
 
                 if ((x is Monster || x is Boss) && ((string)x.Tag == "monster" || (string)x.Tag == "boss"))
                 {
-                    var boss = new Boss();
                     int[,] field = new int[100, 100];
 
                     if ((string)x.Tag == "monster" && Player.Bounds.IntersectsWith(x.Bounds))
                     {
                         HeroHP -= MonsterDmg;
-                        Health(HeroHP);
+                        new CheckHealth(HeroHP, HalfHeart, OneHeart, HeartAndHalf, TwoHearts, TwoHeartAndHalf, ThreeHearts, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
                     }
 
                     if ((string)x.Tag == "boss" && Player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        HeroHP -= MonsterDmg * 5;
-                        Health(HeroHP);
+                        HeroHP -= BossDmg;
+                        new CheckHealth(HeroHP, HalfHeart, OneHeart, HeartAndHalf, TwoHearts, TwoHeartAndHalf, ThreeHearts, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
                     }
 
                     if (x.Left > Player.Left)
                     {
-                        x.Left -= monsterUnitSpeed;
-                        if ((string)x.Tag == "monster") 
+                        //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
+                        x.Left -= monsterSpeedFirstLvl;
+                        if ((string)x.Tag == "monster")
                             ((PictureBox)x).Image = Properties.Resources.zleft;
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossL;
-                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
                     if (x.Left < Player.Left)
                     {
-                        x.Left += monsterUnitSpeed;
+                        //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
+                        x.Left += monsterSpeedFirstLvl;
                         if ((string)x.Tag == "monster") 
                             ((PictureBox)x).Image = Properties.Resources.zright;
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossR;
-                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
                     if (x.Top > Player.Top)
                     {
-                        x.Top -= monsterUnitSpeed;
+                        //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
+                        x.Top -= monsterSpeedFirstLvl;
                         if ((string)x.Tag == "monster") 
                             ((PictureBox)x).Image = Properties.Resources.zup;
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossU;
-                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
                     if (x.Top < Player.Top)
                     {
-                        x.Top += monsterUnitSpeed;
+                        //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
+                        x.Top += monsterSpeedFirstLvl;
                         if ((string)x.Tag == "monster") 
                             ((PictureBox)x).Image = Properties.Resources.zdown;
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossD;
-                            ShortPath.FindPath(field, boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
                 }
@@ -252,10 +254,10 @@ namespace DeathPitTest
                 {
                     if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is Monster && (string)x.Tag == "monster" || x is Boss && (string)x.Tag == "boss"))
                     {
-                        if (x.Bounds.IntersectsWith(j.Bounds) && (levelCount == 1 || levelCount == 2))
+                        if (x.Bounds.IntersectsWith(j.Bounds) && (levelCount == firstLevel || levelCount == secondLevel))
                         {
-                            targetCount--;
-                            if (targetCount == 0) LevelCompleted();
+                            targetCountLvl1--;
+                            if (targetCountLvl1 == 0) LevelCompleted();
 
                             RemoveElementFromForm(this, j);
                             RemoveElementFromForm(this, x);
@@ -265,14 +267,13 @@ namespace DeathPitTest
                             MakeZombie();
                         }
 
-                        else if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss" && levelCount == 3)
+                        else if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss" && levelCount == thirdLevel)
                         {
                             BossHealth -= HeroDamage;
                             BossHP.Value -= HeroDamage;
-                            targetCount = BossHealth;
+                            targetCountLvl1 = BossHealth;
 
                             if (BossHealth <= 0) GameCompleted();
-
 
                             RemoveElementFromForm(this, j);
                         }
@@ -290,38 +291,27 @@ namespace DeathPitTest
         private async void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
-            {
                 goUp = false;
-            }
 
             if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
-            {
                 goDown = false;
-            }
 
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-            {
                 goLeft = false;
-            }
 
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-            {
                 goRight = false;
-            }
 
-            if (e.KeyCode == Keys.Space && HeroAmmo > 0)
+            if (e.KeyCode == Keys.Space && HeroAmmoLvl1 > 0)
             {
-                if (levelCount == 1)
-                {
-                    ShootBullet(facing);
-                }
+                if (levelCount == firstLevel) ShootBullet(facing);
 
-                if (levelCount == 2)
+                if (levelCount == secondLevel)
                 {
-                    if (HeroAmmo >= 3 && !HeroIsShooting)
+                    if (HeroAmmoLvl1 >= Turn && !HeroIsShooting)
                     {
                         HeroIsShooting = true;
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < Turn; i++)
                         {
                             ShootBullet(facing);
                             await Task.Delay(200);
@@ -330,12 +320,12 @@ namespace DeathPitTest
                     }
                 }
 
-                if (levelCount == 3)
+                if (levelCount == thirdLevel)
                 {
-                    if (HeroAmmo >= 2 && !HeroIsShooting)
+                    if (HeroAmmoLvl1 >= Shell && !HeroIsShooting)
                     {
                         HeroIsShooting = true;
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < Shell; i++)
                         {
                             ShootDrob(facing);
                             await Task.Delay(i * 400 + 400);
@@ -346,31 +336,25 @@ namespace DeathPitTest
             }
 
             if (e.KeyCode == Keys.R)
-            {
-                if (HeroAmmo == 0 && canDropAmmo)
+                if (HeroAmmoLvl1 == 0 && canDropAmmo)
                 {
                     DropAmmo();
                     canDropAmmo = false;
                 }
-            }
 
             if (e.KeyCode == Keys.H)
-            {
                 if (HeroHP != 0 && HeroHP < OneHeart && canDropHeal)
                 {
                     DropHeal();
                     canDropHeal = false;
                 }
-            }
 
             if (e.KeyCode == Keys.G)
-            {
-                if (HeroDamage == 2 && levelCount == 3 && canDropDamage)
+                if (HeroDamage == 2 && levelCount == thirdLevel && canDropDamage)
                 {
                     DropDamage();
                     canDropDamage = false;
                 }
-            }
 
             if (e.KeyCode == Keys.Escape)
             {
@@ -379,14 +363,12 @@ namespace DeathPitTest
                 var p1 = new PauseForm();
 
                 if (p1.ShowDialog() != DialogResult.OK)
-                {
                     GameTimer.Enabled = true;
                     if (PauseForm.clickedExitButton)
                     {
                         p1.Close();
-                        this.Close();
+                        Close();
                     }
-                }
             }
         }
         
@@ -396,30 +378,28 @@ namespace DeathPitTest
             GameTimer.Stop();
 
             foreach (Control j in Controls)
-            {
                 if (j is PictureBox && ((string)j.Tag == "bullet"))
-                {
                     RemoveElementFromForm(this, j);
-                }
-            }
             MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
-            if (levelCount == 2)
+            if (levelCount == secondLevel)
             {
-                targetCount += 50;
-                HeroAmmo = 36;
-                monsterUnitSpeed *= 2;
+                targetCountLvl1 = targetCountLvl2;
+                HeroAmmoLvl1 = HeroAmmoLvl2;
+                monsterSpeedFirstLvl = monsterSpeedSecondLvl;
                 pictureBoxWeapon.Image = Properties.Resources.Auto;
             }
-            else if (levelCount == 3)
+
+            else if (levelCount == thirdLevel)
             {
-                targetCount += 1;
-                HeroAmmo = 44;
-                monsterUnitSpeed = 3;
+                targetCountLvl1 = targetCountLvl3;
+                HeroAmmoLvl1 = HeroAmmoLvl3;
+                monsterSpeedFirstLvl = BossSpeed;
                 pictureBoxWeapon.Image = Properties.Resources.Shotgun;
             }
-            else
-                GameCompleted();
+
+            else GameCompleted();
+
             RestartGame();
         }
         
@@ -431,14 +411,6 @@ namespace DeathPitTest
             FormMenu.IsClosedGame = true;
         }
 
-        private void GameOver()
-        {
-            Close();
-            MessageBox.Show("Обнулён", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-
-            FormMenu.IsClosedGame = true;
-        }
-
         private void RestartGame()
         {
             foreach (Monster i in monsterUnitList)
@@ -446,11 +418,11 @@ namespace DeathPitTest
 
             monsterUnitList.Clear();
 
-            if (levelCount == 1 || levelCount == 2)
-                for (int i = 0; i < 3; i++)
+            if (levelCount == firstLevel || levelCount == secondLevel)
+                for (int i = 0; i < thirdLevel; i++)
                     MakeZombie();
 
-            if(levelCount == 3) MakeBoss();
+            if(levelCount == thirdLevel) MakeBoss();
 
             goUp = false;
             goDown = false;
@@ -458,54 +430,6 @@ namespace DeathPitTest
             goRight = false;
 
             GameTimer.Start();
-        }
-
-        private void Health(int hp)
-        {
-            if (hp == 0)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.emptyhurt;
-                pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
-                pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
-                GameTimer.Enabled = false;
-                GameOver();
-            }
-            if (hp >= HalfHeart && hp < OneHeart)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.halfHurt;
-                pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
-                pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
-            }
-            if (hp >= OneHeart && hp < HeartAndHalf)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth2.Image = Properties.Resources.emptyhurt;
-                pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
-            }
-            if (hp >= HeartAndHalf && hp < TwoHearts)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth2.Image = Properties.Resources.halfHurt;
-                pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
-            }
-            if (hp >= TwoHearts && hp < TwoHeartAndHalf)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth2.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth3.Image = Properties.Resources.emptyhurt;
-            }
-            if (hp >= TwoHeartAndHalf && hp < HeroHP)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth2.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth3.Image = Properties.Resources.halfHurt;
-            }
-            if (hp == ThreeHearts)
-            {
-                pictureBoxHealth1.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth2.Image = Properties.Resources.fullHurt;
-                pictureBoxHealth3.Image = Properties.Resources.fullHurt;
-            }
         }
 
         private void GetSight(bool up, bool down, bool left, bool right)
@@ -602,9 +526,9 @@ namespace DeathPitTest
 
         private void Shoot()
         {
-            HeroAmmo -= 1;
+            HeroAmmoLvl1 -= 1;
 
-            if (HeroAmmo <= 1)
+            if (HeroAmmoLvl1 <= 1)
                 canDropAmmo = true;
         }
 
