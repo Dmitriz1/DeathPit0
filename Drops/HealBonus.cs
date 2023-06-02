@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Drops
 {
     internal class HealBonus : PictureBox
     {
         Random r = new Random();
         public HealBonus(GameForm gf)
         {
-            this.Tag = "heal";
-            this.Image = Properties.Resources.Heal;
-            this.SizeMode = PictureBoxSizeMode.AutoSize;
-            this.Left = r.Next(10, gf.ClientSize.Width - this.Width);
-            this.Top = r.Next(60, gf.ClientSize.Height - this.Height);
+            Tag = "heal";
+            Image = Properties.Resources.Heal;
+            SizeMode = PictureBoxSizeMode.AutoSize;
+            Left = r.Next(10, gf.ClientSize.Width - Width);
+            Top = r.Next(60, gf.ClientSize.Height - Height);
 
             if (!gf.Controls.Contains(this))
             {

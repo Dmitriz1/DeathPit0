@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Shots
 {
     internal class ShellShot
     {
@@ -15,9 +15,9 @@ namespace DeathPitTest
         public int ballTop;
 
         private readonly int speed = 20;
-        private PictureBox drob = new ();
-        private PictureBox ball = new ();
-        private Timer ballTimer = new ();
+        private PictureBox drob = new();
+        private PictureBox ball = new();
+        private Timer ballTimer = new();
 
 
         public void MakeSGball(Form form)
