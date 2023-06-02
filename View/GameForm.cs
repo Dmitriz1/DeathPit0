@@ -1,6 +1,7 @@
-﻿using DeathPitTest.Drops;
-using DeathPitTest.MonstersAndHero;
-using DeathPitTest.Shots;
+﻿using DeathPitTest.Model;
+using DeathPitTest.Model.Drops;
+using DeathPitTest.Model.MonstersAndHero;
+using DeathPitTest.Model.Shots;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -57,8 +58,9 @@ namespace DeathPitTest
         readonly int BossDmg = 5;
         readonly int BossSpeed = 6;
         private int BossHealth = 200;
-        private ProgressBar BossHP;
+        public ProgressBar BossHP; //
 
+        GameController controller;
         public GameForm()
         {
             InitializeComponent();
@@ -70,43 +72,9 @@ namespace DeathPitTest
             Player.Image = Properties.Resources.HeroPistolUp;
             pictureBoxWeapon.Image = Properties.Resources.Pistol;
 
+            controller = new();
+
             RestartGame();
-        }
-
-        private void MakeZombie()
-        {
-            Monster monster = new();
-
-            monsterUnitList.Add(monster);
-            Controls.Add(monster);
-
-            Player.BringToFront();
-        }
-
-        private void MakeBoss()
-        {
-            var bossHP = new Label
-            {
-                Text = "Здоровье босса: ",
-                Font = labelAmmo.Font,
-                AutoSize = true,
-                Location = new Point(pictureBoxWeapon.Right, 0)
-            };
-            BossHP = new ProgressBar
-            {
-                Maximum = BossHealth,
-                Value = BossHealth,
-                Width = Width / 2,
-                Height = Properties.Resources.Heal.Height,
-                Location = new Point(bossHP.Right + 10, 0)
-            };
-
-            Controls.Add(Boss);
-            Controls.Add(bossHP);
-            Controls.Add(BossHP);
-            bossHP.BringToFront();
-            BossHP.BringToFront();
-            Player.BringToFront();
         }
 
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
@@ -264,7 +232,7 @@ namespace DeathPitTest
 
                             monsterUnitList.Remove((Monster)x);
 
-                            MakeZombie();
+                            controller.MakeZombie(this, monsterUnitList, Player);
                         }
 
                         else if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss" && levelCount == thirdLevel)
@@ -273,7 +241,7 @@ namespace DeathPitTest
                             BossHP.Value -= HeroDamage;
                             targetCountLvl1 = BossHealth;
 
-                            if (BossHealth <= 0) GameCompleted();
+                            if (BossHealth <= 0) controller.GameCompleted(this);
 
                             RemoveElementFromForm(this, j);
                         }
@@ -374,12 +342,7 @@ namespace DeathPitTest
         
         private void LevelCompleted()
         {
-            levelCount++;
-            GameTimer.Stop();
-
-            foreach (Control j in Controls)
-                if (j is PictureBox && ((string)j.Tag == "bullet"))
-                    RemoveElementFromForm(this, j);
+            controller.LevelCompleted(this, this.GameTimer);
             MessageBox.Show("Вы прошли уровень!", "Поздравляем", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             if (levelCount == secondLevel)
@@ -397,32 +360,17 @@ namespace DeathPitTest
                 monsterSpeedFirstLvl = BossSpeed;
                 pictureBoxWeapon.Image = Properties.Resources.Shotgun;
             }
-
-            else GameCompleted();
+            else
+                controller.GameCompleted(this);
 
             RestartGame();
         }
         
-        private void GameCompleted()
-        {
-            Close();
-            MessageBox.Show("Победа!!!", "Игра окончена", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-
-            FormMenu.IsClosedGame = true;
-        }
+        
 
         private void RestartGame()
         {
-            foreach (Monster i in monsterUnitList)
-                Controls.Remove(i);
-
-            monsterUnitList.Clear();
-
-            if (levelCount == firstLevel || levelCount == secondLevel)
-                for (int i = 0; i < thirdLevel; i++)
-                    MakeZombie();
-
-            if(levelCount == thirdLevel) MakeBoss();
+            controller.RestartGame(this, monsterUnitList, Player, DefaultFont, pictureBoxWeapon, BossHealth);
 
             goUp = false;
             goDown = false;
@@ -521,10 +469,11 @@ namespace DeathPitTest
                 ballTop = Player.Top + (Player.Height / 2)
             };
             shootDrob.MakeSGball(this);
+
             Shoot();
         }
 
-        private void Shoot()
+        public void Shoot()
         {
             HeroAmmoLvl1 -= 1;
 

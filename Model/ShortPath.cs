@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Drawing;
 
-namespace DeathPitTest
+namespace DeathPitTest.Model
 {
     public class ShortPath
     {
@@ -16,7 +16,7 @@ namespace DeathPitTest
         {
             get
             {
-                return this.PathLengthFromStart + this.HeuristicEstimatePathLength;
+                return PathLengthFromStart + HeuristicEstimatePathLength;
             }
         }
 
@@ -41,7 +41,7 @@ namespace DeathPitTest
                     return GetPathForNode(currentNode);
 
                 openSet.Remove(currentNode);
-                closedSet.Add(currentNode); 
+                closedSet.Add(currentNode);
 
                 foreach (var neighbourNode in GetNeighbours(currentNode, goal, field))
                 {
@@ -84,7 +84,7 @@ namespace DeathPitTest
                     continue;
                 if (point.Y < 0 || point.Y >= field.GetLength(1))
                     continue;
-                if ((field[point.X, point.Y] != 0) && (field[point.X, point.Y] != 1))
+                if (field[point.X, point.Y] != 0 && field[point.X, point.Y] != 1)
                     continue;
                 var neighbourNode = new ShortPath()
                 {

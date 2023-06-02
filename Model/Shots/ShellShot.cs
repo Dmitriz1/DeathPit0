@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DeathPitTest.Shots
+namespace DeathPitTest.Model.Shots
 {
     internal class ShellShot
     {

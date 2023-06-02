@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Drops\Damage.cs">
+    <Compile Update="Model\Drops\Damage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="MonstersAndHero\Boss.cs">
+    <Compile Update="Model\MonstersAndHero\Boss.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -33,6 +33,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controller\" />
   </ItemGroup>
 
 </Project>

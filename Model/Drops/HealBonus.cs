@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeathPitTest.Drops
+namespace DeathPitTest.Model.Drops
 {
-    internal class Ammo : PictureBox
+    internal class HealBonus : PictureBox
     {
         Random r = new Random();
-        public Ammo(GameForm gf)
+        public HealBonus(GameForm gf)
         {
-            Tag = "ammo";
-            Image = Properties.Resources.ammo;
+            Tag = "heal";
+            Image = Properties.Resources.Heal;
             SizeMode = PictureBoxSizeMode.AutoSize;
             Left = r.Next(10, gf.ClientSize.Width - Width);
             Top = r.Next(60, gf.ClientSize.Height - Height);

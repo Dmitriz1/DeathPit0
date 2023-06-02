@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeathPitTest.Drops
+namespace DeathPitTest.Model.Drops
 {
     internal class Damage : PictureBox
     {
