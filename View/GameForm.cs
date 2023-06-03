@@ -166,7 +166,6 @@ namespace DeathPitTest
                     {
                         if ((string)x.Tag == "monster")
                         {
-
                             x.Left -= monsterSpeedFirstLvl;
                             ((PictureBox)x).Image = Properties.Resources.zleft;
                         }
@@ -320,21 +319,21 @@ namespace DeathPitTest
             if (e.KeyCode == Keys.R)
                 if (HeroAmmoLvl1 == 0 && canDropAmmo)
                 {
-                    DropAmmo();
+                    new SpawnController().DropAmmo(this, Player);
                     canDropAmmo = false;
                 }
 
             if (e.KeyCode == Keys.H)
                 if (HeroHP != 0 && HeroHP < OneHeart && canDropHeal)
                 {
-                    DropHeal();
+                    new SpawnController().DropHeal(this, Player);
                     canDropHeal = false;
                 }
 
             if (e.KeyCode == Keys.G)
                 if (HeroDamage == 2 && levelCount == thirdLevel && canDropDamage)
                 {
-                    DropDamage();
+                    new SpawnController().DropDamage(this, Player);
                     canDropDamage = false;
                 }
 
@@ -459,40 +458,6 @@ namespace DeathPitTest
                         break;
                 }
             }
-        }
-
-        private void DropAmmo()
-        {
-            Ammo ammo = new(this);
-
-            ammo.BringToFront();
-            Player.BringToFront();
-        }
-
-        private void DropHeal()
-        {
-            HealBonus heal = new(this);
-
-            heal.BringToFront();
-            Player.BringToFront();
-        }
-
-        private void DropDamage()
-        {
-            Damage damage = new(this);
-
-            damage.BringToFront();
-            Player.BringToFront();
-        }
-
-        public static Point AddPoint(Point point_left, Point point_right)
-        {
-            return new Point(point_left.X + point_right.X, point_left.Y + point_right.Y);
-        }
-
-        public static Point MinusPoint(Point point_left, Point point_right)
-        {
-            return new Point(point_left.X - point_right.X, point_left.Y - point_right.Y);
         }
     }
 }
