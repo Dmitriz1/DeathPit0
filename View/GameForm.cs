@@ -1,7 +1,7 @@
 ﻿using DeathPitTest.Model;
 using DeathPitTest.Model.Drops;
 using DeathPitTest.Model.MonstersAndHero;
-using DeathPitTest.Model.Shots;
+using DeathPitTest.Controller;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,7 +45,7 @@ namespace DeathPitTest
         bool canDropDamage = true;
         bool HeroIsShooting = false;
 
-        public int levelCount = 1;
+        public int levelCount = 3;
         readonly int firstLevel = 1;
         readonly int secondLevel = 2;
         readonly int thirdLevel = 3;
@@ -164,56 +164,97 @@ namespace DeathPitTest
                     if (x.Left > Player.Left)
                     {
                         //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
-                        x.Left -= monsterSpeedFirstLvl;
                         if ((string)x.Tag == "monster")
+                        {
+
+                            x.Left -= monsterSpeedFirstLvl;
                             ((PictureBox)x).Image = Properties.Resources.zleft;
+                        }
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossL;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //x.Left -= res[res.Count-1].X;
+                            //Boss.Location = MinusPoint(Boss.Location, new Point(res[res.Count - 1].X, 0));
+                            Boss.Left -= monsterSpeedFirstLvl;//res[res.Count - 1].X;
+                            //for (int i=0; i<res.Count; i++)
+                            //{
+                            //    x.Left -= res[i].X;
+                            //    // x.Location = res[i];
+                            //}
                         }
                     }
 
                     if (x.Left < Player.Left)
                     {
                         //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
-                        x.Left += monsterSpeedFirstLvl;
-                        if ((string)x.Tag == "monster") 
+                        if ((string)x.Tag == "monster")
+                        {
+
+                            x.Left += monsterSpeedFirstLvl;
                             ((PictureBox)x).Image = Properties.Resources.zright;
+                        }
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossR;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //x.Left += res[0].X;
+                            //Boss.Location = AddPoint(Boss.Location, new Point(res[res.Count - 1].X, 0));
+                            Boss.Left += monsterSpeedFirstLvl;// res[res.Count - 1].X;
+                            //for (int i = 0; i < res.Count; i++)
+                            //{
+                            //    //x.Location = res[i];
+                            //}
                         }
                     }
 
                     if (x.Top > Player.Top)
                     {
                         //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
-                        x.Top -= monsterSpeedFirstLvl;
-                        if ((string)x.Tag == "monster") 
+                        if ((string)x.Tag == "monster")
+                        {
+
+                            x.Top -= monsterSpeedFirstLvl;
                             ((PictureBox)x).Image = Properties.Resources.zup;
+                        }
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossU;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            //x.Top -= res[0].Y;
+                            //Boss.Location = MinusPoint(Boss.Location, new Point(0, res[res.Count - 1].Y));
+                            Boss.Top -= monsterSpeedFirstLvl;// res[res.Count - 1].Y;
+                            //for (int i = 0; i < res.Count; i++)
+                            //{
+                            //    //x.Location = res[i];
+                            //}
                         }
                     }
 
                     if (x.Top < Player.Top)
                     {
                         //CheckIntersectsOfMonsters.CheckIntersectsOfMonstersByLocation(monsterUnitList, Player, monsterSpeedFirstLvl, GameTimer);
-                        x.Top += monsterSpeedFirstLvl;
-                        if ((string)x.Tag == "monster") 
+                        if ((string)x.Tag == "monster")
+                        {
+                            x.Top += monsterSpeedFirstLvl;
                             ((PictureBox)x).Image = Properties.Resources.zdown;
+
+                        }
 
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossD;
-                            ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            // x.Top += res[0].Y;
+                            //Boss.Location = AddPoint(Boss.Location, new Point(0, res[res.Count - 1].Y));
+                            Boss.Top += monsterSpeedFirstLvl;//res[res.Count - 1].Y;
+                            //for (int i = 0; i < res.Count; i++)
+                            //{
+                            //    x.Location = res[i];
+                            //}
                         }
                     }
                 }
@@ -472,6 +513,16 @@ namespace DeathPitTest
 
             damage.BringToFront();
             Player.BringToFront();
+        }
+
+        public static Point AddPoint(Point point_left, Point point_right)
+        {
+            return new Point(point_left.X + point_right.X, point_left.Y + point_right.Y);
+        }
+
+        public static Point MinusPoint(Point point_left, Point point_right)
+        {
+            return new Point(point_left.X - point_right.X, point_left.Y - point_right.Y);
         }
     }
 }

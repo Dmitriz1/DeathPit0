@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Controller
 {
     internal static class CheckIntersectsOfMonsters
     {
@@ -22,8 +22,8 @@ namespace DeathPitTest
                     var monster = monsters[i];
                     var isIntersectOnY = false;
                     var isIntersectOnX = false;
-                    var xMove = speed * (player.Location.X - monster.Location.X) / Math.Sqrt((player.Location.X - monster.Location.X) * (player.Location.X - monster.Location.X) 
-                        + (player.Location.Y - monster.Location.Y)*(player.Location.Y - monster.Location.Y));
+                    var xMove = speed * (player.Location.X - monster.Location.X) / Math.Sqrt((player.Location.X - monster.Location.X) * (player.Location.X - monster.Location.X)
+                        + (player.Location.Y - monster.Location.Y) * (player.Location.Y - monster.Location.Y));
                     var yMove = speed * (player.Location.Y - monster.Location.Y) / Math.Sqrt((player.Location.X - monster.Location.X) * (player.Location.X - monster.Location.X)
                         + (player.Location.Y - monster.Location.Y) * (player.Location.Y - monster.Location.Y));
 
@@ -31,10 +31,10 @@ namespace DeathPitTest
                     {
                         if (i != j)
                         {
-                            if (IsIntersectOnX(monster, monsters[j],  xMove))
+                            if (IsIntersectOnX(monster, monsters[j], xMove))
                                 isIntersectOnX = true;
 
-                            if (IsIntersectOnY(monster, monsters[j],  yMove))
+                            if (IsIntersectOnY(monster, monsters[j], yMove))
                                 isIntersectOnY = true;
 
                             if (isIntersectOnY && isIntersectOnX)

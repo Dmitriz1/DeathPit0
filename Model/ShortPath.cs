@@ -59,7 +59,13 @@ namespace DeathPitTest.Model
                     }
                 }
             }
-            return null;
+            var list = new List<Point> { };
+            for (int i = 0; i < closedSet.Count; i++)
+            {
+                list.Add(new Point(closedSet[i].Position.X, closedSet[i].Position.Y));
+            }
+            return list;
+            //return null;
             //return closedSet.ToList();
         }
 

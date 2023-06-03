@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Controller
 {
     internal class GameController
     {
@@ -45,7 +45,7 @@ namespace DeathPitTest
 
             foreach (Control j in form.Controls)
             {
-                if (j is PictureBox && ((string)j.Tag == "bullet"))
+                if (j is PictureBox && (string)j.Tag == "bullet")
                 {
                     RemoveElementFromForm(form, j);
                 }
@@ -66,7 +66,7 @@ namespace DeathPitTest
             if (form.levelCount == 3) MakeBoss(form, font, spawn, BossHealth, Player);
         }
 
-        private void MakeBoss(GameForm form, Font font, PictureBox spawn, int BossHealth, PictureBox  Player)
+        private void MakeBoss(GameForm form, Font font, PictureBox spawn, int BossHealth, PictureBox Player)
         {
             var boss = new Boss();
             form.Boss = boss;
@@ -85,7 +85,7 @@ namespace DeathPitTest
                 Value = BossHealth,
                 Width = form.Width / 2,
                 Height = Properties.Resources.Heal.Height,
-                Location = new Point(bossHP.Right + 15, 0)
+                Location = new Point(bossHP.Right + 30, 0)
             };
 
             form.BossHP = BossHP;

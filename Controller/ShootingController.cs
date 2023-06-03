@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Controller
 {
     internal class ShootingController
     {
@@ -16,8 +16,8 @@ namespace DeathPitTest
             Bullet shootBullet = new()
             {
                 direction = direction,
-                bulletLeft = Player.Left + (Player.Width / 2),
-                bulletTop = Player.Top + (Player.Height / 2)
+                bulletLeft = Player.Left + Player.Width / 2,
+                bulletTop = Player.Top + Player.Height / 2
             };
             shootBullet.MakeBullet(gf);
 
@@ -29,8 +29,8 @@ namespace DeathPitTest
             ShellShot shootDrob = new()
             {
                 direction = direction,
-                ballLeft = Player.Left + (Player.Width / 2),
-                ballTop = Player.Top + (Player.Height / 2)
+                ballLeft = Player.Left + Player.Width / 2,
+                ballTop = Player.Top + Player.Height / 2
             };
             shootDrob.MakeSGball(gf);
             Shoot(gf);
