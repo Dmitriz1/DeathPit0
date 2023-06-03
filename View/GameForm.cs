@@ -44,6 +44,7 @@ namespace DeathPitTest
         bool canDropHeal = true;
         bool canDropDamage = true;
         bool HeroIsShooting = false;
+        public bool isDead = false;
 
         public int levelCount = 1;
         readonly int firstLevel = 1;

@@ -17,8 +17,14 @@ namespace DeathPitTest
                 hp1.Image = Properties.Resources.emptyhurt;
                 hp2.Image = Properties.Resources.emptyhurt;
                 hp3.Image = Properties.Resources.emptyhurt;
+
                 GameTimer.Enabled = false;
-                form.controller.GameOver(form);
+
+                if (!form.isDead)
+                {
+                    form.controller.GameOver(form);
+                    form.isDead = true;
+                }
             }
             if (hp >= form.HalfHeart && hp < form.OneHeart)
             {
