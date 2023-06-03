@@ -29,12 +29,12 @@ namespace DeathPitTest
         private readonly int HeroAmmoLvl3 = 44;
         private int HeroDamage = 2;
 
-        private readonly int HalfHeart = 50;
-        private readonly int OneHeart = 100;
-        private readonly int HeartAndHalf = 150;
-        private readonly int TwoHearts = 200;
-        private readonly int TwoHeartAndHalf = 250;
-        private readonly int ThreeHearts = 300;
+        public readonly int HalfHeart = 50;
+        public readonly int OneHeart = 100;
+        public readonly int HeartAndHalf = 150;
+        public readonly int TwoHearts = 200;
+        public readonly int TwoHeartAndHalf = 250;
+        public readonly int ThreeHearts = 300;
 
         private readonly int BoxOfBullets = 12;
         private readonly int BoxOfHp = 50;
@@ -60,7 +60,7 @@ namespace DeathPitTest
         private int BossHealth = 200;
         public ProgressBar BossHP;
 
-        GameController controller;
+        internal GameController controller;
         public GameForm()
         {
             InitializeComponent();
@@ -120,111 +120,110 @@ namespace DeathPitTest
             if (goRight && Player.Left + Player.Width < ClientSize.Width)
                 Player.Left += HeroSpeed;
 
-            foreach (Control x in Controls)
+            foreach (Control gameObject in Controls)
             {
-                if (x is Ammo)
-                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                if (gameObject is Ammo)
+                    if (Player.Bounds.IntersectsWith(gameObject.Bounds))
                     {
-                        RemoveElementFromForm(this, x);
+                        RemoveElementFromForm(this, gameObject);
                         HeroAmmoLvl1 += BoxOfBullets;
                     }
 
-                if (x is HealBonus)
-                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                if (gameObject is HealBonus)
+                    if (Player.Bounds.IntersectsWith(gameObject.Bounds))
                     {
-                        RemoveElementFromForm(this, x);
+                        RemoveElementFromForm(this, gameObject);
                         HeroHP += BoxOfHp;
                         canDropHeal = true;
-                        new CheckHealth(HeroHP, HalfHeart, OneHeart, HeartAndHalf, TwoHearts, TwoHeartAndHalf, ThreeHearts, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
+                        new CheckHealth(HeroHP, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
                     }
 
-                if (x is Damage)
-                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                if (gameObject is Damage)
+                    if (Player.Bounds.IntersectsWith(gameObject.Bounds))
                     {
-                        RemoveElementFromForm(this, x);
+                        RemoveElementFromForm(this, gameObject);
                         HeroDamage *= BoxOfDamage;
                         canDropDamage = true;
                     }
 
-                if ((x is Monster || x is Boss))
+                if ((gameObject is Monster || gameObject is Boss))
                 {
                     int[,] field = new int[100, 100];
 
-                    if ((string)x.Tag == "monster" && Player.Bounds.IntersectsWith(x.Bounds))
+                    if ((string)gameObject.Tag == "monster" && Player.Bounds.IntersectsWith(gameObject.Bounds))
                     {
                         HeroHP -= MonsterDmg;
-                        new CheckHealth(HeroHP, HalfHeart, OneHeart, HeartAndHalf, TwoHearts, TwoHeartAndHalf, ThreeHearts, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
+                        new CheckHealth(HeroHP, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
                     }
 
-                    if ((string)x.Tag == "boss" && Player.Bounds.IntersectsWith(x.Bounds))
+                    if ((string)gameObject.Tag == "boss" && Player.Bounds.IntersectsWith(gameObject.Bounds))
                     {
                         HeroHP -= BossDmg;
-                        new CheckHealth(HeroHP, HalfHeart, OneHeart, HeartAndHalf, TwoHearts, TwoHeartAndHalf, ThreeHearts, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
+                        new CheckHealth(HeroHP, pictureBoxHealth1, pictureBoxHealth2, pictureBoxHealth3, GameTimer, this);
                     }
 
-                    if (x.Left > Player.Left)
+                    if (gameObject.Left > Player.Left)
                     {
-                        if ((string)x.Tag == "monster")
+                        if ((string)gameObject.Tag == "monster")
                         {
-
-                            x.Left -= monsterSpeedFirstLvl;
-                            ((PictureBox)x).Image = Properties.Resources.zleft;
+                            gameObject.Left -= monsterSpeedFirstLvl;
+                            ((PictureBox)gameObject).Image = Properties.Resources.zleft;
                         }
 
-                        if ((string)x.Tag == "boss")
+                        if ((string)gameObject.Tag == "boss")
                         {
-                            ((PictureBox)x).Image = Properties.Resources.BossL;
+                            ((PictureBox)gameObject).Image = Properties.Resources.BossL;
                             List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
                             Boss.Left -= monsterSpeedFirstLvl;
                         }
                     }
 
-                    if (x.Left < Player.Left)
+                    if (gameObject.Left < Player.Left)
                     {
-                        if ((string)x.Tag == "monster")
+                        if ((string)gameObject.Tag == "monster")
                         {
 
-                            x.Left += monsterSpeedFirstLvl;
-                            ((PictureBox)x).Image = Properties.Resources.zright;
+                            gameObject.Left += monsterSpeedFirstLvl;
+                            ((PictureBox)gameObject).Image = Properties.Resources.zright;
                         }
 
-                        if ((string)x.Tag == "boss")
+                        if ((string)gameObject.Tag == "boss")
                         {
-                            ((PictureBox)x).Image = Properties.Resources.BossR;
+                            ((PictureBox)gameObject).Image = Properties.Resources.BossR;
                             List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
                             Boss.Left += monsterSpeedFirstLvl;
                         }
                     }
 
-                    if (x.Top > Player.Top)
+                    if (gameObject.Top > Player.Top)
                     {
-                        if ((string)x.Tag == "monster")
+                        if ((string)gameObject.Tag == "monster")
                         {
 
-                            x.Top -= monsterSpeedFirstLvl;
-                            ((PictureBox)x).Image = Properties.Resources.zup;
+                            gameObject.Top -= monsterSpeedFirstLvl;
+                            ((PictureBox)gameObject).Image = Properties.Resources.zup;
                         }
 
-                        if ((string)x.Tag == "boss")
+                        if ((string)gameObject.Tag == "boss")
                         {
-                            ((PictureBox)x).Image = Properties.Resources.BossU;
+                            ((PictureBox)gameObject).Image = Properties.Resources.BossU;
                             List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
                             Boss.Top -= monsterSpeedFirstLvl;
                         }
                     }
 
-                    if (x.Top < Player.Top)
+                    if (gameObject.Top < Player.Top)
                     {
-                        if ((string)x.Tag == "monster")
+                        if ((string)gameObject.Tag == "monster")
                         {
-                            x.Top += monsterSpeedFirstLvl;
-                            ((PictureBox)x).Image = Properties.Resources.zdown;
+                            gameObject.Top += monsterSpeedFirstLvl;
+                            ((PictureBox)gameObject).Image = Properties.Resources.zdown;
 
                         }
 
-                        if ((string)x.Tag == "boss")
+                        if ((string)gameObject.Tag == "boss")
                         {
-                            ((PictureBox)x).Image = Properties.Resources.BossD;
+                            ((PictureBox)gameObject).Image = Properties.Resources.BossD;
                             List<Point> res = ShortPath.FindPath(field, Boss.Location, Player.Location);
                             Boss.Top += monsterSpeedFirstLvl;
                         }
@@ -233,22 +232,25 @@ namespace DeathPitTest
 
                 foreach (Control j in Controls)
                 {
-                    if (j is PictureBox && ((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (x is Monster && (string)x.Tag == "monster" || x is Boss && (string)x.Tag == "boss"))
+                    if (((string)j.Tag == "bullet" || (string)j.Tag == "ball") && (gameObject is Monster || gameObject is Boss))
                     {
-                        if (x.Bounds.IntersectsWith(j.Bounds) && (levelCount == firstLevel || levelCount == secondLevel))
+                        if (gameObject.Bounds.IntersectsWith(j.Bounds) && (levelCount == firstLevel || levelCount == secondLevel))
                         {
                             targetCountLvl1--;
                             if (targetCountLvl1 == 0) LevelCompleted();
 
-                            RemoveElementFromForm(this, j);
-                            RemoveElementFromForm(this, x);
+                            else
+                            {
+                                RemoveElementFromForm(this, j);
+                                RemoveElementFromForm(this, gameObject);
 
-                            monsterUnitList.Remove((Monster)x);
+                                monsterUnitList.Remove((Monster)gameObject);
 
-                            controller.MakeZombie(this, monsterUnitList, Player);
+                                controller.MakeZombie(this, monsterUnitList, Player);
+                            }
                         }
 
-                        else if (x.Bounds.IntersectsWith(j.Bounds) && (string)x.Tag == "boss" && levelCount == thirdLevel)
+                        else if (gameObject.Bounds.IntersectsWith(j.Bounds) && gameObject is Boss && levelCount == thirdLevel)
                         {
                             BossHealth -= HeroDamage;
                             BossHP.Value -= HeroDamage;
@@ -320,21 +322,21 @@ namespace DeathPitTest
             if (e.KeyCode == Keys.R)
                 if (HeroAmmoLvl1 == 0 && canDropAmmo)
                 {
-                    DropAmmo();
+                    new SpawnController().DropAmmo(this, Player);
                     canDropAmmo = false;
                 }
 
             if (e.KeyCode == Keys.H)
                 if (HeroHP != 0 && HeroHP < OneHeart && canDropHeal)
                 {
-                    DropHeal();
+                    new SpawnController().DropHeal(this, Player);
                     canDropHeal = false;
                 }
 
             if (e.KeyCode == Keys.G)
                 if (HeroDamage == 2 && levelCount == thirdLevel && canDropDamage)
                 {
-                    DropDamage();
+                    new SpawnController().DropDamage(this, Player);
                     canDropDamage = false;
                 }
 
@@ -363,25 +365,39 @@ namespace DeathPitTest
 
             if (levelCount == secondLevel)
             {
-                targetCountLvl1 = targetCountLvl2;
-                HeroAmmoLvl1 = HeroAmmoLvl2;
-                monsterSpeedFirstLvl = monsterSpeedSecondLvl;
-                pictureBoxWeapon.Image = Properties.Resources.Auto;
+                SetSecondLvl();
             }
 
             else if (levelCount == thirdLevel)
             {
-                targetCountLvl1 = targetCountLvl3;
-                HeroAmmoLvl1 = HeroAmmoLvl3;
-                monsterSpeedFirstLvl = BossSpeed;
-                pictureBoxWeapon.Image = Properties.Resources.Shotgun;
+                SetThirdLvl();
             }
             else
                 controller.GameCompleted(this);
 
             RestartGame();
         }
-        
+
+        private void SetSecondLvl()
+        {
+            targetCountLvl1 = targetCountLvl2;
+            HeroAmmoLvl1 = HeroAmmoLvl2;
+            monsterSpeedFirstLvl = monsterSpeedSecondLvl;
+            pictureBoxWeapon.Image = Properties.Resources.Auto;
+        }
+
+        private void SetThirdLvl()
+        {
+            foreach (var monster in monsterUnitList) 
+            {
+               RemoveElementFromForm(this, monster);  
+            }
+            targetCountLvl1 = targetCountLvl3;
+            HeroAmmoLvl1 = HeroAmmoLvl3;
+            monsterSpeedFirstLvl = BossSpeed;
+            pictureBoxWeapon.Image = Properties.Resources.Shotgun;
+        }
+
         private void RestartGame()
         {
             controller.RestartGame(this, monsterUnitList, Player, DefaultFont, pictureBoxWeapon, BossHealth);
@@ -459,40 +475,6 @@ namespace DeathPitTest
                         break;
                 }
             }
-        }
-
-        private void DropAmmo()
-        {
-            Ammo ammo = new(this);
-
-            ammo.BringToFront();
-            Player.BringToFront();
-        }
-
-        private void DropHeal()
-        {
-            HealBonus heal = new(this);
-
-            heal.BringToFront();
-            Player.BringToFront();
-        }
-
-        private void DropDamage()
-        {
-            Damage damage = new(this);
-
-            damage.BringToFront();
-            Player.BringToFront();
-        }
-
-        public static Point AddPoint(Point point_left, Point point_right)
-        {
-            return new Point(point_left.X + point_right.X, point_left.Y + point_right.Y);
-        }
-
-        public static Point MinusPoint(Point point_left, Point point_right)
-        {
-            return new Point(point_left.X - point_right.X, point_left.Y - point_right.Y);
         }
     }
 }

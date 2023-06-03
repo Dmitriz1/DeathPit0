@@ -45,7 +45,7 @@ namespace DeathPitTest.Controller
 
             foreach (Control j in form.Controls)
             {
-                if (j is PictureBox && (string)j.Tag == "bullet")
+                if (j is PictureBox && (string)j.Tag == "bullet" || j is PictureBox && (string)j.Tag == "monster")
                 {
                     RemoveElementFromForm(form, j);
                 }
@@ -55,7 +55,10 @@ namespace DeathPitTest.Controller
         public void RestartGame(GameForm form, List<Monster> monsterUnitList, PictureBox Player, Font font, PictureBox spawn, int BossHealth)
         {
             foreach (Monster i in monsterUnitList)
+            {
                 form.Controls.Remove(i);
+                RemoveElementFromForm(form, i);
+            }
 
             monsterUnitList.Clear();
 

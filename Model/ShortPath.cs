@@ -65,8 +65,6 @@ namespace DeathPitTest.Model
                 list.Add(new Point(closedSet[i].Position.X, closedSet[i].Position.Y));
             }
             return list;
-            //return null;
-            //return closedSet.ToList();
         }
 
         private static int GetHeuristicPathLength(Point from, Point to)
