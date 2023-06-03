@@ -252,8 +252,17 @@ namespace DeathPitTest
 
                         else if (gameObject.Bounds.IntersectsWith(j.Bounds) && gameObject is Boss && levelCount == thirdLevel)
                         {
-                            BossHealth -= HeroDamage;
-                            BossHP.Value -= HeroDamage;
+                            if (HeroDamage > BossHealth)
+                            {
+                                HeroDamage = BossHP.Value;
+                                BossHP.Value -= HeroDamage;
+                                BossHealth -= HeroDamage;
+                            }
+                            else
+                            {
+                                BossHP.Value -= HeroDamage;
+                                BossHealth -= HeroDamage;
+                            }
                             targetCountLvl1 = BossHealth;
 
                             if (BossHealth <= 0) controller.GameCompleted(this);
