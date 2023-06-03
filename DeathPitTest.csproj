@@ -5,7 +5,6 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
