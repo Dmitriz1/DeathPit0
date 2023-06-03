@@ -12,12 +12,6 @@ namespace DeathPitTest
 {
     internal class GameController
     {
-        //static GameForm form;
-
-        //public GameController(GameForm form)
-        //{
-        //    this.form = form;
-        //}
         public void MakeZombie(GameForm form, List<Monster> monsterUnitList, PictureBox Player)
         {
             Monster monster = new();
@@ -58,28 +52,6 @@ namespace DeathPitTest
             }
         }
 
-        //public void SetLevel(GameForm  form)
-        //{
-        //    if (form.levelCount == 2)
-        //    {
-        //        targetCount += 50;
-        //        HeroAmmo = 36;
-        //        monsterUnitSpeed *= 2;
-        //        pictureBoxWeapon.Image = Properties.Resources.Auto;
-        //    }
-        //    else if (levelCount == 3)
-        //    {
-        //        targetCount += 1;
-        //        HeroAmmo = 44;
-        //        monsterUnitSpeed *= 3;
-        //        pictureBoxWeapon.Image = Properties.Resources.Shotgun;
-        //    }
-        //    else
-        //        controller.GameCompleted(this);
-
-        //    RestartGame();
-        //}
-
         public void RestartGame(GameForm form, List<Monster> monsterUnitList, PictureBox Player, Font font, PictureBox spawn, int BossHealth)
         {
             foreach (Monster i in monsterUnitList)
@@ -113,7 +85,7 @@ namespace DeathPitTest
                 Value = BossHealth,
                 Width = form.Width / 2,
                 Height = Properties.Resources.Heal.Height,
-                Location = new Point(bossHP.Right + 10, 0)
+                Location = new Point(bossHP.Right + 15, 0)
             };
 
             form.BossHP = BossHP;

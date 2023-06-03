@@ -60,6 +60,7 @@ namespace DeathPitTest.Model
                 }
             }
             return null;
+            //return closedSet.ToList();
         }
 
         private static int GetHeuristicPathLength(Point from, Point to)

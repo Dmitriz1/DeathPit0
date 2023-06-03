@@ -24,7 +24,7 @@ namespace DeathPitTest
 
         private int HeroHP = 300;
         private readonly int HeroSpeed = 10;
-        int HeroAmmoLvl1 = 20;
+        internal int HeroAmmoLvl1 = 20;
         private readonly int HeroAmmoLvl2 = 36;
         private readonly int HeroAmmoLvl3 = 44;
         private int HeroDamage = 2;
@@ -40,12 +40,12 @@ namespace DeathPitTest
         private readonly int BoxOfHp = 50;
         private readonly int BoxOfDamage = 2;
 
-        bool canDropAmmo = false;
+        public bool canDropAmmo = false;
         bool canDropHeal = true;
         bool canDropDamage = true;
         bool HeroIsShooting = false;
 
-        public int levelCount = 3;
+        public int levelCount = 1;
         readonly int firstLevel = 1;
         readonly int secondLevel = 2;
         readonly int thirdLevel = 3;
@@ -171,7 +171,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossL;
-                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
@@ -185,7 +185,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossR;
-                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
@@ -199,7 +199,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossU;
-                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
 
@@ -213,7 +213,7 @@ namespace DeathPitTest
                         if ((string)x.Tag == "boss")
                         {
                             ((PictureBox)x).Image = Properties.Resources.BossD;
-                            //ShortPath.FindPath(field, Boss.Location, Player.Location);
+                            ShortPath.FindPath(field, Boss.Location, Player.Location);
                         }
                     }
                 }
@@ -272,7 +272,8 @@ namespace DeathPitTest
 
             if (e.KeyCode == Keys.Space && HeroAmmoLvl1 > 0)
             {
-                if (levelCount == firstLevel) ShootBullet(facing);//new Shooting.ShootBullet(facing, );
+                if (levelCount == firstLevel) 
+                    new ShootingController().ShootBullet(facing, Player, this);
 
                 if (levelCount == secondLevel)
                 {
@@ -281,7 +282,7 @@ namespace DeathPitTest
                         HeroIsShooting = true;
                         for (int i = 0; i < Turn; i++)
                         {
-                            ShootBullet(facing);
+                            new ShootingController().ShootBullet(facing, Player, this);
                             await Task.Delay(200);
                         }
                         HeroIsShooting = false;
@@ -295,7 +296,7 @@ namespace DeathPitTest
                         HeroIsShooting = true;
                         for (int i = 0; i < Shell; i++)
                         {
-                            ShootDrob(facing);
+                            new ShootingController().ShootDrob(facing, Player, this);
                             await Task.Delay(i * 400 + 400);
                         }
                         HeroIsShooting = false;
@@ -447,40 +448,6 @@ namespace DeathPitTest
                         break;
                 }
             }
-        }
-
-        private void ShootBullet(string direction)
-        {
-            Bullet shootBullet = new()
-            {
-                direction = direction,
-                bulletLeft = Player.Left + (Player.Width / 2),
-                bulletTop = Player.Top + (Player.Height / 2)
-            };
-            shootBullet.MakeBullet(this);
-
-            Shoot();
-        }
-
-        private void ShootDrob(string direction)
-        {
-            ShellShot shootDrob = new()
-            {
-                direction = direction,
-                ballLeft = Player.Left + (Player.Width / 2),
-                ballTop = Player.Top + (Player.Height / 2)
-            };
-            shootDrob.MakeSGball(this);
-
-            Shoot();
-        }
-
-        public void Shoot()
-        {
-            HeroAmmoLvl1 -= 1;
-
-            if (HeroAmmoLvl1 <= 1)
-                canDropAmmo = true;
         }
 
         private void DropAmmo()

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace DeathPitTest
 {
-    internal class Shooting
+    internal class ShootingController
     {
-        public void ShootBullet(string direction, PictureBox Player, int HeroAmmo, bool canDropAmmo, GameForm gf)
+        public void ShootBullet(string direction, PictureBox Player, GameForm gf)
         {
             Bullet shootBullet = new()
             {
@@ -21,10 +21,10 @@ namespace DeathPitTest
             };
             shootBullet.MakeBullet(gf);
 
-            Shoot(HeroAmmo, canDropAmmo);
+            Shoot(gf);
         }
 
-        public void ShootDrob(string direction, PictureBox Player, int HeroAmmo, bool canDropAmmo, GameForm gf)
+        public void ShootDrob(string direction, PictureBox Player, GameForm gf)
         {
             ShellShot shootDrob = new()
             {
@@ -33,17 +33,17 @@ namespace DeathPitTest
                 ballTop = Player.Top + (Player.Height / 2)
             };
             shootDrob.MakeSGball(gf);
-            Shoot(HeroAmmo, canDropAmmo);
+            Shoot(gf);
         }
 
-        public static int Shoot(int HeroAmmo, bool canDropAmmo)
+        public int Shoot(GameForm gf)
         {
-            HeroAmmo -= 1;
+            gf.HeroAmmoLvl1 -= 1;
 
-            if (HeroAmmo <= 1)
-                canDropAmmo = true;
+            if (gf.HeroAmmoLvl1 <= 1)
+                gf.canDropAmmo = true;
 
-            return HeroAmmo;
+            return gf.HeroAmmoLvl1;
         }
     }
 }
