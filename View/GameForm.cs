@@ -37,7 +37,7 @@ namespace DeathPitTest
         private readonly int ThreeHearts = 300;
 
         private readonly int BoxOfBullets = 12;
-        private readonly int BoxOfHp = 51;
+        private readonly int BoxOfHp = 50;
         private readonly int BoxOfDamage = 2;
 
         public bool canDropAmmo = false;
@@ -45,7 +45,7 @@ namespace DeathPitTest
         bool canDropDamage = true;
         bool HeroIsShooting = false;
 
-        public int levelCount = 3;
+        public int levelCount = 1;
         readonly int firstLevel = 1;
         readonly int secondLevel = 2;
         readonly int thirdLevel = 3;
