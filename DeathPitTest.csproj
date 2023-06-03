@@ -15,6 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Model\Drops\Damage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\MonstersAndHero\Boss.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

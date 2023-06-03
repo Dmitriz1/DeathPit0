@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DeathPitTest
+namespace DeathPitTest.Model.Shots
 {
     internal class ShellShot
     {
@@ -15,9 +15,8 @@ namespace DeathPitTest
         public int ballTop;
 
         private readonly int speed = 20;
-        private PictureBox drob = new ();
-        private PictureBox ball = new ();
-        private Timer ballTimer = new ();
+        private PictureBox drob = new();
+        private Timer ballTimer = new();
 
 
         public void MakeSGball(Form form)
@@ -38,22 +37,10 @@ namespace DeathPitTest
 
         private void BallTimerEvent(object sender, EventArgs e)
         {
-            if (direction == "left")
-            {
-                drob.Left -= speed;
-            }
-            if (direction == "right")
-            {
-                drob.Left += speed;
-            }
-            if (direction == "up")
-            {
-                drob.Top -= speed;
-            }
-            if (direction == "down")
-            {
-                drob.Top += speed;
-            }
+            if (direction == "left") drob.Left -= speed;
+            if (direction == "right") drob.Left += speed;
+            if (direction == "up") drob.Top -= speed;
+            if (direction == "down") drob.Top += speed;
 
             if (drob.Left < 0 || drob.Left > 1920 || drob.Top < 0 || drob.Top > 1080)
             {
